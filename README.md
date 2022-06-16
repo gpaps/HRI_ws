@@ -3,7 +3,8 @@
 __fiware__\
 /src/scripts/\
 sub.py\
-listen_fiwareFORTH.py (pybullet integrated in that script)
+logger.py (sameDIR)\
+listen_fiwareFORTH.py (pybullet integrated in script - beta)
 
 __ros-com__\
 /src/scripts/\
