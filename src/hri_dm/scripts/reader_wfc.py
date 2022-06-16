@@ -1,6 +1,6 @@
 import requests
 link = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
-from listen_fiwareFORTH import send_msg
+from scripts.listen_fiwareFORTH import send_msg
 
 def get_linkInfo(wf):
     r = requests.get('http://25.45.111.204:1026/v2/entities/' + str(wf))

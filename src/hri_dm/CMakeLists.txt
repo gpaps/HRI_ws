@@ -210,10 +210,6 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-catkin_install_python(PROGRAMS scripts/listen_fiwareFORTH.py
- scripts/logger.py
- scripts/sub.py
- scripts/listen_TaskExec.py
- scripts/localSender2.py
+catkin_install_python(PROGRAMS scripts/fiware_v2/listen_fiwareFORTH.py
  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
