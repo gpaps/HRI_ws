@@ -213,7 +213,7 @@ include_directories(
 catkin_install_python(PROGRAMS scripts/listen_fiwareFORTH.py
     scripts/logger.py
     scripts/sub.py
-    scripts/reader_wfc.py
+    scripts/reader_fc.py
     scripts/listen_TaskExec.py
  DESTINATION ${CATKIN_PACKAGE_BIN_DESTINATION}
 )
