@@ -7,7 +7,7 @@ from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 import requests
 import rospy
 # fiware imports
-from fiware_v2.forthHRIHealthPost import HRI_HealthStatePost
+from scripts.forthHRIHealthPost import HRI_HealthStatePost
 
 robotAction_jsonFName = r"//home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/fiware_v2/health.json"
 address = "25.45.111.204"

@@ -1,11 +1,11 @@
 #!/usr/bin/env python
 from datetime import datetime
 import rospy
-from std_msgs.msg import String
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 
 # fiware imports
-from fiware_v2.forthHRIHealthPost import HRI_HealthStatePost, HRI_Health
+from scripts.forthHRIHealthPost import HRI_HealthStatePost
+
 robotAction_jsonFName = r"/home/gpaps/humanRob_ws/src/beginner_tutorials/scripts/fiware_v2/health.json"
 address = "25.45.111.204"
 port = 1026

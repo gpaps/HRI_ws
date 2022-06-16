@@ -43,12 +43,10 @@ CMAG2 = '\033[95m'
 COIL2 = '\033[96m'
 CEND = '\033[0m'
 
-
 global end_effectorId
 end_effectorId = 37
 
 ##############################
-
 def murry_checkAngles(allAngles, side):
     murry_err = 0
     for i in range(len(allAngles)):
@@ -147,7 +145,7 @@ def find_HO_pos():
     p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-    obUid = p.loadURDF("result3_humanoid.urdf", [0.00, 0.00, 1.3],
+    obUid = p.loadURDF("fiware_v2/result3_humanoid.urdf", [0.00, 0.00, 1.3],
                        p.getQuaternionFromEuler([0, 0, 0]),
                        useMaximalCoordinates=False,
                        useFixedBase=1,
