@@ -23,6 +23,9 @@ import pybullet_data
 from pybullet import URDF_USE_SELF_COLLISION, URDF_MAINTAIN_LINK_ORDER, \
     URDF_USE_SELF_COLLISION_INCLUDE_PARENT
 
+from reader_wfc import*
+link = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
+
 CRED1 = '\033[31m'
 CGR1 = '\033[32m'
 CYEL1 = '\033[33m'
@@ -45,6 +48,7 @@ CEND = '\033[0m'
 
 global end_effectorId
 end_effectorId = 37
+
 
 ##############################
 def murry_checkAngles(allAngles, side):
@@ -139,13 +143,14 @@ def murry_checkAngles(allAngles, side):
         print(CBRED1, "murry error      ", murry_err, CEND)
     return murry_err
 
+
 def find_HO_pos():
     print('________________________________________________________MPIKA')
     # p.connect(p.GUI)
     p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-    obUid = p.loadURDF("fiware_v2/result3_humanoid.urdf", [0.00, 0.00, 1.3],
+    obUid = p.loadURDF("result3_humanoid.urdf", [0.00, 0.00, 1.3],
                        p.getQuaternionFromEuler([0, 0, 0]),
                        useMaximalCoordinates=False,
                        useFixedBase=1,
@@ -210,7 +215,8 @@ def find_HO_pos():
         dist = math.sqrt(dx * dx + dy * dy + dz * dz)
         # print(dist)
         if dist < 0.1:
-            m_res = murry_checkAngles(jointAngles, "L")  # "L": for left side arm check,       "R": for right side arm check
+            m_res = murry_checkAngles(jointAngles,
+                                      "L")  # "L": for left side arm check,       "R": for right side arm check
             if m_res == 0:
                 p.addUserDebugPoints([pos], [[0, 1., 0]], 5.0, trailDuration)  # Green
                 greenPoses.append(ls[4])
@@ -237,6 +243,8 @@ def find_HO_pos():
             # break
 
     # return greenPoses
+
+
 # sys.exit(0)
 # pos1 = find_HO_pos()
 ##############################################
@@ -246,6 +254,7 @@ link_pickup = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:8a81ceca-06ef-425d-8f8
 link_navigate = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
 link_release = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:4d0f5c32-8db6-49cb-b5ef-2af7d492ca12'
 link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-89cd-052c79f2c3b5'
+
 
 def get_adaptId(wfc):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
@@ -262,10 +271,18 @@ def send_msg():
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     r, task_exec.action = get_adaptId(link_handover)
+
     if task_exec.action == 'handover':
         params_handover = r.json()['parameters']['value']['tool']['toolId']
         # try:
         print('irtha')
+        r,  r_action = get_linkInfo(link)
+        entity_checker(r, link, r_action)
+        # AUTA EDW
+        # task_exec.navpos.x=ddddd
+        # task_exec.navpos.x = 12
+        # task_exec.navpos.y = 13 #synnarth
+
         pos1 = find_HO_pos()
         print(pos1)
 
@@ -343,11 +360,11 @@ selection_address = '25.28.115.246'
 selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
 
-
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
+    send_msg()
     server = MyReceiver(selection_address, int(selection_port))
 except Exception as ex:
     raise Exception("Unable to create a Receiver")
