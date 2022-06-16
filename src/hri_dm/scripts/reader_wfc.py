@@ -11,7 +11,7 @@ def get_linkInfo(wf):
 def dm_action(r_action):
 
     if r_action == 'release':
-        print('release received')
+        print('release received.')
         # send_msg()
     elif r_action == 'pickup':
         print('release pickup')
