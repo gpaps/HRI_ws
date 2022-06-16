@@ -1,7 +1,7 @@
 # hri_ws
 
 __fiware__ \
-/src/scripts/fiware_v2.. 
+/src/scripts/
 sub.py
 listen_fiwareFORTH.py (pybullet integrated in that script)
 
