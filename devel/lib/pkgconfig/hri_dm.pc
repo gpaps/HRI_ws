@@ -1,0 +1,8 @@
+prefix=/home/gpapo/Desktop/hri_ws/devel
+
+Name: hri_dm
+Description: Description of hri_dm
+Version: 0.0.0
+Cflags: -I/home/gpapo/Desktop/hri_ws/devel/include
+Libs: -L${prefix}/lib -lhri_dm
+Requires: roscpp rospy std_msgs message_runtime
