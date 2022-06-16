@@ -22,10 +22,11 @@ def dm_action(r_action):
         print('navigate received')
 
     elif r_action == 'grasp':
-        print('grasp')
+        print('grasp received')
 
     return r_action
 if __name__ == '__main__':
     r, r_act = get_linkInfo(link)
 
     action_received = dm_action(r_act)
+    print('here')

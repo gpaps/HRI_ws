@@ -270,9 +270,6 @@ def send_msg():
         print('irtha')
         pos1 = find_HO_pos()
         print(pos1)
-        # except:
-        #     pass
-        # print(pos1)
 
     if task_exec.action == 'navigate':
         params_nav = r.json()['parameters']['value']['location']['namedLocation']
