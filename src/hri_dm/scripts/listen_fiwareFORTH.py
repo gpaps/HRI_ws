@@ -8,6 +8,7 @@ from http.server import HTTPServer  # this is for use with python3
 from http.server import BaseHTTPRequestHandler  # this is for use with python3
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 # from humanoid_findLocation2 import find_HO_pos
+from reader_wfc import*
 
 ##############################################
 # PYBULLET #
@@ -22,7 +23,6 @@ import pybullet as p
 import pybullet_data
 from pybullet import URDF_USE_SELF_COLLISION, URDF_MAINTAIN_LINK_ORDER, \
     URDF_USE_SELF_COLLISION_INCLUDE_PARENT
-
 from reader_wfc import*
 link = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
 
@@ -267,59 +267,110 @@ def get_adaptId(wfc):
     return r, action_name
 
 
-def send_msg():
+def send_msg_release():
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
-    r, task_exec.action = get_adaptId(link_handover)
+    task_exec.action = 'release' # action
+    task_exec.tool_id = -1
+    # location/vector3 geom_msgs location
+    task_exec.location.x = -99999
+    task_exec.location.y = -99999
+    task_exec.location.z = -99999
+    # location/nav Pose2D
+    task_exec.navpos.x = -0
+    task_exec.navpos.y = -0
+    task_exec.navpos.theta = -0.0
+    # synchronization
+    task_exec.request_id = -1
+    print(task_exec, '\n', 'received')
+def send_msg_pickup(obj):
+    global pub2TaskExe
+    task_exec = HRIDM2TaskExecution()
+    task_exec.action = 'pickup'  # action
+    task_exec.tool_id = obj.json()['parameters']['value']['tool']['toolId']
+    # location/vector3 geom_msgs location
+    task_exec.location.x = -99999
+    task_exec.location.y = -99999
+    task_exec.location.z = -99999
+    # location/nav Pose2D
+    task_exec.navpos.x = -0.99999
+    task_exec.navpos.y = -0.99999
+    task_exec.navpos.theta = -0.99999
+    # synchronization
+    task_exec.request_id = 99
+    print(task_exec, '\n', 'received')
 
-    if task_exec.action == 'handover':
-        params_handover = r.json()['parameters']['value']['tool']['toolId']
-        # try:
-        print('irtha')
-        r,  r_action = get_linkInfo(link)
-        entity_checker(r, link, r_action)
-        # AUTA EDW
-        # task_exec.navpos.x=ddddd
-        # task_exec.navpos.x = 12
-        # task_exec.navpos.y = 13 #synnarth
+    # entity_checker(r, link, r_act)
+    # r, task_exec.action = get_adaptId(link_handover)
+    # r, task_exec.action = get_adaptId(link_handover)
 
-        pos1 = find_HO_pos()
-        print(pos1)
+    # if task_exec.action == 'release':
 
-    if task_exec.action == 'navigate':
-        params_nav = r.json()['parameters']['value']['location']['namedLocation']
-        # params_nav0 = r.json()['parameters']['value']['location']
-        print(params_nav)
-        task_exec.navpos.x = 12
-        task_exec.navpos.y = 13
+    # if task_exec.action == 'handover':
+    #     params_handover = r.json()['parameters']['value']['tool']['toolId']
+    #     # try:
+    #     print('irtha')
+    #     r,  r_action = get_linkInfo(link)
+    #     entity_checker(r, link, r_action)
+    #     # AUTA EDW
+    #     # task_exec.navpos.x=ddddd
+    #     # task_exec.navpos.x = 12
+    #     # task_exec.navpos.y = 13 #synnarth
+    #
+    #     pos1 = find_HO_pos()
+    #     print(pos1)
 
-    # task_exec.action = 'pickup'
-    task_exec.tool_id = 2
-    # TODO vector3Pose2D
-    task_exec.request_id = 5232
-    rospy.loginfo(task_exec)
-    pub2TaskExe.publish(task_exec)
+    # if task_exec.action == 'navigate':
+    #     params_nav = r.json()['parameters']['value']['location']['namedLocation']
+    #     # params_nav0 = r.json()['parameters']['value']['location']
+    #     print(params_nav)
+    #     task_exec.navpos.x = 12
+    #     task_exec.navpos.y = 13
+
+    # # task_exec.action = 'pickup'
+    # task_exec.tool_id = 2
+    # # TODO vector3Pose2D
+    # task_exec.request_id = 5232
+    # rospy.loginfo(task_exec)
+    # pub2TaskExe.publish(task_exec)
+
 
 
 # Intercepts incoming messages
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
+        print('SOMETHING CAME!')
         datalen = int(self.headers['Content-Length'])  # size receive message
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
+        obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_release))
+        action_type = obj.json()['actionType']['value']
+        if action_type == 'release':
+            print(action_type, "MPIKEEEEEEEEEEEEE")
+            send_msg_release()
+            print('VGIKEEEEEEEEEEEEEEE')
+        elif action_type == 'pickup':
+            send_msg_pickup(obj)
+
+        # print(obj.json())
+        print('___________________')
+
+        # get_linkInfo(link_release)
 
         # this is to place the code
-        # element = obj['data'][0]['id']
+        # element = obj['data'][0]['id'
+        #
+        # ]
 
         # Here add thr code for processing.
         print(" Received Fiware Msg ")
-        send_msg()
+        # send_msg_release()
 
-        Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
+        print('TELOS0')
+        # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
         self.send_response(200)
         self.end_headers()
-
-
+        print('TELOS1')
 class MyReceiver:
     def __init__(self, address="0.0.0.0", port=8080):
         self.address = address
@@ -360,11 +411,24 @@ selection_address = '25.28.115.246'
 selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
 
+#########
+# Testing
+#########
+# obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_pickup))
+# action_type = obj.json()['actionType']['value']
+# if action_type == 'release':
+#     send_msg_release()
+# elif action_type == 'pickup':
+#     send_msg_release()
+    # obj.json()['parameters']['value']['location']['namedLocation']
+
+
+#########
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
-    send_msg()
+    # send_msg_release()
     server = MyReceiver(selection_address, int(selection_port))
 except Exception as ex:
     raise Exception("Unable to create a Receiver")
