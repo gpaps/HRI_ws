@@ -19,7 +19,10 @@ link_release = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:4d0f5c32-8db6-49cb-b5
 link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-89cd-052c79f2c3b5'
 
 # pyBullet
-find_HO_pos()
+x = find_HO_pos()
+print(type(x))  # TODO cast it msg_handover
+locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+
 
 def get_adaptId(wfc):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
@@ -52,7 +55,7 @@ def send_msg_pickup(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
-    task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId'] # to receive and publish
+    task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId'] # TODO to receive and publish
     # location/vector3 geom_msgs location
     task_exec.location.x = -99999
     task_exec.location.y = -99999
@@ -106,13 +109,13 @@ def send_msg_handover():
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
-    task_exec.location.x = -99999
-    task_exec.location.y = -99999
-    task_exec.location.z = -99999
+    task_exec.location.x = locX
+    task_exec.location.y = locY
+    task_exec.location.z = locZ
     # location/nav Pose2D
-    task_exec.navpos.x = -0.99999
-    task_exec.navpos.y = -0.99999
-    task_exec.navpos.theta = -0.99999
+    task_exec.navpos.x = -99999
+    task_exec.navpos.y = -99999
+    task_exec.navpos.theta = -99999
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
