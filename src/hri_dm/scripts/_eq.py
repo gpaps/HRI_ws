@@ -24,8 +24,9 @@ def linear_eq(loc_a, loc_b):
     y1, y2 = loc_a[0], loc_b[1]
     x1, x2 = loc_a[0], loc_b[1]
     a = (y2-y1) / (x2-x1)
-    # y = aX + b
     b = a*x1 - x2
+
+    # y = aX + b
     return a, b
 
 
