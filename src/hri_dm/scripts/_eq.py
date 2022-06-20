@@ -20,13 +20,12 @@ def quadratic_eq(a, b, c):
 
 
 def linear_eq(loc_a, loc_b):
-
     x1, y1 = loc_a[0], loc_a[1]
     x2, y2 = loc_b[0], loc_b[1]
     a = (y2-y1) / (x2-x1)
-    b = a*x1 - x2
-
     # y = aX + b
+    b = a*x2 - y2
+
     return a, b
 
 
