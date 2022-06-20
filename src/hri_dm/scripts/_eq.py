@@ -19,10 +19,14 @@ def quadratic_eq(a, b, c):
         return x1, x2
 
 
-def linear_eq(a, b, x):
-    c = a * x + b
-    c2 = np.linalg.solve(a, b)
-    return c, c2
+def linear_eq(loc_a, loc_b):
+
+    y1, y2 = loc_a[0], loc_b[1]
+    x1, x2 = loc_a[0], loc_b[1]
+    a = (y2-y1) / (x2-x1)
+    # y = aX + b
+    b = a*x1 - x2
+    return a, b
 
 
 if __name__ == '__main__':
