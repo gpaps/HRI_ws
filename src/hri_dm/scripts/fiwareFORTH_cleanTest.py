@@ -3,15 +3,12 @@ import json
 import rospy
 import signal
 import requests
+from reader_wfc import *
 from logger import Log, initLog
 from http.server import HTTPServer  # this is for use with python3
 from http.server import BaseHTTPRequestHandler  # this is for use with python3
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
-from reader_wfc import *
-
-link = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
-import rospy
 from reader_wfc import *
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
@@ -23,7 +20,6 @@ link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-8
 
 # pyBullet
 find_HO_pos()
-
 
 def get_adaptId(wfc):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
