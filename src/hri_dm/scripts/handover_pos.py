@@ -127,7 +127,6 @@ def murry_checkAngles(allAngles, side):
 
 
 def find_HO_pos():
-    print('________________________________________________________MPIKA')
     # p.connect(p.GUI)
     p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())

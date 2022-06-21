@@ -10,6 +10,7 @@ from http.server import BaseHTTPRequestHandler  # this is for use with python3
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
 from reader_wfc import *
+from _eq2 import *
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 
@@ -17,10 +18,10 @@ link_pickup = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:8a81ceca-06ef-425d-8f8
 link_navigate = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
 link_release = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:4d0f5c32-8db6-49cb-b5ef-2af7d492ca12'
 link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-89cd-052c79f2c3b5'
-
+link_Wk = ''
 # pyBullet
 x = find_HO_pos()
-print(type(x))  # TODO cast it msg_handover
+print(type(x))
 locX, locY, locZ = x[0][0], x[0][1], x[0][2]
 
 
