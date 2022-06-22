@@ -126,18 +126,18 @@ def murry_checkAngles(allAngles, side):
     return murry_err
 
 
-def find_HO_pos():
+def find_HO_pos(pos_x, pos_y):
     # p.connect(p.GUI)
     p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-    obUid = p.loadURDF("result3_humanoid.urdf", [0.00, 0.00, 1.3],
+    obUid = p.loadURDF("result3_humanoid.urdf", [pos_x, pos_y, 1.3],
                        p.getQuaternionFromEuler([0, 0, 0]),
                        useMaximalCoordinates=False,
                        useFixedBase=1,
                        flags=URDF_MAINTAIN_LINK_ORDER | URDF_USE_SELF_COLLISION_INCLUDE_PARENT | URDF_USE_SELF_COLLISION
                        )
-    p.resetBasePositionAndOrientation(obUid, [0.0, 0.0, 1.3], [0.0, 0.0, 0.0, 1])
+    # p.resetBasePositionAndOrientation(obUid, [0.0, 0.0, 1.3], [0.0, 0.0, 0.0, 1])
     humanoid = obUid
 
     # gravId = p.addUserDebugParameter(" Gravity ", 0, 1, -1)
@@ -230,4 +230,6 @@ def find_HO_pos():
 # pos1 = find_HO_pos()
 ##############################################
 if __name__ == '__main__':
+    # ws = 1
+    # pos_x, pos_y, theta = get_humanPose_ws(1)
     find_HO_pos()

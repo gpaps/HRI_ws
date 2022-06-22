@@ -102,19 +102,20 @@ def send_msg_pickup(obj):
 
 def send_msg_handover():
     global pub2TaskExe
-    x = find_HO_pos()     # pyBullet
-    # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+    ws = 1  # refers to workStation
+    pb_x = find_HO_pos()   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+    x, y, theta = get_humanPose_ws(ws)   # humanPose
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
-    task_exec.location.x = x[0][0]
-    task_exec.location.y = x[0][1]
-    task_exec.location.z = x[0][2]
+    task_exec.location.x = pb_x[0][0]
+    task_exec.location.y = pb_x[0][1]
+    task_exec.location.z = pb_x[0][2]
     # location/nav Pose2D
-    task_exec.navpos.x = -99999
-    task_exec.navpos.y = -99999
-    task_exec.navpos.theta = -99999
+    task_exec.navpos.x = x
+    task_exec.navpos.y = y
+    task_exec.navpos.theta = theta
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
@@ -138,7 +139,7 @@ def send_msg_navigate():
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'navigate')
 
-def get_humanPose(ws):
+def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00'+str(ws))
     orn = obj.json()['orientation']['value']
@@ -153,7 +154,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         datalen = int(self.headers['Content-Length'])  # size receive message
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
-        obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_pickup))
+        obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_handover))
         action_type = obj.json()['actionType']['value']
         if action_type == 'release':
             send_msg_release()
@@ -243,4 +244,4 @@ signal.signal(signal.SIGTERM, signal_handler)
 
 Log("INFO", "\nStarting...")
 Log("INFO", "---------------------------------\n")
-server.start()
+# server.start()
