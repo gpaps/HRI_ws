@@ -103,8 +103,8 @@ def send_msg_pickup(obj):
 def send_msg_handover():
     global pub2TaskExe
     ws = 1  # refers to workStation
-    pb_x = find_HO_pos()   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
     x, y, theta = get_humanPose_ws(ws)   # humanPose
+    pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']

@@ -28,6 +28,7 @@ CMAG2 = '\033[95m'
 COIL2 = '\033[96m'
 CEND = '\033[0m'
 
+
 global end_effectorId
 end_effectorId = 37
 
@@ -126,6 +127,16 @@ def murry_checkAngles(allAngles, side):
     return murry_err
 
 
+def get_humanPose_ws(ws):
+    import requests
+    import json
+    """ ws = WorkStation-number, ex.int: 1,2,3 """
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00'+str(ws))
+    orn = obj.json()['orientation']['value']
+    x = obj.json()['position']['value']['x']['value']
+    y = obj.json()['position']['value']['y']['value']
+    return x, y, orn
+
 def find_HO_pos(pos_x, pos_y):
     # p.connect(p.GUI)
     p.connect(p.DIRECT)
@@ -137,7 +148,7 @@ def find_HO_pos(pos_x, pos_y):
                        useFixedBase=1,
                        flags=URDF_MAINTAIN_LINK_ORDER | URDF_USE_SELF_COLLISION_INCLUDE_PARENT | URDF_USE_SELF_COLLISION
                        )
-    # p.resetBasePositionAndOrientation(obUid, [0.0, 0.0, 1.3], [0.0, 0.0, 0.0, 1])
+    p.resetBasePositionAndOrientation(obUid, [0.0, 0.0, 1.3], [0.0, 0.0, 0.0, 1])
     humanoid = obUid
 
     # gravId = p.addUserDebugParameter(" Gravity ", 0, 1, -1)
@@ -230,6 +241,6 @@ def find_HO_pos(pos_x, pos_y):
 # pos1 = find_HO_pos()
 ##############################################
 if __name__ == '__main__':
-    # ws = 1
-    # pos_x, pos_y, theta = get_humanPose_ws(1)
-    find_HO_pos()
+    ws = 1
+    pos_x, pos_y, theta = get_humanPose_ws(1)
+    find_HO_pos(pos_x, pos_y)
