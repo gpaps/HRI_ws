@@ -9,20 +9,16 @@ from http.server import HTTPServer  # this is for use with python3
 from http.server import BaseHTTPRequestHandler  # this is for use with python3
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
-from reader_wfc import *
+# from reader_wfc import * # omitted for now
 from _eq import *
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 
+fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 link_pickup = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:8a81ceca-06ef-425d-8f86-9309c39103ea'
 link_navigate = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
 link_release = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:4d0f5c32-8db6-49cb-b5ef-2af7d492ca12'
 link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-89cd-052c79f2c3b5'
-link_Wk = ''
-# pyBullet
-x = find_HO_pos()
-print(type(x))
-locX, locY, locZ = x[0][0], x[0][1], x[0][2]
 
 
 def get_adaptId(wfc):
@@ -106,13 +102,15 @@ def send_msg_pickup(obj):
 
 def send_msg_handover():
     global pub2TaskExe
+    x = find_HO_pos()     # pyBullet
+    # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
-    task_exec.location.x = locX
-    task_exec.location.y = locY
-    task_exec.location.z = locZ
+    task_exec.location.x = x[0][0]
+    task_exec.location.y = x[0][1]
+    task_exec.location.z = x[0][2]
     # location/nav Pose2D
     task_exec.navpos.x = -99999
     task_exec.navpos.y = -99999
@@ -139,6 +137,15 @@ def send_msg_navigate():
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'navigate')
+
+def get_humanPose(ws):
+    """ ws = WorkStation-number, ex.int: 1,2,3 """
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00'+str(ws))
+    orn = obj.json()['orientation']['value']
+    x = obj.json()['position']['value']['x']['value']
+    y = obj.json()['position']['value']['y']['value']
+    return x, y, orn
+
 
 # Intercepts incoming messages
 class RequestHandler(BaseHTTPRequestHandler):
@@ -207,6 +214,13 @@ selection_port = '2620'
 selection_address = '25.28.115.246'
 selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
+
+######
+# Test
+# obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(fiware_iccs))
+# action_type = obj.json()['actionType']['value']
+# obj = json.loads(data)  # convert message to json
+
 
 #########
 Log("INFO", "Initialized")

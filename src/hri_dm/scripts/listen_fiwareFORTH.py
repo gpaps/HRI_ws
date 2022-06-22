@@ -396,6 +396,18 @@ selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
 
 #########
+# Testing
+#########
+# obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_pickup))
+# action_type = obj.json()['actionType']['value']
+# if action_type == 'release':
+#     send_msg_release()
+# elif action_type == 'pickup':
+#     send_msg_release()
+    # obj.json()['parameters']['value']['location']['namedLocation']
+
+
+#########
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
