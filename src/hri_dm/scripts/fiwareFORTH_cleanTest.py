@@ -10,7 +10,7 @@ from http.server import BaseHTTPRequestHandler  # this is for use with python3
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
 from reader_wfc import *
-from _eq2 import *
+from _eq import *
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 
