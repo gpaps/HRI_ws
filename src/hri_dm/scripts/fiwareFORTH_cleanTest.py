@@ -103,15 +103,22 @@ def send_msg_pickup(obj):
 def send_msg_handover():
     global pub2TaskExe
     ws = 1  # refers to workStation
-    x, y, theta = get_humanPose_ws(ws)   # humanPose
-    pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+    workerx, workery, worhertheta = get_humanPose(ws) # get worker position and theta in the global coordinate system
+    
+    #pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+    #use the old version without translation in pybullet 
+    p3d = find_HO_pos()     # pyBullet
+    p3d_x, p3d_y, p3d_z = p3d[0][0], p3d[0][1], p3d[0][2] # this is the handover location in the human coordinate system
+    
+    rlocalx, rlocaly= rotate(p3d_x, p3d_y, workertheta) # rotate handover location by the human-theta
+    
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
-    task_exec.location.x = pb_x[0][0]
-    task_exec.location.y = pb_x[0][1]
-    task_exec.location.z = pb_x[0][2]
+    task_exec.location.x = workerx + rlocalx  # this is the handover location in the global coordinate system
+    task_exec.location.y = workery + rlocaly  # this is the handover location in the global coordinate system
+    task_exec.location.z = p3d_z  # the z is not affected by the rotation of the humman
     # location/nav Pose2D
     task_exec.navpos.x = x
     task_exec.navpos.y = y
@@ -146,6 +153,11 @@ def get_humanPose_ws(ws):
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
+
+def rotate(x, y, theta):
+    xn= x*math.cos(theta) + y*math.sin(theta)
+    yn= -x*math.sin(theta) + y*math.cos(theta)
+    return xn, yn
 
 
 # Intercepts incoming messages
