@@ -28,9 +28,10 @@ CMAG2 = '\033[95m'
 COIL2 = '\033[96m'
 CEND = '\033[0m'
 
-
 global end_effectorId
-end_effectorId = 37
+
+
+# end_effectorId = 37
 
 
 ##############################
@@ -131,24 +132,25 @@ def get_humanPose_ws(ws):
     import requests
     import json
     """ ws = WorkStation-number, ex.int: 1,2,3 """
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00'+str(ws))
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
     orn = obj.json()['orientation']['value']
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
 
-def find_HO_pos(pos_x, pos_y):
-    # p.connect(p.GUI)
-    p.connect(p.DIRECT)
+
+def find_HandOver_pos():
+    p.connect(p.GUI)
+    # p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
-    obUid = p.loadURDF("result3_humanoid.urdf", [pos_x, pos_y, 1.3],
+    obUid = p.loadURDF("result3_humanoid.urdf", [0, 0, 1.3],
                        p.getQuaternionFromEuler([0, 0, 0]),
                        useMaximalCoordinates=False,
-                       useFixedBase=1,
+                       useFixedBase=0,
                        flags=URDF_MAINTAIN_LINK_ORDER | URDF_USE_SELF_COLLISION_INCLUDE_PARENT | URDF_USE_SELF_COLLISION
                        )
-    p.resetBasePositionAndOrientation(obUid, [0.0, 0.0, 1.3], [0.0, 0.0, 0.0, 1])
+    p.resetBasePositionAndOrientation(obUid, [0, 0, 1.3], [0.0, 0.0, 0.0, 1])
     humanoid = obUid
 
     # gravId = p.addUserDebugParameter(" Gravity ", 0, 1, -1)
@@ -225,11 +227,12 @@ def find_HO_pos(pos_x, pos_y):
         #   # addUserDebugLine( lineFrom(XYZ), lineToXYZ, lineColorRGB, lineWidth(1.5) )
         #   p.addUserDebugLine(prevPos, pos, [0, 0, 0.6], .6, trailDuration)
         #   p.addUserDebugLine(prevPos1, ls[4], [1, 0, 0], 2.6, trailDuration)  # elbow  or wannabe end-effector
-        if poscount == 1:  # This finds the first 10 green positions, but..... we may return the first one and stop!
+        if poscount == 1:  # This finds the first 10 green p
+            # ositions, but..... we may return the first one and stop!
             print(greenPoses)
 
-            p.disconnect()
-            return greenPoses
+            # p.disconnect()
+            return greenPoses[0][0], greenPoses[0][1], greenPoses[0][2]
             # rr = random.randint(0, len(greenPoses))
             # print(greenPoses[rr])
             # break
@@ -241,6 +244,6 @@ def find_HO_pos(pos_x, pos_y):
 # pos1 = find_HO_pos()
 ##############################################
 if __name__ == '__main__':
-    ws = 1
-    pos_x, pos_y, theta = get_humanPose_ws(1)
-    find_HO_pos(pos_x, pos_y)
+    # ws = 2
+    # pos_x, pos_y, theta = get_humanPose_ws(ws)
+    x, y, z = find_HandOver_pos()
