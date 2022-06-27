@@ -56,52 +56,17 @@ def send_msg_pickup(obj):
     task_exec.action = 'pickup'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId'] # TODO to receive and publish
     # location/vector3 geom_msgs location
-    task_exec.location.x = -99999
-    task_exec.location.y = -99999
-    task_exec.location.z = -99999
+    task_exec.location.x = 99999
+    task_exec.location.y = 99999
+    task_exec.location.z = 99999
     # location/nav Pose2D
-    task_exec.navpos.x = -0.99999
-    task_exec.navpos.y = -0.99999
-    task_exec.navpos.theta = -0.99999
+    task_exec.navpos.x = 99999
+    task_exec.navpos.y = 99999
+    task_exec.navpos.theta = 99999
     # synchronization
     task_exec.request_id = 99
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'received')
-
-    # entity_checker(r, link, r_act)
-    # r, task_exec.action = get_adaptId(link_handover)
-    # r, task_exec.action = get_adaptId(link_handover)
-
-    # if task_exec.action == 'release':
-
-    # if task_exec.action == 'handover':
-    #     params_handover = r.json()['parameters']['value']['tool']['toolId']
-    #     # try:
-    #     print('irtha')
-    #     r,  r_action = get_linkInfo(link)
-    #     entity_checker(r, link, r_action)
-    #     # AUTA EDW
-    #     # task_exec.navpos.x=ddddd
-    #     # task_exec.navpos.x = 12
-    #     # task_exec.navpos.y = 13 #synnarth
-    #
-    #     pos1 = find_HO_pos()
-    #     print(pos1)
-
-    # if task_exec.action == 'navigate':
-    #     params_nav = r.json()['parameters']['value']['location']['namedLocation']
-    #     # params_nav0 = r.json()['parameters']['value']['location']
-    #     print(params_nav)
-    #     task_exec.navpos.x = 12
-    #     task_exec.navpos.y = 13
-
-    # # task_exec.action = 'pickup'
-    # task_exec.tool_id = 2
-    # # TODO vector3Pose2D
-    # task_exec.request_id = 5232
-    # rospy.loginfo(task_exec)
-    # pub2TaskExe.publish(task_exec)
-
 
 def send_msg_handover():
     global pub2TaskExe
@@ -248,7 +213,7 @@ selection_address_CB = '25.45.111.204'
 # obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(fiware_iccs))
 # action_type = obj.json()['actionType']['value']
 # obj = json.loads(data)  # convert message to json
-
+######
 
 #########
 Log("INFO", "Initialized")
