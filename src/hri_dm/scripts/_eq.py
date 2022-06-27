@@ -4,6 +4,8 @@ import numpy as np
 
 
 def quadratic_eq(a, b, c):
+    ''' f(x) =  ax**2 + bx + c
+    '''
     # calc the discriminant
     d = (b ** 2) - (4 * a * c)
 
@@ -24,6 +26,10 @@ def quadratic_eq(a, b, c):
 
 
 def linear_eq(loc_a, loc_b):
+    """
+    Straight line through TWO points will have an equation in the form
+    y = m*x + c , the function imports: loc_a[x1, y1],loc_b[x2, y2]
+    """
     x1, y1 = loc_a[0], loc_a[1]
     x2, y2 = loc_b[0], loc_b[1]
 
@@ -42,9 +48,13 @@ def linear_eq(loc_a, loc_b):
 
 
 def euc_dist(loc_1, loc_2):
+    """"
+    Two Dimension Euclidian Distance,
+    loc_1[q1, q2],   loc_2[p1, p2],
+    d(p,q = sqrt( (q1-p1)**2 - (q2-p2)**2 )
+    """
     dist = math.sqrt((loc_1[0] - loc_2[0]) ** 2 + (loc_1[1] - loc_2[1]) ** 2)
     return dist
-
 
 def find_pos(loc_r, loc_h, d):
     pos_found = 0
