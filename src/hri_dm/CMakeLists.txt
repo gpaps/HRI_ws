@@ -53,6 +53,8 @@ find_package(catkin REQUIRED COMPONENTS
    FILES
    HRIDM2TaskExecution.msg
    TaskExecution2HRIDM.msg
+   PoseWithCovariance.msg
+   PoseWithCovarianceStamped.msg
  )
 
 
