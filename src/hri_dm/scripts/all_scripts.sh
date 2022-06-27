@@ -14,18 +14,13 @@ gnome-terminal -- python3 listenerSubscriber.py
 #py send once
 gnome-terminal -- python3 localSender.py
 
-#fiware DIR
-cd ..
-cd fiware_v2
-
-
 # this is for conncecting/Subscribing to network, 
 # only occures once otherwise comment it out 
 gnome-terminal -- python3 sub.py
 echo 		Subscribed???Check above!!
 
 # fiware listen's
-python3 receiverFull_ListenFORTH.py
+python3 fiwareFORTH_cleanTest.py
 
 # fiware sends?
 gnome-terminal -- python3 forthHRIHealthPost.py
