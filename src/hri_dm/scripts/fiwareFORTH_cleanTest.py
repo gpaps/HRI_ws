@@ -31,6 +31,7 @@ def get_adaptId(wfc):
     # params = r.json()['parameters']['value']['location']
     return r, action_name
 
+
 def send_msg_release():
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
@@ -47,6 +48,7 @@ def send_msg_release():
     # synchronization
     task_exec.request_id = -1
     print(task_exec, '\n', 'received')
+
 
 def send_msg_pickup(obj):
     global pub2TaskExe
@@ -100,33 +102,33 @@ def send_msg_pickup(obj):
     # rospy.loginfo(task_exec)
     # pub2TaskExe.publish(task_exec)
 
+
 def send_msg_handover():
     global pub2TaskExe
     ws = 1  # refers to workStation
-    workerx, workery, worhertheta = get_humanPose(ws) # get worker position and theta in the global coordinate system
-    
-    #pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
-    #use the old version without translation in pybullet 
-    p3d = find_HO_pos()     # pyBullet
-    p3d_x, p3d_y, p3d_z = p3d[0][0], p3d[0][1], p3d[0][2] # this is the handover location in the human coordinate system
-    
-    rlocalx, rlocaly= rotate(p3d_x, p3d_y, workertheta) # rotate handover location by the human-theta
-    
+    workerx, workery, workertheta = get_humanPose_ws(ws)  # get worker position and theta in the global coordinate system
+
+    # pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
+    # use the old version without translation in pybullet
+    p3d_x, p3d_y, p3d_z = find_HandOver_pos()  # pyBullet, this is the handover location in the human coordinate system
+    rlocalx, rlocaly = rotate(p3d_x, p3d_y, workertheta)  # rotate handover location by the human-theta
+
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
     task_exec.location.x = workerx + rlocalx  # this is the handover location in the global coordinate system
     task_exec.location.y = workery + rlocaly  # this is the handover location in the global coordinate system
-    task_exec.location.z = p3d_z  # the z is not affected by the rotation of the humman
+    task_exec.location.z = p3d_z  # the z is not affected by the rotation of the human
     # location/nav Pose2D
-    task_exec.navpos.x = x
-    task_exec.navpos.y = y
-    task_exec.navpos.theta = theta
+    # task_exec.navpos.x = x
+    # task_exec.navpos.y = y
+    # task_exec.navpos.theta = theta  # counterclockwise
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'handOver_task')
+
 
 def send_msg_navigate():
     global pub2TaskExe
@@ -138,25 +140,27 @@ def send_msg_navigate():
     task_exec.location.y = -99999
     task_exec.location.z = -99999
     # location/nav Pose2D
-    task_exec.navpos.x = -0.99999
-    task_exec.navpos.y = -0.99999
-    task_exec.navpos.theta = -0.99999
+    task_exec.navpos.x = -99999
+    task_exec.navpos.y = -99999
+    task_exec.navpos.theta = -9999
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'navigate')
 
+
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00'+str(ws))
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
     orn = obj.json()['orientation']['value']
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
 
+
 def rotate(x, y, theta):
-    xn= x*math.cos(theta) + y*math.sin(theta)
-    yn= -x*math.sin(theta) + y*math.cos(theta)
+    xn = x * math.cos(theta) + y * math.sin(theta)
+    yn = -x * math.sin(theta) + y * math.cos(theta)
     return xn, yn
 
 
@@ -166,16 +170,26 @@ class RequestHandler(BaseHTTPRequestHandler):
         datalen = int(self.headers['Content-Length'])  # size receive message
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
-        obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_handover))
-        action_type = obj.json()['actionType']['value']
-        if action_type == 'release':
-            send_msg_release()
-        elif action_type == 'pickup':
-            send_msg_pickup(obj)
-        elif action_type == 'handover':
-            send_msg_handover()
-        elif action_type == 'navigate':
-            send_msg_navigate()
+        # obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_handover))
+
+        sender_module = obj['data'][0]['id']
+        print(sender_module, '_______')
+        if re.findall('WorkerPose', sender_module):
+            print('KOSTAS IS HERE !!!!', )
+
+        elif re.findall('SystemHealth', sender_module):
+            pass
+
+        else:
+            action_type = obj.json()['actionType']['value']
+            if action_type == 'release':
+                send_msg_release()
+            elif action_type == 'pickup':
+                send_msg_pickup(obj)
+            elif action_type == 'handover':
+                send_msg_handover()
+            elif action_type == 'navigate':
+                send_msg_navigate()
 
         print('___________________')
         # this is to place the code
@@ -230,6 +244,7 @@ selection_address_CB = '25.45.111.204'
 
 ######
 # Test
+# obj =  requests.get("")
 # obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(fiware_iccs))
 # action_type = obj.json()['actionType']['value']
 # obj = json.loads(data)  # convert message to json
@@ -256,4 +271,4 @@ signal.signal(signal.SIGTERM, signal_handler)
 
 Log("INFO", "\nStarting...")
 Log("INFO", "---------------------------------\n")
-# server.start()
+server.start()
