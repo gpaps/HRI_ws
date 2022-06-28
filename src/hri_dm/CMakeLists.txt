@@ -55,6 +55,7 @@ find_package(catkin REQUIRED COMPONENTS
    TaskExecution2HRIDM.msg
    PoseWithCovariance.msg
    PoseWithCovarianceStamped.msg
+   Pose2D.msg
  )
 
 

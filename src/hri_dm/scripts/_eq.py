@@ -56,6 +56,7 @@ def euc_dist(loc_1, loc_2):
     dist = math.sqrt((loc_1[0] - loc_2[0]) ** 2 + (loc_1[1] - loc_2[1]) ** 2)
     return dist
 
+
 def find_pos(loc_r, loc_h, d):
     pos_found = 0
     '''
