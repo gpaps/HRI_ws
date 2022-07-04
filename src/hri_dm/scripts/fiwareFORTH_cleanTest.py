@@ -1,5 +1,8 @@
 import sys
 import json
+
+import reportlab.pdfbase.pdfmetrics
+
 import rospy
 import signal
 import requests
@@ -30,7 +33,6 @@ def get_adaptId(wfc):
     action_name = action_r.json()['adaptType']['value']
     # params = r.json()['parameters']['value']['location']
     return r, action_name
-
 
 def send_msg_release():
     global pub2TaskExe
@@ -101,18 +103,17 @@ def send_msg_navigate():
     task_exec.action = 'navigate'  # action
     task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
     # location/vector3 geom_msgs location
-    task_exec.location.x = -99999
-    task_exec.location.y = -99999
-    task_exec.location.z = -99999
+    task_exec.location.x = -9999
+    task_exec.location.y = -9999
+    task_exec.location.z = -9999
     # location/nav Pose2D
-    task_exec.navpos.x = -99999
-    task_exec.navpos.y = -99999
+    task_exec.navpos.x = -9999
+    task_exec.navpos.y = -9999
     task_exec.navpos.theta = -9999
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'navigate')
-
 
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
@@ -121,7 +122,6 @@ def get_humanPose_ws(ws):
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
-
 
 def rotate(x, y, theta):
     xn = x * math.cos(theta) + y * math.sin(theta)
@@ -135,8 +135,8 @@ class RequestHandler(BaseHTTPRequestHandler):
         datalen = int(self.headers['Content-Length'])  # size receive message
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
-        # obj = requests.get("http://25.45.111.204:1026/v2/entities/" + str(link_handover))
-
+        # obj = requests.get("http://25.45.111.204:1026/v2/entities/" )#+ str(link_handover))
+        print(obj)
         sender_module = obj['data'][0]['id']
         print(sender_module, '_______')
         if re.findall('WorkerPose', sender_module):
@@ -144,6 +144,9 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         elif re.findall('SystemHealth', sender_module):
             pass
+
+        elif re.findall('WorkflowCommand', sender_module):
+            print('WORKFLOW COMMAND IS HERE!!!')
 
         else:
             action_type = obj.json()['actionType']['value']
