@@ -1,0 +1,14 @@
+{
+	"id": "FORTH.ScenePerception.SystemHealth:4ea48e16-d5c2-11ec-9d64-0242ac120002",
+	"type": "SystemHealth",
+	"status": {
+		"type": "Text",
+		"value": "OK",
+		"metadata": {}
+	},
+	"timestamp": {
+		"type": "DateTime",
+		"value": "2022-05-13T08:37:26.556Z",
+		"metadata": {}
+	}
+}
