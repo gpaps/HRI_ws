@@ -128,20 +128,9 @@ def murry_checkAngles(allAngles, side):
     return murry_err
 
 
-def get_humanPose_ws(ws):
-    import requests
-    import json
-    """ ws = WorkStation-number, ex.int: 1,2,3 """
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
-    orn = obj.json()['orientation']['value']
-    x = obj.json()['position']['value']['x']['value']
-    y = obj.json()['position']['value']['y']['value']
-    return x, y, orn
-
-
 def find_HandOver_pos():
-    p.connect(p.GUI)
-    # p.connect(p.DIRECT)
+    # p.connect(p.GUI)
+    p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
     obUid = p.loadURDF("result3_humanoid.urdf", [0, 0, 1.3],
@@ -244,6 +233,4 @@ def find_HandOver_pos():
 # pos1 = find_HO_pos()
 ##############################################
 if __name__ == '__main__':
-    # ws = 2
-    # pos_x, pos_y, theta = get_humanPose_ws(ws)
     x, y, z = find_HandOver_pos()
