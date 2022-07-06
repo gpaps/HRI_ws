@@ -1,0 +1,44 @@
+{
+  "id": "FORTH.ScenePerception.PlanePose:4ea48c18-d5c2-11ec-9d64-0242ac120002",
+  "type": "PlanePose",
+  "orientation": {
+    "type": "number",
+    "value": 0,
+    "metadata": {
+      "dataType": {
+        "type": "dataType",
+        "value": "Float64"
+      },
+      "Description": {
+        "type": "string",
+        "value": "Orientation with respect to the vertical Z axis of the WCS"
+      }
+    }
+  },
+  "position": {
+    "type": "Position2D",
+    "value": {
+      "x": {
+        "type": "number",
+        "value": 0
+      },
+      "y": {
+        "type": "number",
+        "value": 1
+      }
+    },
+    "metadata": {
+      "dataType": {
+        "type": "dataType",
+        "value": {
+          "x": "Float64",
+          "y": "Float64"
+        }
+      },
+      "Description": {
+        "type": "string",
+        "value": "Position on the XY plane of the WCS"
+      }
+    }
+  }
+}
