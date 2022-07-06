@@ -1,6 +1,6 @@
 #!/usr/bin/env python
-from datetime import datetime
 import rospy
+from datetime import datetime
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 
 # fiware imports
@@ -28,6 +28,7 @@ def callback(data):
         newtask.action = 'please try again'
         pub2TaskExec.publish(newtask)
         rospy.loginfo(newtask)
+
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
     print(my_date.isoformat())
     hriStateTest = HRI_HealthStatePost(address, port, robotAction_jsonFName)
