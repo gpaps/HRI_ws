@@ -34,29 +34,31 @@ def get_adaptId(wfc):
     # params = r.json()['parameters']['value']['location']
     return r, action_name
 
-def send_msg_release():
+def send_ROSmsg_release():
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'release'  # action
     task_exec.tool_id = -1
     # location/vector3 geom_msgs location
-    task_exec.location.x = -99999
-    task_exec.location.y = -99999
-    task_exec.location.z = -99999
+    task_exec.location.x = 99999
+    task_exec.location.y = 99999
+    task_exec.location.z = 99999
     # location/nav Pose2D
-    task_exec.navpos.x = -0
-    task_exec.navpos.y = -0
-    task_exec.navpos.theta = -0.0
+    task_exec.navpos.x = 0
+    task_exec.navpos.y = 0
+    task_exec.navpos.theta = 0.0
     # synchronization
     task_exec.request_id = -1
     print(task_exec, '\n', 'received')
 
 
-def send_msg_pickup(obj):
+def send_ROSmsg_pickup(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
-    task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId'] # TODO to receive and publish
+
+    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId']) # TODO to receive and publish
+    # print('TOOL_____ID', task_exec.tool_id)
     # location/vector3 geom_msgs location
     task_exec.location.x = 99999
     task_exec.location.y = 99999
@@ -70,7 +72,7 @@ def send_msg_pickup(obj):
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'received')
 
-def send_msg_handover():
+def send_ROSmsg_handover(obj):
     global pub2TaskExe
     ws = 1  # refers to workStation
     workerx, workery, workertheta = get_humanPose_ws(ws)  # get worker position and theta in the global coordinate system
@@ -82,7 +84,8 @@ def send_msg_handover():
 
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'handover'  # action
-    task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
+    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId'])
+    # print('TOOL_ID_________Handover ',task_exec.tool_id)
     # location/vector3 geom_msgs location
     task_exec.location.x = workerx + rlocalx  # this is the handover location in the global coordinate system
     task_exec.location.y = workery + rlocaly  # this is the handover location in the global coordinate system
@@ -96,20 +99,21 @@ def send_msg_handover():
     pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'handOver_task')
 
-
-def send_msg_navigate():
+def send_ROSmsg_navigate(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'navigate'  # action
-    task_exec.tool_id = 4  # obj.json()['parameters']['value']['tool']['toolId']
+    # task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId']) # not usable for nav.
     # location/vector3 geom_msgs location
-    task_exec.location.x = -9999
-    task_exec.location.y = -9999
-    task_exec.location.z = -9999
+    task_exec.location.x = 9999
+    task_exec.location.y = 9999
+    task_exec.location.z = 9999
     # location/nav Pose2D
-    task_exec.navpos.x = -9999
-    task_exec.navpos.y = -9999
-    task_exec.navpos.theta = -9999
+    location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
+    print('Location_Name__________', location_name)
+    task_exec.navpos.x = 9999
+    task_exec.navpos.y = 9999
+    task_exec.navpos.theta = 9999
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
@@ -140,6 +144,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         sender_module = obj['data'][0]['id']
         print(sender_module, '_______')
         if re.findall('WorkerPose', sender_module):
+            pass
             print('KOSTAS IS HERE !!!!', )
 
         elif re.findall('SystemHealth', sender_module):
@@ -148,16 +153,31 @@ class RequestHandler(BaseHTTPRequestHandler):
         elif re.findall('WorkflowCommand', sender_module):
             print('WORKFLOW COMMAND IS HERE!!!')
 
-        else:
-            action_type = obj.json()['actionType']['value']
+            action_type = obj['data'][0]['actionType']['value']
+            print('ACTION_TYPE', action_type)
+
             if action_type == 'release':
-                send_msg_release()
+                send_ROSmsg_release()
+
             elif action_type == 'pickup':
-                send_msg_pickup(obj)
+                send_ROSmsg_pickup(obj)
+
             elif action_type == 'handover':
-                send_msg_handover()
+                send_ROSmsg_handover(obj)
+
             elif action_type == 'navigate':
-                send_msg_navigate()
+                send_ROSmsg_navigate(obj)
+
+        # else:
+        #     action_type = obj.json()['actionType']['value']
+        #     if action_type == 'release':
+        #         send_msg_release()
+        #     elif action_type == 'pickup':
+        #         send_msg_pickup(obj)
+        #     elif action_type == 'handover':
+        #         send_msg_handover()
+        #     elif action_type == 'navigate':
+        #         send_msg_navigate()
 
         print('___________________')
         # this is to place the code
