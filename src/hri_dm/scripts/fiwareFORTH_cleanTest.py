@@ -51,7 +51,6 @@ def send_ROSmsg_release():
     task_exec.request_id = -1
     print(task_exec, '\n', 'received')
 
-
 def send_ROSmsg_pickup(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
