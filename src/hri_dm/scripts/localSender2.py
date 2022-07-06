@@ -12,12 +12,10 @@ HRI_health_jsonFName = r"/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/HRI_healt
 address = "25.45.111.204"
 port = 1026
 
-my_date = datetime.utcnow()  # utc time, this is used in FELICE
-print(my_date.isoformat())
-print(type(my_date.isoformat()))
+# publishers
 pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
 pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
-
+# pub2TaskExec = rospy.Publisher(, )
 
 def get_requests(*args):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(args))
@@ -54,8 +52,8 @@ def send_msg_hri2task():
     task_exec2.navpos.theta = 0.0
     # synchronization
     task_exec2.request_id = -1
-    rospy.loginfo(task_exec2)
-    print('end_of_message_  send_msg_HRI2TASK and pub2HRIDM', '\n')
+    # rospy.loginfo(task_exec2)
+    # print('end_of_message_  send_msg_HRI2TASK and pub2HRIDM', '\n')
     # pub2task.publish(task_exec2)
 
 
@@ -65,6 +63,7 @@ def send_msg_pose2d():
     pose_task.x = 1.1
     pose_task.y = 2.2
     pose_task.theta = 60.3
+    my_date = datetime.utcnow()  # utc time, this is used in FELICE
     pose_task.timestamp = my_date.isoformat()
     rospy.loginfo(pose_task)
     pub2Pose2D.publish(pose_task)
