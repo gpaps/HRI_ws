@@ -17,7 +17,6 @@ CB_BASE_URL = None
 address = '25.45.111.204'
 port = 1026
 
-
 class HRI_Health:
 
     def __init__(self):
@@ -61,15 +60,16 @@ class HRI_HealthStatePost(HRI_Health):
 
 
 if __name__ == "__main__":
-
-    robotAction_jsonFName = 'health.json'
-    hriStateTest = HRI_HealthStatePost(address, port, robotAction_jsonFName)
-    sleepSecs = 4  # seconds to sleep before sending another message
-    position = [0.0, 0.0]
-    while True:
-        time.sleep(sleepSecs)
+    pass
+    # print('EXWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW')
+    # robotAction_jsonFName = 'health.json'
+    # hriStateTest = HRI_HealthStatePost(address, port, robotAction_jsonFName)
+    # sleepSecs = 4  # seconds to sleep before sending another message
+    # position = [0.0, 0.0]
+    # print('EIXAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+    # while True:
+        # time.sleep(sleepSecs)
         # my_date = datetime.now() # this is for local time
-        my_date = datetime.utcnow()  # utc time, this is used in FELICE
-        print(my_date.isoformat())
-
-        hriStateTest.updateStateMsg("OK", str(my_date.isoformat()))
+        # my_date = datetime.utcnow()  # utc time, this is used in FELICE
+        # print(my_date.isoformat())
+        # hriStateTest.updateStateMsg("OK", str(my_date.isoformat()))
