@@ -12,7 +12,7 @@ import numpy as np
 CB_HEADER = {'Content-Type': 'application/json'}
 CB_BASE_URL = None
 
-'25.28.118.246'
+#'25.28.118.246'
 
 address = '25.45.111.204'
 port = 1026
@@ -26,7 +26,7 @@ class HRI_Health:
 
 class HRI_HealthStatePost(HRI_Health):
 
-    def __init__(self, address, port, json_fname=[]):
+    def __init__(self, address, port, entity_path, json_fname):
 
         self.address = address
         self.port = port
@@ -38,7 +38,7 @@ class HRI_HealthStatePost(HRI_Health):
 
         f = open(json_fname, 'r')  # encoding="cp866")
         self.json_message = json.load(f)
-        self.json_message['id'] = 'forth.hri_testTranslate.SystemHealth:001'
+        self.json_message['id'] = entity_path #, 'forth.hri_testTranslate.SystemHealth:001'
         self.json_message['type'] = 'SystemHealth'
 
     def updateStateMsg(self, status_str, time_str):
