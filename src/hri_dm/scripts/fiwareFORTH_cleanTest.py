@@ -49,6 +49,7 @@ def send_ROSmsg_release():
     task_exec.navpos.theta = 0.0
     # synchronization
     task_exec.request_id = -1
+    pub2TaskExe.publish(task_exec)
     print(task_exec, '\n', 'received')
 
 def send_ROSmsg_pickup(obj):
