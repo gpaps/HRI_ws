@@ -18,11 +18,16 @@ address = "25.45.111.204"
 port = 1026
 
 # navigate, grasp, releaseTool, handover
+# ta state ta xreiazomaste, ta result mallon oxi
 navigate_state, navigate_result = 0, 0
 pickup_state, pickup_result = 0, 0
 release_state, release_result = 0, 0
 handover_state, handover_result = 0, 0
 last_toolID=-1
+
+act_res_failed=-1
+act_res_unknown=0
+act_res_success=1
 
 def callback_task2exec(data):
     # navigate, grasp, releaseTool, handover
@@ -34,9 +39,10 @@ def callback_task2exec(data):
         pickup_state = 0
         release_state = 0
         handover_state = 0
-
+        
         WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
-        WorkFlowState.updateStateMsg_nav(data.x, data.y, data.theta, navigate_state, data.result), '\n'
+        # to act_res_unknown thelei allagh sthn updateStateMsg_nav giati einai 3 oi dynates times twra
+        WorkFlowState.updateStateMsg_nav(data.x, data.y, data.theta, navigate_state, act_res_unknown) 
 
     elif data.action == 'pickup':
         navigate_state = 0
@@ -56,7 +62,6 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 1
         last_toolID = data.tool_id
-
 
 
 def callback_HRIhealth(data):
@@ -97,9 +102,9 @@ def callback_TaskExResult(data):
         # it has cocompleted so it is not active anymore
         release_state = 0 
         release_result = data.result # not sure if this line is needed
-        WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
         fingerState=0
         armState=0
+        WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
         WorkFlowState.updateStateMsg_release(self, last_toolID, fingerState, armState,  data.result):
             
             
