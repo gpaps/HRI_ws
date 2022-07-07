@@ -14,15 +14,31 @@ from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
+##colors
+CRED1 = '\033[31m'
+CGR1 = '\033[32m'
+CYEL1 = '\033[33m'
+CBlUE1 = '\033[34m'
+CMAG1 = '\033[35m'
+COIL1 = '\033[36m'
+CBRED1 = '\033[41m'
+CBGR1 = '\033[42m'
+CBYEL1 = '\033[43m'
+CBBlUE1 = '\033[44m'
+CBMAG1 = '\033[45m'
+CBOIL1 = '\033[46m'
+CRED2 = '\033[91m'
+CGR2 = '\033[92m'
+CYEL2 = '\033[93m'
+CBLUE2 = '\033[94m'
+CMAG2 = '\033[95m'
+COIL2 = '\033[96m'
+CEND = '\033[0m'
+##colors
+
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
-
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
-link_pickup = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:8a81ceca-06ef-425d-8f86-9309c39103ea'
-link_navigate = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:c25785b9-614f-48b2-88f3-45e1e2371507'
-link_release = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:4d0f5c32-8db6-49cb-b5ef-2af7d492ca12'
-link_handover = 'FHOOE.Orchestrator.Runtime.WorkflowCommand:d8076bf9-bc2e-4bb3-89cd-052c79f2c3b5'
-
 
 def get_adaptId(wfc):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
@@ -50,7 +66,7 @@ def send_ROSmsg_release():
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
-    print(task_exec, '\n', 'received')
+    # print(task_exec, '\n', 'received')
 
 def send_ROSmsg_pickup(obj):
     global pub2TaskExe
@@ -70,7 +86,7 @@ def send_ROSmsg_pickup(obj):
     # synchronization
     task_exec.request_id = 99
     pub2TaskExe.publish(task_exec)
-    print(task_exec, '\n', 'received')
+    # print(task_exec, '\n', 'received')
 
 def send_ROSmsg_handover(obj):
     global pub2TaskExe
@@ -97,7 +113,7 @@ def send_ROSmsg_handover(obj):
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
-    print(task_exec, '\n', 'handOver_task')
+    # print(task_exec, '\n', 'handOver_task')
 
 def send_ROSmsg_navigate(obj):
     global pub2TaskExe
@@ -117,7 +133,7 @@ def send_ROSmsg_navigate(obj):
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
-    print(task_exec, '\n', 'navigate')
+    # print(task_exec, '\n', 'navigate')
 
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
@@ -139,51 +155,34 @@ class RequestHandler(BaseHTTPRequestHandler):
         datalen = int(self.headers['Content-Length'])  # size receive message
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
-        # obj = requests.get("http://25.45.111.204:1026/v2/entities/" )#+ str(link_handover))
-        print(obj)
         sender_module = obj['data'][0]['id']
-        print(sender_module, '_______')
-        if re.findall('WorkerPose', sender_module):
-            pass
-            print('KOSTAS IS HERE !!!!', )
+
+        if re.findall('forth.hri.RobotAction', sender_module):
+            print(CYEL1, obj['data'][0]['type'], CEND)
 
         elif re.findall('SystemHealth', sender_module):
-            pass
+            print(CGR1, obj['data'][0]['id'], CEND)
+
 
         elif re.findall('WorkflowCommand', sender_module):
-            print('WORKFLOW COMMAND IS HERE!!!')
 
             action_type = obj['data'][0]['actionType']['value']
             print('ACTION_TYPE', action_type)
-
             if action_type == 'release':
+                print('send_ROSmsg_release')
                 send_ROSmsg_release()
 
             elif action_type == 'pickup':
+                print('send_ROSmsg_pickup')
                 send_ROSmsg_pickup(obj)
 
             elif action_type == 'handover':
+                print('send_ROSmsg_handover')
                 send_ROSmsg_handover(obj)
 
             elif action_type == 'navigate':
+                print('send_ROSmsg_navigate')
                 send_ROSmsg_navigate(obj)
-
-        # else:
-        #     action_type = obj.json()['actionType']['value']
-        #     if action_type == 'release':
-        #         send_msg_release()
-        #     elif action_type == 'pickup':
-        #         send_msg_pickup(obj)
-        #     elif action_type == 'handover':
-        #         send_msg_handover()
-        #     elif action_type == 'navigate':
-        #         send_msg_navigate()
-
-        print('___________________')
-        # this is to place the code
-
-        # Here add thr code for processing.
-        print(" Received Fiware Msg ")
 
         # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
         self.send_response(200)
@@ -206,12 +205,11 @@ class MyReceiver:
 
     def start(self):  # Start server method
         sa = self.httpd.socket.getsockname()
-        Log("INFO", "\nServing HTTP on", sa[0], "port", sa[1], "...")
+        # Log("INFO", "\nServing HTTP on", sa[0], "port", sa[1], "...")
 
         while not self.stopped:
-            print("inloop")
             self.httpd.handle_request()
-            print("inloop....2")
+            print("in loop....")
 
     def close(self):  # Stop server method
         self.stopped = True
@@ -239,6 +237,7 @@ selection_address_CB = '25.45.111.204'
 ######
 
 #########
+
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message

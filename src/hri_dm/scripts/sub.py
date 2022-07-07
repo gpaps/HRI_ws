@@ -32,12 +32,12 @@ msg_FORTH_HRI = "{" \
       "    }\n}"
 
 # subscription
-msg_ICCS = "{" \
+msg_FORTH_ScenePerception = "{" \
        "    \"description\": \"FORTH-RoboTest\",\n" \
        "    \"subject\": {\n" \
        "        \"entities\":\n" \
        "        [{\n" \
-       "            \"idPattern\": \"iccs.hbu.*\",\n" \
+       "            \"idPattern\": \"FORTH.ScenePerception.*\",\n" \
        "            \"typePattern\": \".*\"\n" \
        "        }],\n" \
        "        \"conditions\": {\n" \
@@ -95,8 +95,8 @@ if response.ok:  # positive response, notification accepted
 else:  # error response
     print("CB response -> " + response.text)
 
-# ICCS
-response1 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_ICCS, headers=CB_HEADER)
+# Forth_ScenePerception
+response1 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FORTH_ScenePerception, headers=CB_HEADER)
 if response1.ok:  # positive response, notification accepted
     print("CB response1 -> status " + response1.status_code.__str__())
 else:  # error response

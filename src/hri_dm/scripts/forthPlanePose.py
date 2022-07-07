@@ -47,12 +47,12 @@ class PlanePoseStatePost(PlanePose):
         self.json_message['position']['value']['y']['value'] = y
         self.json_message['orientation']['value'] = theta
 
-        print(x, y, theta)
+        # print(x, y, theta)
 
         self.json_action_message = {"actionType": "append", "entities": [self.json_message]}
         # self.json_action_message = {"actionType": "update", "entities": [self.json_message]}
         msg = json.dumps(self.json_action_message)
-        print(msg)
+        # print(msg)
         response = requests.post(self.CB_BASE_URL + "op/update", data=msg, headers=CB_HEADER)
 
         if response.ok:  # response successful

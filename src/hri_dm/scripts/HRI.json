@@ -135,13 +135,9 @@
 				"type": "number",
 				"value": 3
 			},
-			"fingerState": {
+			"state": {
 				"type": "string",
-				"value": "open"
-			},
-			"armState": {
-				"type": "string",
-				"value": "safeback"
+				"value": "active"
 			},
 			"result": {
 				"type": "string",
@@ -153,14 +149,13 @@
 				"type": "dataType",
 				"value": {
 					"toolID": "Integer",
-					"fingerState": "string",
-					"armState": "string",
+					"state": "string",
 					"result": "string"
 				}
 			},
 			"Description": {
 				"type": "string",
-				"value": "IdD of the tool to releaseover, fingerState: open;close, armState: extented;unkown;safeback, result: fail;stoped;unknown;sucess"
+				"value": "IdD of the tool to release over, state:active;inactive, result: fail;stopped;unknown;success"
 			}
 		}
 	},

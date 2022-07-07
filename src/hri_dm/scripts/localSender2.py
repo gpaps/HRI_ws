@@ -30,9 +30,9 @@ def send_msg_taskexec2hri():
     # For synchronization
     task_exec.request_id = 32
     # True if success; False if not
-    task_exec.result = False
+    task_exec.result = True
     # Error type e.g. “null”, “ArmExtFailed”, “ObjLocFailed”, ReachFailed”, “GraspingFailed”, “ArmHomingFailed”, “ArmRecoveryFailed”, “HandOverReachFailed”, “HandOverReleaseFailed”, “NavigationFailed”
-    task_exec.error_type = 'NavigationFailed'
+    task_exec.error_type = 'null'
     rospy.loginfo(task_exec)
     pub2HRIDM.publish(task_exec)
     print('end_of_message_  sendS_msg_TASKExec2HRI and pub2HRIDM', '\n')
@@ -72,10 +72,10 @@ def send_msg_pose2d():
 
 def native_sender():
     global result
-    rospy.loginfo('sender node starter')
-    send_msg_hri2task()
+    rospy.loginfo('sender node starts..')
+    # send_msg_hri2task()
     send_msg_taskexec2hri()
-    send_msg_pose2d(), '\n'
+    # send_msg_pose2d(), '\n'
 
 if __name__ == '__main__':
     # init the 1st publisher  or init the first pub-in
