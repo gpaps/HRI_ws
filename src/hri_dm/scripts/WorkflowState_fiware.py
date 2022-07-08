@@ -44,8 +44,6 @@ class WorkFlowStatePost(WorkFlow):
     def updateStateMsg_pickup(self, state, result, toolID=None, x=None, y=None, z=None):
         if toolID is not None:
             self.json_message['a_grasp']['value']['toolID']['value'] = toolID
-        else:
-            print("PEIRA NONE _______PICKUP______")
         if x is not None:
             self.json_message['a_grasp']['value']['x']['value'] = x
         if y is not None:
