@@ -247,12 +247,26 @@ selection_address_CB = '25.45.111.204'
 
 #########
 
+try:
+    user = sys.argv[1]
+except IndexError:
+    print("start with default user: g")
+    user = "g"
+print ("user=", user)
+
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
+    print("tryiiiiiiing")
     # send_msg_release()
-    server = MyReceiver(g_selection_address, int(selection_port))
+    if user == "g":
+        server = MyReceiver(g_selection_address, int(selection_port))
+    elif user == "m":
+        server = MyReceiver(m_selection_address, int(selection_port))
+    else:
+        print("Exit due to Unknown User")
+        quit()
 except Exception as ex:
     raise Exception("Unable to create a Receiver")
 else:  # close application and server
