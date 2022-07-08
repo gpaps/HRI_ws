@@ -20,10 +20,7 @@ port = 1026
 
 # navigate, grasp, releaseTool, handover
 # ta state ta xreiazomaste, ta result mallon oxi
-navigate_state = 0
-pickup_state = 0
-release_state = 0
-handover_state = 0
+navigate_state, pickup_state, release_state, handover_state = 0, 0, 0, 0
 last_toolID = -1
 
 ACT_RES_FAIL = -1
@@ -34,17 +31,18 @@ def callback_task2exec(data):
     # navigate, grasp, releaseTool, handover
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
 
-    WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
+    workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
 
     if data.action == 'navigate':
         navigate_state = 1
         pickup_state = 0
         release_state = 0
         handover_state = 0
+        # TODO to 8eloume to comment auto?Isxuei to provlima auto ?
         # to ACT_RES_UNKNOWN thelei allagh sthn updateStateMsg_nav giati einai 3 oi dynates times twra
-        rospy.loginfo('Navigate Starts..')
-        WorkFlowState.updateStateMsg_nav(data.navpos.x, data.navpos.y, data.navpos.theta,
+        workflow_state.updateStateMsg_nav(data.navpos.x, data.navpos.y, data.navpos.theta,
                                          navigate_state, ACT_RES_UNKNOWN)
+        rospy.loginfo('Navigate Starts..')
 
     elif data.action == 'pickup':
         navigate_state = 0
@@ -52,7 +50,7 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 0
         last_toolID = data.tool_id
-        WorkFlowState.updateStateMsg_pickup(data.tool_id, data.location.x, data.location.y, data.location.z,
+        workflow_state.updateStateMsg_pickup(data.tool_id, data.location.x, data.location.y, data.location.z,
                                             pickup_state, ACT_RES_UNKNOWN)
         rospy.loginfo('Pickup Starts..')
 
@@ -62,7 +60,7 @@ def callback_task2exec(data):
         release_state = 1
         handover_state = 0
         last_toolID = data.tool_id
-        WorkFlowState.updateStateMsg_release(data.tool_id, release_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_release(data.tool_id, release_state, ACT_RES_UNKNOWN)
         rospy.loginfo('Release Starts..')
 
     elif data.action == 'handover':
@@ -71,17 +69,17 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 1
         last_toolID = data.tool_id
-        WorkFlowState.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN)
         rospy.loginfo('Handover Starts..')
 
 
 def callback_HRIhealth(data):
     print('callback_HRIhealth')
-    rospy.loginfo('receiving message.. ., ')  #%s data.action)
+    rospy.loginfo('receiving message..., ')  #%s data.action)
 
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
-    hriStateTest = HRI_HealthStatePost(address, port, 'forth.HRI.SystemHealth:001', HRI_health_jsonFName)
-    hriStateTest.updateStateMsg("OK", str(my_date.isoformat())), '\n'
+    hri_state_test = HRI_HealthStatePost(address, port, 'forth.HRI.SystemHealth:001', HRI_health_jsonFName)
+    hri_state_test.updateStateMsg("OK", str(my_date.isoformat())), '\n'
     # print(data)
 
     #  Get information about the result of robot action execution in ROS, to be forwarded to the Orchestrator
@@ -91,7 +89,7 @@ def callback_TaskExResult(data):
     print(data)
     print('callback_TaskExResult')
     rospy.loginfo('receiving message..')  # 2222 %s', data)
-    WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
+    workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
     
     # if no error is reported back by the module undertaking the execution  
     if re.findall('null', data.error_type):
@@ -102,29 +100,29 @@ def callback_TaskExResult(data):
     if navigate_state == 1:
         # it has completed so it is not active anymore
         navigate_state = 0
-        WorkFlowState.updateStateMsg_nav(None, None, None,navigate_state, ACT_RES_SUCCESS)
+        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_SUCCESS)
 
     # if "pickup" was the active action (i.e. under execution) provide an update for this action
     elif pickup_state == 1:  # pickup == grasp
         # it has completed so it is not active anymore
         pickup_state = 0
-        WorkFlowState.updateState_pickup(pickup_state, ACT_RES_SUCCESS)
+        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_SUCCESS)
 
     # if "release" was the active action (i.e. under execution) provide an update for this action
     elif release_state == 1:
         # it has completed so it is not active anymore
         release_state = 0
-        WorkFlowState.updateState_release(release_state, ACT_RES_SUCCESS)
+        workflow_state.updateStateMsg_release(release_state, ACT_RES_SUCCESS)
 
     elif handover_state == 1:
         handover_state = 0
-        WorkFlowState.updateState_handover(handover_state, ACT_RES_SUCCESS)
+        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_SUCCESS)
 
 
 def callback_ScenePHealth(data):
     # rospy.sleep(.5)
     print('callback_ScenePHealth')
-    rospy.loginfo('receiving message2222 %s', )  # data.action)
+    rospy.loginfo('receiving message.. ')  #%s data.action)
 
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
     ScenePerceptionState = HRI_HealthStatePost(address, port, 'forth.ScenePerception.SystemHealth:001',
