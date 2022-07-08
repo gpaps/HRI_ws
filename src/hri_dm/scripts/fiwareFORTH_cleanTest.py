@@ -229,7 +229,11 @@ initLog()
 
 # Input data acquisition
 selection_port = '2620'
-selection_address = '25.28.115.246'
+g_selection_address = '25.28.115.246'
+#
+m_selection_address = '25.28.181.178'
+
+# Broker
 selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
 
@@ -248,7 +252,7 @@ rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
     # send_msg_release()
-    server = MyReceiver(selection_address, int(selection_port))
+    server = MyReceiver(g_selection_address, int(selection_port))
 except Exception as ex:
     raise Exception("Unable to create a Receiver")
 else:  # close application and server
