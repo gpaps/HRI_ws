@@ -9,11 +9,11 @@ from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from forthPlanePose import PlanePoseStatePost
 
-HRI_health_jsonFName = r"/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/HRI_health.json"
-ScenePerception_health_jsonFName = r"/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/ScenePerception_health.json"
-PlanePose = "/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/PlanePose.json"
-workFlow_json = "/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/HRI.json"
-
+HRI_health_jsonFName = "./HRI_health.json"
+ScenePerception_health_jsonFName = "./ScenePerception_health.json"
+PlanePose = "./PlanePose.json"
+workFlow_json = "./HRI.json"
+Aegis_buttonPress = './Aegis_ButtonPress.json'
 address = "25.45.111.204"
 port = 1026
 

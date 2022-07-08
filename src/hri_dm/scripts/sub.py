@@ -79,6 +79,32 @@ msg_FHOE = "{" \
 
 CB_BASE_URL = "http://{}:{}/v2/".format(selection_address_CB, selection_port_CB)  # url send notification
 
+# subscription
+msg_AEGIS_ButtonPress = "{" \
+       "    \"description\": \"FORTH-RoboTest\",\n" \
+       "    \"subject\": {\n" \
+       "        \"entities\":\n" \
+       "        [{\n" \
+       "            \"idPattern\": \"AEGIS.Visualizations.*\",\n" \
+       "            \"typePattern\": \".*\"\n" \
+       "        }],\n" \
+       "        \"conditions\": {\n" \
+       "            \"attrs\": []\n" \
+       "        }\n" \
+       "    },\n" \
+       "    \"notification\": {\n" \
+       "        \"http\": {\n" \
+       "            \"url\": \"http://25.28.115.246:2620/\",\n" \
+       "            \"method\": \"POST\",\n" \
+       "            \"headers\": {\n" \
+       "                \"Content-Type\": \"application/json\"\n" \
+       "            }\n" \
+       "        }\n" \
+       "    }\n}"
+
+CB_BASE_URL = "http://{}:{}/v2/".format(selection_address_CB, selection_port_CB)  # url send notification
+
+
 # Log("INFO", "Send subcription")
 # Log("INFO", msg)
 
@@ -91,20 +117,27 @@ CB_BASE_URL = "http://{}:{}/v2/".format(selection_address_CB, selection_port_CB)
 # FORTH HRI
 response = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FORTH_HRI, headers=CB_HEADER)  # send request to Context Broker
 if response.ok:  # positive response, notification accepted
-    print("CB response -> status " + response.status_code.__str__())
+    print("CB response FORTH HRI -> status " + response.status_code.__str__())
 else:  # error response
-    print("CB response -> " + response.text)
+    print("CB response FORTH HRI -> " + response.text)
 
 # Forth_ScenePerception
 response1 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FORTH_ScenePerception, headers=CB_HEADER)
 if response1.ok:  # positive response, notification accepted
-    print("CB response1 -> status " + response1.status_code.__str__())
+    print("CB response Forth_ScenePerception -> status " + response1.status_code.__str__())
 else:  # error response
-    print("CB response1 -> " + response1.text)
+    print("CB response Forth_ScenePerception -> " + response1.text)
 
 # FHOE
 response2 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FHOE, headers=CB_HEADER)
 if response2.ok:  # positive response, notification accepted
-    print("CB response1 -> status " + response2.status_code.__str__())
+    print("CB response FHOE -> status " + response2.status_code.__str__())
 else:  # error response
-    print("CB response1 -> " + response2.text)
+    print("CB response FHOE -> " + response2.text)
+
+# AEGIS_ButtonPress
+response3 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_AEGIS_ButtonPress, headers=CB_HEADER)
+if response3.ok:  # positive response, notification accepted
+    print("CB response AEGIS_ButtonPress -> status " + response3.status_code.__str__())
+else:  # error response
+    print("CB response AEGIS_ButtonPress -> " + response3.text)

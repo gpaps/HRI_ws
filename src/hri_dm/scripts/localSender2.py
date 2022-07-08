@@ -8,7 +8,7 @@ from std_msgs.msg import String, Float64
 from forthHRIHealthPost import HRI_HealthStatePost
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
 
-HRI_health_jsonFName = r"/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts/HRI_health.json"
+HRI_health_jsonFName = "./HRI_health.json"
 address = "25.45.111.204"
 port = 1026
 

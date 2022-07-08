@@ -1,0 +1,21 @@
+{
+   "id":"AEGIS.Visualizations.Button:a0e107f2-cf93-482f-93dd-72ec7191d053",
+   "type":"Button",
+   "timestamp": {
+      "type":"DateTime",
+      "value":"2022-07-08T13:44:43.423874Z"
+   },
+   "command": {
+      "type":"Boolean",
+      "value":"true",
+      "metadata": {
+         "english": {
+            "type":"String",
+            "value":"Button pressed"
+         },
+         "italian": {
+            "type":"String",
+            "value":"Pulsante premuto"
+         }
+      }
+   },
