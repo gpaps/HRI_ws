@@ -159,18 +159,23 @@ class RequestHandler(BaseHTTPRequestHandler):
         sender_module = obj['data'][0]['id']
 
         if re.findall('forth.hri.RobotAction', sender_module):
-            print(CYEL1, obj['data'][0]['type'], CEND)
+            # print(CYEL1, obj['data'][0]['type'], CEND)
+            print(CYEL1, "navigate:",obj['data'][0]['a_navigate']['value']['state']['value'])
+            print("grasp:",obj['data'][0]['a_grasp']['value']['state']['value'])
+            print("handover:",obj['data'][0]['a_handover']['value']['state']['value'])
+            print("release:",obj['data'][0]['a_release']['value']['state']['value'], CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
-            send_ROSmsg_release()
+            if obj['data'][0]['command']['value'] == "True":
+                send_ROSmsg_release()
+                print(CRED1, "release sent", CEND)
 
         elif re.findall('SystemHealth', sender_module):
             print(CGR1, obj['data'][0]['id'], CEND)
 
 
         elif re.findall('WorkflowCommand', sender_module):
-
             action_type = obj['data'][0]['actionType']['value']
             print('ACTION_TYPE', action_type)
             if action_type == 'release':
@@ -258,8 +263,6 @@ Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
-    print("tryiiiiiiing")
-    # send_msg_release()
     if user == "g":
         server = MyReceiver(g_selection_address, int(selection_port))
     elif user == "m":
