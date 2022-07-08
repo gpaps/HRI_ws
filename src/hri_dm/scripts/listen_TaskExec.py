@@ -91,7 +91,12 @@ def callback_TaskExResult(data):
     print('callback_TaskExResult')
     rospy.loginfo('receiving message..')  # 2222 %s', data)
     WorkFlowState = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
-
+    
+    # if no error is reported back by the module undertaking the execution  
+    if re.findall('null', data.error_type):
+        rslt = ACT_RES_SUCCESS
+    # we need to synchronize ROS messages and FIWARE messages more carefully....
+        
     # if "navigate" was the active action (i.e. under execution) provide an update for this action
     if navigate_state == 1:
         # it has completed so it is not active anymore
