@@ -1,3 +1,4 @@
+import re
 import sys
 import json
 
@@ -135,10 +136,6 @@ def send_ROSmsg_navigate(obj):
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'navigate')
 
-def send_ROSmsg_ButtonPress():
-    print('AEGIS in Fnction')
-    send_ROSmsg_release()
-
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
@@ -165,10 +162,8 @@ class RequestHandler(BaseHTTPRequestHandler):
             print(CYEL1, obj['data'][0]['type'], CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
-            print(CMAG1, obj['data'][0]['command']['value'],CEND)
-            send_ROSmsg_ButtonPress()
-            print('AEGIS IS HERE')
-
+            print(CRED1, obj['data'][0]['command']['value'], CEND)
+            send_ROSmsg_release()
 
         elif re.findall('SystemHealth', sender_module):
             print(CGR1, obj['data'][0]['id'], CEND)

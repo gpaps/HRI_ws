@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+import re
 import rospy
 import requests
 from datetime import datetime
@@ -73,6 +74,7 @@ def callback_task2exec(data):
         WorkFlowState.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN)
         rospy.loginfo('Handover Starts..')
 
+
 def callback_HRIhealth(data):
     print('callback_HRIhealth')
     rospy.loginfo('receiving message.. ., ')  #%s data.action)
@@ -84,7 +86,6 @@ def callback_HRIhealth(data):
 
     #  Get information about the result of robot action execution in ROS, to be forwarded to the Orchestrator
 
-
 def callback_TaskExResult(data):
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
     print(data)
@@ -95,13 +96,13 @@ def callback_TaskExResult(data):
     # if no error is reported back by the module undertaking the execution  
     if re.findall('null', data.error_type):
         rslt = ACT_RES_SUCCESS
+
     # we need to synchronize ROS messages and FIWARE messages more carefully....
-        
     # if "navigate" was the active action (i.e. under execution) provide an update for this action
     if navigate_state == 1:
         # it has completed so it is not active anymore
         navigate_state = 0
-        WorkFlowState.updateState_nav(navigate_state, ACT_RES_SUCCESS)
+        WorkFlowState.updateStateMsg_nav(None, None, None,navigate_state, ACT_RES_SUCCESS)
 
     # if "pickup" was the active action (i.e. under execution) provide an update for this action
     elif pickup_state == 1:  # pickup == grasp

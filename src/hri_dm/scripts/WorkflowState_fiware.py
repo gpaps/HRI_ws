@@ -101,6 +101,7 @@ class WorkFlowStatePost(WorkFlow):
     def updateStateMsg_nav(self, x, y, theta, state, result):
         if x is not None:
             self.json_message['a_navigate']['value']['x']['value'] = x
+        else: print("PEIRA NONE ______________________")
         if y is not None:
             self.json_message['a_navigate']['value']['y']['value'] = y
         if theta is not None:
