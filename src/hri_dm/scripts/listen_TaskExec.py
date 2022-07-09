@@ -47,8 +47,7 @@ def callback_task2exec(data):
         pickup_state = 0
         release_state = 0
         handover_state = 0
-        workflow_state.updateStateMsg_nav(data.navpos.x, data.navpos.y, data.navpos.theta,
-                                         navigate_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN, data.navpos.x, data.navpos.y, data.navpos.theta)
         rospy.loginfo('Navigate Starts..')
 
     elif data.action == 'pickup':
@@ -57,8 +56,7 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 0
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_pickup(data.tool_id, data.location.x, data.location.y, data.location.z,
-                                            pickup_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Pickup Starts..')
 
     elif data.action == 'release':
@@ -67,7 +65,7 @@ def callback_task2exec(data):
         release_state = 1
         handover_state = 0
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_release(data.tool_id, release_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_release(release_state, ACT_RES_UNKNOWN, data.tool_id)
         rospy.loginfo('Release Starts..')
 
     elif data.action == 'handover':
@@ -76,7 +74,7 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 1
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN)
+        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Handover Starts..')
 
     #inform FIWARE that the current script is alive
