@@ -160,10 +160,12 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         if re.findall('forth.hri.RobotAction', sender_module):
             # print(CYEL1, obj['data'][0]['type'], CEND)
+            print(obj)
             print(CYEL1, "navigate:",obj['data'][0]['a_navigate']['value']['state']['value'])
             print("grasp:",obj['data'][0]['a_grasp']['value']['state']['value'])
             print("handover:",obj['data'][0]['a_handover']['value']['state']['value'])
-            print("release:",obj['data'][0]['a_release']['value']['state']['value'], CEND)
+            print("release:",obj['data'][0]['a_releaseTool']['value']['state']['value'],
+                  CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
