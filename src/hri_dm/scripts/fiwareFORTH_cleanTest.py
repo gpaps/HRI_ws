@@ -175,8 +175,6 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         elif re.findall('SystemHealth', sender_module):
             print(CGR1, obj['data'][0]['id'], CEND)
-            print(CRED1, obj['data'][0]['id'], CEND)
-
 
         elif re.findall('WorkflowCommand', sender_module):
             action_type = obj['data'][0]['actionType']['value']
