@@ -171,6 +171,7 @@ class RequestHandler(BaseHTTPRequestHandler):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == "True":
                 send_ROSmsg_release()
+
                 print(CRED1, "release sent", CEND)
 
         elif re.findall('SystemHealth', sender_module):
