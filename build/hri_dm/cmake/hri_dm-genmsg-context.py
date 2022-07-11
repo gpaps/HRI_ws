@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.context.in
 
-messages_str = "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg;/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+messages_str = "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg;/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg;/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg;/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg;/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
 services_str = ""
 pkg_name = "hri_dm"
 dependencies_str = "std_msgs;geometry_msgs"

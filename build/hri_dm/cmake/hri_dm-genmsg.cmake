@@ -1,6 +1,6 @@
 # generated from genmsg/cmake/pkg-genmsg.cmake.em
 
-message(STATUS "hri_dm: 2 messages, 0 services")
+message(STATUS "hri_dm: 5 messages, 0 services")
 
 set(MSG_I_FLAGS "-Ihri_dm:/home/gpapo/Desktop/hri_ws/src/hri_dm/msg;-Istd_msgs:/opt/ros/noetic/share/std_msgs/cmake/../msg;-Igeometry_msgs:/opt/ros/noetic/share/geometry_msgs/cmake/../msg")
 
@@ -19,12 +19,27 @@ add_custom_target(hri_dm_generate_messages ALL)
 
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg" NAME_WE)
 add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
-  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg" "geometry_msgs/Vector3:geometry_msgs/Pose2D"
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg" "geometry_msgs/Pose2D:geometry_msgs/Vector3"
 )
 
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
 add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
   COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" ""
+)
+
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" "geometry_msgs/Pose:geometry_msgs/Quaternion:geometry_msgs/Point"
+)
+
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" "geometry_msgs/Quaternion:geometry_msgs/Point:std_msgs/Header:geometry_msgs/PoseWithCovariance:geometry_msgs/Pose"
+)
+
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
+add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
+  COMMAND ${CATKIN_ENV} ${PYTHON_EXECUTABLE} ${GENMSG_CHECK_DEPS_SCRIPT} "hri_dm" "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" ""
 )
 
 #
@@ -36,11 +51,29 @@ add_custom_target(_hri_dm_generate_messages_check_deps_${_filename}
 _generate_msg_cpp(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/hri_dm
 )
 _generate_msg_cpp(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_cpp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_cpp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_cpp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gencpp_INSTALL_DIR}/hri_dm
@@ -64,6 +97,12 @@ get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRID
 add_dependencies(hri_dm_generate_messages_cpp _hri_dm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_cpp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_cpp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_cpp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_cpp _hri_dm_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(hri_dm_gencpp)
@@ -77,11 +116,29 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS hri_dm_generate_messages_cpp)
 _generate_msg_eus(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/hri_dm
 )
 _generate_msg_eus(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/hri_dm
+)
+_generate_msg_eus(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/hri_dm
+)
+_generate_msg_eus(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/hri_dm
+)
+_generate_msg_eus(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${geneus_INSTALL_DIR}/hri_dm
@@ -105,6 +162,12 @@ get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRID
 add_dependencies(hri_dm_generate_messages_eus _hri_dm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_eus _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_eus _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_eus _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_eus _hri_dm_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(hri_dm_geneus)
@@ -118,11 +181,29 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS hri_dm_generate_messages_eus)
 _generate_msg_lisp(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/hri_dm
 )
 _generate_msg_lisp(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_lisp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_lisp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/hri_dm
+)
+_generate_msg_lisp(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genlisp_INSTALL_DIR}/hri_dm
@@ -146,6 +227,12 @@ get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRID
 add_dependencies(hri_dm_generate_messages_lisp _hri_dm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_lisp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_lisp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_lisp _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_lisp _hri_dm_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(hri_dm_genlisp)
@@ -159,11 +246,29 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS hri_dm_generate_messages_lisp)
 _generate_msg_nodejs(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/hri_dm
 )
 _generate_msg_nodejs(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/hri_dm
+)
+_generate_msg_nodejs(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/hri_dm
+)
+_generate_msg_nodejs(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/hri_dm
+)
+_generate_msg_nodejs(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${gennodejs_INSTALL_DIR}/hri_dm
@@ -187,6 +292,12 @@ get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRID
 add_dependencies(hri_dm_generate_messages_nodejs _hri_dm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_nodejs _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_nodejs _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_nodejs _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_nodejs _hri_dm_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility
 add_custom_target(hri_dm_gennodejs)
@@ -200,11 +311,29 @@ list(APPEND ${PROJECT_NAME}_EXPORTED_TARGETS hri_dm_generate_messages_nodejs)
 _generate_msg_py(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg"
   "${MSG_I_FLAGS}"
-  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose2D.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Vector3.msg"
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/hri_dm
 )
 _generate_msg_py(hri_dm
   "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg"
+  "${MSG_I_FLAGS}"
+  ""
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/hri_dm
+)
+_generate_msg_py(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/hri_dm
+)
+_generate_msg_py(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg"
+  "${MSG_I_FLAGS}"
+  "/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Quaternion.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Point.msg;/opt/ros/noetic/share/std_msgs/cmake/../msg/Header.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/PoseWithCovariance.msg;/opt/ros/noetic/share/geometry_msgs/cmake/../msg/Pose.msg"
+  ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/hri_dm
+)
+_generate_msg_py(hri_dm
+  "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg"
   "${MSG_I_FLAGS}"
   ""
   ${CATKIN_DEVEL_PREFIX}/${genpy_INSTALL_DIR}/hri_dm
@@ -227,6 +356,12 @@ add_dependencies(hri_dm_generate_messages hri_dm_generate_messages_py)
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/HRIDM2TaskExecution.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_py _hri_dm_generate_messages_check_deps_${_filename})
 get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/TaskExecution2HRIDM.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_py _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovariance.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_py _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/PoseWithCovarianceStamped.msg" NAME_WE)
+add_dependencies(hri_dm_generate_messages_py _hri_dm_generate_messages_check_deps_${_filename})
+get_filename_component(_filename "/home/gpapo/Desktop/hri_ws/src/hri_dm/msg/Pose2D.msg" NAME_WE)
 add_dependencies(hri_dm_generate_messages_py _hri_dm_generate_messages_check_deps_${_filename})
 
 # target for backward compatibility

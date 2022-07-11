@@ -4,7 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e03ab2e2-81e6-4b8f-b9e8-77ed27dbc04f" name="Changes" comment="cmake change list" />
+    <list default="true" id="e03ab2e2-81e6-4b8f-b9e8-77ed27dbc04f" name="Changes" comment="removed line">
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/a.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/a1.out" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22__12_59_____Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.develspace.in" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.develspace.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.installspace.in" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.installspace.in" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/hri_dm-msg-extras.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/hri_dm-msg-extras.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/listen_TaskExec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/logger.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/sub.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/listen_TaskExec.py.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/listen_TaskExec.py.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/sub.py.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/sub.py.stamp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg-context.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg-context.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/devel/share/hri_dm/cmake/hri_dm-msg-extras.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/hri_dm/cmake/hri_dm-msg-extras.cmake" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -37,37 +57,39 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/opt/ros/noetic&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PythonContentEntriesConfigurable&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;ChangesTree.GroupingKeys&quot;: [
-      &quot;directory&quot;
+  "keyToStringList": {
+    "ChangesTree.GroupingKeys": [
+      "directory"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
       <recent name="$PROJECT_DIR$/src/hri_dm/msg" />
       <recent name="$PROJECT_DIR$/src/hri_dm/scrypti" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/hri_dm/msg" />
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.reader_wfc">
-    <configuration name="humanoidFindLocation_withM" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.sub">
+    <configuration name="_eq2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -80,7 +102,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/humanoidFindLocation_withM.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/_eq2.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -89,7 +111,26 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="humanoid_findLocation2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="fiwareFORTH_cleanTest" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/fiwareFORTH_cleanTest.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="forthPlanePose" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -102,29 +143,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/humanoid_findLocation2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="listen_fiwareFORTH" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hri_ws" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/listen_fiwareFORTH.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/forthPlanePose.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -133,17 +152,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="reader_wfc" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="handover_pos" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="/usr/bin/python3" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="false" />
+      <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/reader_wfc.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_pos.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -160,7 +182,7 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
@@ -175,19 +197,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.reader_wfc" />
-      <item itemvalue="Python.humanoid_findLocation2" />
-      <item itemvalue="Python.humanoidFindLocation_withM" />
-      <item itemvalue="Python.listen_fiwareFORTH" />
+      <item itemvalue="Python.forthPlanePose" />
       <item itemvalue="Python.sub" />
+      <item itemvalue="Python.fiwareFORTH_cleanTest" />
+      <item itemvalue="Python.handover_pos" />
+      <item itemvalue="Python._eq2" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.reader_wfc" />
-        <item itemvalue="Python.listen_fiwareFORTH" />
-        <item itemvalue="Python.humanoid_findLocation2" />
-        <item itemvalue="Python.humanoidFindLocation_withM" />
         <item itemvalue="Python.sub" />
+        <item itemvalue="Python.forthPlanePose" />
+        <item itemvalue="Python.fiwareFORTH_cleanTest" />
+        <item itemvalue="Python.handover_pos" />
+        <item itemvalue="Python._eq2" />
       </list>
     </recent_temporary>
   </component>
@@ -210,6 +232,10 @@
       <workItem from="1655376865300" duration="365000" />
       <workItem from="1655377609371" duration="695000" />
       <workItem from="1655378659058" duration="355000" />
+      <workItem from="1656314703876" duration="17500000" />
+      <workItem from="1656496476001" duration="405000" />
+      <workItem from="1656496893177" duration="7204000" />
+      <workItem from="1656700333149" duration="85358000" />
     </task>
     <task id="LOCAL-00001" summary="test">
       <created>1655368359832</created>
@@ -267,7 +293,273 @@
       <option name="project" value="LOCAL" />
       <updated>1655378857202</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="linear_eq change">
+      <created>1655815687148</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1655815687148</updated>
+    </task>
+    <task id="LOCAL-00010" summary="linear_eq change">
+      <created>1655818108193</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1655818108193</updated>
+    </task>
+    <task id="LOCAL-00011" summary="linear_eq change">
+      <created>1655883787395</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1655883787395</updated>
+    </task>
+    <task id="LOCAL-00012" summary="get_humanPos()- input either 1 or 2 or 3. &#10;returns x,y, orn">
+      <created>1655889037327</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1655889037327</updated>
+    </task>
+    <task id="LOCAL-00013" summary="get_humanPos()- input either 1 or 2 or 3. &#10;returns x,y, orn">
+      <created>1655896960459</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1655896960459</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Test for pyBullet import's humanPose,x,y from ICCS/context broker/json/etc">
+      <created>1655898272646</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1655898272646</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Multiple subscriptions with the same name(FORTH-RoboTest)&#10;1) FHOE.Orchestrator&#10;2) ICCS&#10;3) FORTH.HRI">
+      <created>1656323571937</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1656323571938</updated>
+    </task>
+    <task id="LOCAL-00016" summary="-String check for entities/topics &#10;-Minor changes in code">
+      <created>1656323728891</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1656323728891</updated>
+    </task>
+    <task id="LOCAL-00017" summary="-String check for entities/topics &#10;-Minor changes in code">
+      <created>1656323742084</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1656323742084</updated>
+    </task>
+    <task id="LOCAL-00018" summary="two extra msgs PoseWithCovariance.msg, PoseWithCovarianceStamped.msg">
+      <created>1656335224766</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1656335224766</updated>
+    </task>
+    <task id="LOCAL-00019" summary="two extra msgs PoseWithCovariance.msg, PoseWithCovarianceStamped.msg">
+      <created>1656335235404</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1656335235404</updated>
+    </task>
+    <task id="LOCAL-00020" summary="doc string added to function's">
+      <created>1656335263499</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1656335263499</updated>
+    </task>
+    <task id="LOCAL-00021" summary="minor changes, (delete some comments, and change some default values, ex. -0.999 to 99999)">
+      <created>1656335349044</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1656335349044</updated>
+    </task>
+    <task id="LOCAL-00022" summary="bash script will automate the init of all scripts, likewise &quot;sudo hamachi login&quot;, &quot;source devel/setup.bash&quot;, &quot;roscore&quot;&#10;Under-Construction. till we know what scripts to handle under a specific sequence">
+      <created>1656335559807</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1656335559807</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Pose2D.msg bridges between fiware/ros/ for ics">
+      <created>1656404276993</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1656404276994</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Pose2D.msg added to CMakeLists.txt&#10;_eq.py fcn">
+      <created>1656404499310</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1656404499310</updated>
+    </task>
+    <task id="LOCAL-00025" summary="workflowCommand is HERE!">
+      <created>1656947944791</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1656947944791</updated>
+    </task>
+    <task id="LOCAL-00026" summary="-rename fcn to ROSmsg,&#10;-test workflow comnds for FHOE&#10;-iccs">
+      <created>1657101906988</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1657101906988</updated>
+    </task>
+    <task id="LOCAL-00027" summary="- remove redundant fcn, &#10;- change from pb from gui to p.direct (terminal usage)">
+      <created>1657102008202</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1657102008202</updated>
+    </task>
+    <task id="LOCAL-00028" summary="content description">
+      <created>1657102951035</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1657102951035</updated>
+    </task>
+    <task id="LOCAL-00029" summary="content description">
+      <created>1657103740338</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1657103740338</updated>
+    </task>
+    <task id="LOCAL-00030" summary="added entity_path as var to support more than one health post!">
+      <created>1657117712010</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1657117712010</updated>
+    </task>
+    <task id="LOCAL-00031" summary="rename was the right choice since we have two, once for us and one for them LOL!">
+      <created>1657117917687</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1657117917687</updated>
+    </task>
+    <task id="LOCAL-00032" summary="- fixing and renaming callbacks, added the two-HealthPost, fix import issues, simplify code, overall subscribe &amp; post healthPost">
+      <created>1657118549004</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1657118549004</updated>
+    </task>
+    <task id="LOCAL-00033" summary="-listenerSubscriber.py - nothing actually change&#10;-localSender2.py - update messages, create msgs_pose2D for publish, create two publisher(pub2HRIDM, pub2Pose2D)">
+      <created>1657119195136</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1657119195136</updated>
+    </task>
+    <task id="LOCAL-00034" summary="minor change's">
+      <created>1657133940471</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1657133940471</updated>
+    </task>
+    <task id="LOCAL-00035" summary="commenting redundant blocks in main,&#10;simplify script">
+      <created>1657134093977</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1657134093977</updated>
+    </task>
+    <task id="LOCAL-00036" summary="json formats for ics to fiware, PlanePose.json and HRI.json,">
+      <created>1657134688919</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1657134688919</updated>
+    </task>
+    <task id="LOCAL-00037" summary="fiware two- oop-pyScripts,&#10;1) forthPlanePose.py(x,y,theta, sends throught fiware)&#10; same principle as above... &#10;2) WorkflowState_fiware.py(nav,grasp,handover, release)">
+      <created>1657135147424</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1657135147424</updated>
+    </task>
+    <task id="LOCAL-00038" summary="callback for HRIDM2TaskExecution&#10;rename function&#10;add states from messages listen from ros send to fiware...">
+      <created>1657135298179</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1657135298179</updated>
+    </task>
+    <task id="LOCAL-00039" summary="local_sender has ics msgs and two publishers, pub2Pose2D, pub2HRIDM, purpose to send message and do test's">
+      <created>1657135394496</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1657135394496</updated>
+    </task>
+    <task id="LOCAL-00040" summary="-add colorlib to the script&#10;-remove prints &#10;-changed json&#10;-create fcn updateStateMSsg*, updateState* for task completion&#10;-added in sub more of IcS-forth&#10;-workflowstatefiware, added the new fcns">
+      <created>1657206738266</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1657206738266</updated>
+    </task>
+    <task id="LOCAL-00041" summary="test">
+      <created>1657281788289</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1657281788289</updated>
+    </task>
+    <task id="LOCAL-00042" summary="test">
+      <created>1657283834510</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1657283834510</updated>
+    </task>
+    <task id="LOCAL-00043" summary="test">
+      <created>1657284357644</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1657284357644</updated>
+    </task>
+    <task id="LOCAL-00044" summary="test">
+      <created>1657287305371</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1657287305371</updated>
+    </task>
+    <task id="LOCAL-00045" summary="test">
+      <created>1657381059946</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1657381059946</updated>
+    </task>
+    <task id="LOCAL-00046" summary="removed line">
+      <created>1657381231019</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1657381231019</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -318,20 +610,56 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CHECK_NEW_TODO" value="false" />
+    <MESSAGE value="Multiple subscriptions with the same name(FORTH-RoboTest)&#10;1) FHOE.Orchestrator&#10;2) ICCS&#10;3) FORTH.HRI" />
+    <MESSAGE value="-String check for entities/topics &#10;-Minor changes in code" />
+    <MESSAGE value="two extra msgs PoseWithCovariance.msg, PoseWithCovarianceStamped.msg" />
+    <MESSAGE value="doc string added to function's" />
+    <MESSAGE value="minor changes, (delete some comments, and change some default values, ex. -0.999 to 99999)" />
+    <MESSAGE value="bash script will automate the init of all scripts, likewise &quot;sudo hamachi login&quot;, &quot;source devel/setup.bash&quot;, &quot;roscore&quot;&#10;Under-Construction. till we know what scripts to handle under a specific sequence" />
+    <MESSAGE value="Pose2D.msg bridges between fiware/ros/ for ics" />
+    <MESSAGE value="Pose2D.msg added to CMakeLists.txt&#10;_eq.py fcn" />
+    <MESSAGE value="workflowCommand is HERE!" />
+    <MESSAGE value="-rename fcn to ROSmsg,&#10;-test workflow comnds for FHOE&#10;-iccs" />
+    <MESSAGE value="- remove redundant fcn, &#10;- change from pb from gui to p.direct (terminal usage)" />
+    <MESSAGE value="content description" />
+    <MESSAGE value="added entity_path as var to support more than one health post!" />
+    <MESSAGE value="rename was the right choice since we have two, once for us and one for them LOL!" />
+    <MESSAGE value="- fixing and renaming callbacks, added the two-HealthPost, fix import issues, simplify code, overall subscribe &amp; post healthPost" />
+    <MESSAGE value="-listenerSubscriber.py - nothing actually change&#10;-localSender2.py - update messages, create msgs_pose2D for publish, create two publisher(pub2HRIDM, pub2Pose2D)" />
+    <MESSAGE value="minor change's" />
+    <MESSAGE value="commenting redundant blocks in main,&#10;simplify script" />
+    <MESSAGE value="json formats for ics to fiware, PlanePose.json and HRI.json," />
+    <MESSAGE value="fiware two- oop-pyScripts,&#10;1) forthPlanePose.py(x,y,theta, sends throught fiware)&#10; same principle as above... &#10;2) WorkflowState_fiware.py(nav,grasp,handover, release)" />
+    <MESSAGE value="callback for HRIDM2TaskExecution&#10;rename function&#10;add states from messages listen from ros send to fiware..." />
+    <MESSAGE value="local_sender has ics msgs and two publishers, pub2Pose2D, pub2HRIDM, purpose to send message and do test's" />
+    <MESSAGE value="-add colorlib to the script&#10;-remove prints &#10;-changed json&#10;-create fcn updateStateMSsg*, updateState* for task completion&#10;-added in sub more of IcS-forth&#10;-workflowstatefiware, added the new fcns" />
     <MESSAGE value="test" />
-    <MESSAGE value="simple fcn, query action," />
-    <MESSAGE value="minor update for testing" />
-    <MESSAGE value="all scripts at one place, for import convenience *&#10;we will divide them again later" />
-    <MESSAGE value="file change.. path change" />
-    <MESSAGE value="cmake change list" />
-    <option name="LAST_COMMIT_MESSAGE" value="cmake change list" />
+    <MESSAGE value="removed line" />
+    <option name="LAST_COMMIT_MESSAGE" value="removed line" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py</url>
+          <line>16</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/hri_ws$receiverFull_ListenFORTH.coverage" NAME="receiverFull_ListenFORTH Coverage Results" MODIFIED="1655211586140" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
     <SUITE FILE_PATH="coverage/hri_ws$humanoidFindLocation_withM.coverage" NAME="humanoidFindLocation_withM Coverage Results" MODIFIED="1655281479350" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$handover_pos.coverage" NAME="handover_pos Coverage Results" MODIFIED="1655896311057" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$_eq2.coverage" NAME="_eq2 Coverage Results" MODIFIED="1655806073990" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
     <SUITE FILE_PATH="coverage/hri_ws$listen_fiwareFORTH.coverage" NAME="listen_fiwareFORTH Coverage Results" MODIFIED="1655285815822" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
+    <SUITE FILE_PATH="coverage/hri_ws$_eq.coverage" NAME="_eq Coverage Results" MODIFIED="1655728660999" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$forthPlanePose.coverage" NAME="forthPlanePose Coverage Results" MODIFIED="1657122603606" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
     <SUITE FILE_PATH="coverage/hri_ws$listen_all.coverage" NAME="listen_all Coverage Results" MODIFIED="1654871575035" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
-    <SUITE FILE_PATH="coverage/hri_ws$sub.coverage" NAME="sub Coverage Results" MODIFIED="1655208424758" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts/fiware_v2" />
-    <SUITE FILE_PATH="coverage/hri_ws$reader_wfc.coverage" NAME="reader_wfc Coverage Results" MODIFIED="1655371067069" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$.coverage" NAME=" Coverage Results" MODIFIED="1655711315227" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$fiwareFORTH_cleanTest.coverage" NAME="fiwareFORTH_cleanTest Coverage Results" MODIFIED="1655884376181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$reader_wfc.coverage" NAME="reader_wfc Coverage Results" MODIFIED="1655388801327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws$sub.coverage" NAME="sub Coverage Results" MODIFIED="1657532690510" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
   </component>
 </project>

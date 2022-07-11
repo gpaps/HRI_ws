@@ -9,7 +9,7 @@ selection_port_CB = '1026'
 selection_address_CB = '25.45.111.204'
 
 # subscription
-msg = "{" \
+msg_FORTH_HRI = "{" \
       "    \"description\": \"FORTH-RoboTest\",\n" \
       "    \"subject\": {\n" \
       "        \"entities\":\n" \
@@ -31,6 +31,52 @@ msg = "{" \
       "        }\n" \
       "    }\n}"
 
+# subscription
+msg_ICCS = "{" \
+       "    \"description\": \"FORTH-RoboTest\",\n" \
+       "    \"subject\": {\n" \
+       "        \"entities\":\n" \
+       "        [{\n" \
+       "            \"idPattern\": \"iccs.hbu.*\",\n" \
+       "            \"typePattern\": \".*\"\n" \
+       "        }],\n" \
+       "        \"conditions\": {\n" \
+       "            \"attrs\": []\n" \
+       "        }\n" \
+       "    },\n" \
+       "    \"notification\": {\n" \
+       "        \"http\": {\n" \
+       "            \"url\": \"http://25.28.115.246:2620/\",\n" \
+       "            \"method\": \"POST\",\n" \
+       "            \"headers\": {\n" \
+       "                \"Content-Type\": \"application/json\"\n" \
+       "            }\n" \
+       "        }\n" \
+       "    }\n}"
+
+# subscription
+msg_FHOE = "{" \
+       "    \"description\": \"FORTH-RoboTest\",\n" \
+       "    \"subject\": {\n" \
+       "        \"entities\":\n" \
+       "        [{\n" \
+       "            \"idPattern\": \"FHOOE.Orchestrator.*\",\n" \
+       "            \"typePattern\": \".*\"\n" \
+       "        }],\n" \
+       "        \"conditions\": {\n" \
+       "            \"attrs\": []\n" \
+       "        }\n" \
+       "    },\n" \
+       "    \"notification\": {\n" \
+       "        \"http\": {\n" \
+       "            \"url\": \"http://25.28.115.246:2620/\",\n" \
+       "            \"method\": \"POST\",\n" \
+       "            \"headers\": {\n" \
+       "                \"Content-Type\": \"application/json\"\n" \
+       "            }\n" \
+       "        }\n" \
+       "    }\n}"
+
 CB_BASE_URL = "http://{}:{}/v2/".format(selection_address_CB, selection_port_CB)  # url send notification
 
 # Log("INFO", "Send subcription")
@@ -42,8 +88,23 @@ CB_BASE_URL = "http://{}:{}/v2/".format(selection_address_CB, selection_port_CB)
 #
 #
 
-response = requests.post(CB_BASE_URL + "subscriptions/", data=msg, headers=CB_HEADER)  # send request to Context Broker
+# FORTH HRI
+response = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FORTH_HRI, headers=CB_HEADER)  # send request to Context Broker
 if response.ok:  # positive response, notification accepted
     print("CB response -> status " + response.status_code.__str__())
 else:  # error response
     print("CB response -> " + response.text)
+
+# ICCS
+response1 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_ICCS, headers=CB_HEADER)
+if response1.ok:  # positive response, notification accepted
+    print("CB response1 -> status " + response1.status_code.__str__())
+else:  # error response
+    print("CB response1 -> " + response1.text)
+
+# FHOE
+response2 = requests.post(CB_BASE_URL + "subscriptions/", data=msg_FHOE, headers=CB_HEADER)
+if response2.ok:  # positive response, notification accepted
+    print("CB response1 -> status " + response2.status_code.__str__())
+else:  # error response
+    print("CB response1 -> " + response2.text)
