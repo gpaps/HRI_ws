@@ -266,14 +266,14 @@ initLog()
 selection_port = '2620'
 g_selection_address = '25.28.115.246'
 #
-m_selection_address = '25.28.181.178'
+m_selection_address = '172.21.229.83' #'25.28.181.178'
 
 r_selection_address = '25.28.181.178'
 
 
 # Broker
 selection_port_CB = '1026'
-selection_address_CB = '25.45.111.204' #'192.168.1.104' #'25.45.111.204'
+selection_address_CB = '192.168.1.104' #'25.45.111.204'
 
 ######
 # Test
