@@ -43,6 +43,7 @@ def callback_task2exec(data):
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
 
     if data.action == 'navigate':
+        print(data)
         navigate_state = 1
         pickup_state = 0
         release_state = 0

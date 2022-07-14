@@ -127,10 +127,27 @@ def send_ROSmsg_navigate(obj):
     task_exec.location.z = 9999
     # location/nav Pose2D
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
+    print("going to ....", location_name)
+    xf=99999
+    yf=99999
+    dir=99999
+    if re.findall('HumanLocation', location_name):
+        ws=1
+        hx, hy, ho = get_humanPose_ws(ws)
+        rx, ry, ro = get_robotPose()
+        pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
+        if pos_found > 0:
+            sol_l, a, b = linear_eq([xf, yf], [hx,hy])
+            dir = np.arctan(a)
+            print("direction=", dir)
+            # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
+        else:
+            print("don't know where the robot should be sent ------------------")
+
     print('Location_Name__________', location_name)
-    task_exec.navpos.x = 9999
-    task_exec.navpos.y = 9999
-    task_exec.navpos.theta = 9999
+    task_exec.navpos.x = xf
+    task_exec.navpos.y = yf
+    task_exec.navpos.theta = dir
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
@@ -143,6 +160,16 @@ def get_humanPose_ws(ws):
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
+
+def get_robotPose():
+    """ ws = WorkStation-number, ex.int: 1,2,3 """
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
+
+    orn = obj.json()['orientation']['value']
+    x = obj.json()['position']['value']['x']['value']
+    y = obj.json()['position']['value']['y']['value']
+    return x, y, orn
+
 
 def rotate(x, y, theta):
     xn = x * math.cos(theta) + y * math.sin(theta)
@@ -240,9 +267,12 @@ g_selection_address = '25.28.115.246'
 #
 m_selection_address = '25.28.181.178'
 
+r_selection_address = '25.28.181.178'
+
+
 # Broker
 selection_port_CB = '1026'
-selection_address_CB = '25.45.111.204'
+selection_address_CB = '25.45.111.204' #'192.168.1.104' #'25.45.111.204'
 
 ######
 # Test
@@ -257,7 +287,9 @@ selection_address_CB = '25.45.111.204'
 try:
     user = sys.argv[1]
 except IndexError:
+    print(CYEL1, "------------------ No user Defined---------------")
     print("start with default user: g")
+    print("---------------------     ---------------------", CEND)
     user = "g"
 print ("user=", user)
 
@@ -269,11 +301,16 @@ try:
         server = MyReceiver(g_selection_address, int(selection_port))
     elif user == "m":
         server = MyReceiver(m_selection_address, int(selection_port))
+    elif user == "r":
+        print(CRED2, "------------------ the Robot IP is not Defined---------------")
+        print("using michalis IP... ")
+        print("---------------------     ---------------------", CEND)
+        server = MyReceiver(r_selection_address, int(selection_port))
     else:
         print("Exit due to Unknown User")
         quit()
 except Exception as ex:
-    raise Exception("Unable to create a Receiver")
+    raise Exception("Unable to create a Receiver, check User-specification option")
 else:  # close application and server
     def signal_handler(signal, frame):
         Log("INFO", '\nExiting from the application')
