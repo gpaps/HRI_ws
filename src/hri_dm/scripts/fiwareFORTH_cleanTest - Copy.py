@@ -38,9 +38,6 @@ CEND = '\033[0m'
 ##colors
 
 
-
-
-
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 
@@ -130,27 +127,10 @@ def send_ROSmsg_navigate(obj):
     task_exec.location.z = 9999
     # location/nav Pose2D
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
-    print("going to ....", location_name)
-    xf=99999
-    yf=99999
-    dir=99999
-    if re.findall('HumanLocation', location_name):
-        ws=1
-        hx, hy, ho = get_humanPose_ws(ws)
-        rx, ry, ro = get_robotPose()
-        pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
-        if pos_found > 0:
-            sol_l, a, b = linear_eq([xf, yf], [hx,hy])
-            dir = np.arctan(a)
-            print("direction=", dir)
-            # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
-        else:
-            print("don't know where the robot should be sent ------------------")
-
     print('Location_Name__________', location_name)
-    task_exec.navpos.x = xf
-    task_exec.navpos.y = yf
-    task_exec.navpos.theta = dir
+    task_exec.navpos.x = 9999
+    task_exec.navpos.y = 9999
+    task_exec.navpos.theta = 9999
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
@@ -164,21 +144,10 @@ def get_humanPose_ws(ws):
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
 
-def get_robotPose():
-    """ ws = WorkStation-number, ex.int: 1,2,3 """
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
-
-    orn = obj.json()['orientation']['value']
-    x = obj.json()['position']['value']['x']['value']
-    y = obj.json()['position']['value']['y']['value']
-    return x, y, orn
-
-
 def rotate(x, y, theta):
     xn = x * math.cos(theta) + y * math.sin(theta)
     yn = -x * math.sin(theta) + y * math.cos(theta)
     return xn, yn
-
 
 
 # Intercepts incoming messages
@@ -191,22 +160,20 @@ class RequestHandler(BaseHTTPRequestHandler):
 
         if re.findall('forth.hri.RobotAction', sender_module):
             # print(CYEL1, obj['data'][0]['type'], CEND)
-            # print(obj)
             print(CYEL1, "navigate:",obj['data'][0]['a_navigate']['value']['state']['value'])
             print("grasp:",obj['data'][0]['a_grasp']['value']['state']['value'])
             print("handover:",obj['data'][0]['a_handover']['value']['state']['value'])
-            print("release:",obj['data'][0]['a_releaseTool']['value']['state']['value'],
-                  CEND)
+            print("release:",obj['data'][0]['a_release']['value']['state']['value'], CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == "True":
                 send_ROSmsg_release()
-
                 print(CRED1, "release sent", CEND)
 
         elif re.findall('SystemHealth', sender_module):
             print(CGR1, obj['data'][0]['id'], CEND)
+
 
         elif re.findall('WorkflowCommand', sender_module):
             action_type = obj['data'][0]['actionType']['value']
@@ -269,14 +236,11 @@ initLog()
 selection_port = '2620'
 g_selection_address = '25.28.115.246'
 #
-m_selection_address = '172.21.229.83' #'25.28.181.178'
-
-r_selection_address = '25.28.181.178'
-
+m_selection_address = '25.28.181.178'
 
 # Broker
 selection_port_CB = '1026'
-selection_address_CB = '192.168.1.104' #'25.45.111.204'
+selection_address_CB = '25.45.111.204'
 
 ######
 # Test
@@ -291,9 +255,7 @@ selection_address_CB = '192.168.1.104' #'25.45.111.204'
 try:
     user = sys.argv[1]
 except IndexError:
-    print(CYEL1, "------------------ No user Defined---------------")
     print("start with default user: g")
-    print("---------------------     ---------------------", CEND)
     user = "g"
 print ("user=", user)
 
@@ -305,16 +267,11 @@ try:
         server = MyReceiver(g_selection_address, int(selection_port))
     elif user == "m":
         server = MyReceiver(m_selection_address, int(selection_port))
-    elif user == "r":
-        print(CRED2, "------------------ the Robot IP is not Defined---------------")
-        print("using michalis IP... ")
-        print("---------------------     ---------------------", CEND)
-        server = MyReceiver(r_selection_address, int(selection_port))
     else:
         print("Exit due to Unknown User")
         quit()
 except Exception as ex:
-    raise Exception("Unable to create a Receiver, check User-specification option")
+    raise Exception("Unable to create a Receiver")
 else:  # close application and server
     def signal_handler(signal, frame):
         Log("INFO", '\nExiting from the application')
