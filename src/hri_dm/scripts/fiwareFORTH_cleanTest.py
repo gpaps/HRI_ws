@@ -37,6 +37,10 @@ COIL2 = '\033[96m'
 CEND = '\033[0m'
 ##colors
 
+
+
+
+
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 
