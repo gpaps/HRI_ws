@@ -182,9 +182,9 @@ def send_ROSmsg_navigate(obj):
         found, xf, yf, dir =rob_goto_ws(ws) #kapoios prepei na krata se poio WS einai to robot, mporoyme na to ypologizomy apo to location
         #ayto to theloyme edw alla den to exoyme.
 
-        phgaine sto ws
-            on the go state=0
-        se kathe eftasa koitame an einai se ena apo ta arival locations kai enhmer;vnoyme.
+        # phgaine sto ws
+        #     on the go state=0
+        # se kathe eftasa koitame an einai se ena apo ta arival locations kai enhmer;vnoyme.
 
 
     print('Location_Name__________', location_name)
