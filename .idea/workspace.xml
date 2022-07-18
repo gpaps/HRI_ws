@@ -5,25 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e03ab2e2-81e6-4b8f-b9e8-77ed27dbc04f" name="Changes" comment="removed line">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/CMakeDetermineCompilerABI_C.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/CMakeDetermineCompilerABI_CXX.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/a.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/a1.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22,_12_59_μ_μ__[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_16_6_22__12_59_____Changes_.xml" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hri_dm/scripts/Aegis_RobPos.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" beforeDir="false" afterPath="$PROJECT_DIR$/build/catkin_generated/setup_cached.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.develspace.in" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.develspace.in" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.installspace.in" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/hri_dm-msg-extras.cmake.installspace.in" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/hri_dm-msg-extras.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/hri_dm-msg-extras.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/listen_TaskExec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/logger.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/logger.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/installspace/sub.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/listen_TaskExec.py.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/listen_TaskExec.py.stamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/sub.py.stamp" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/catkin_generated/stamps/hri_dm/sub.py.stamp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg-context.py" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg-context.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/build/hri_dm/cmake/hri_dm-genmsg.cmake" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/devel/share/hri_dm/cmake/hri_dm-msg-extras.cmake" beforeDir="false" afterPath="$PROJECT_DIR$/devel/share/hri_dm/cmake/hri_dm-msg-extras.cmake" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/fiwareFORTH_cleanTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/fiwareFORTH_cleanTest.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/quatern_test.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/quatern_test.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -57,24 +42,24 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "editor.preferences.fonts.default"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gpapo/Desktop/hri_ws/src/hri_dm/scripts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
   },
-  "keyToStringList": {
-    "ChangesTree.GroupingKeys": [
-      "directory"
+  &quot;keyToStringList&quot;: {
+    &quot;ChangesTree.GroupingKeys&quot;: [
+      &quot;directory&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
@@ -115,6 +100,9 @@
       <module name="hri_ws" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />

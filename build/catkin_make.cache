@@ -1,2 +1,0 @@
-firos:hri_dm
--DCATKIN_DEVEL_PREFIX=/home/gpapo/Desktop/hri_ws/devel -DCMAKE_INSTALL_PREFIX=/home/gpapo/Desktop/hri_ws/install -G Unix Makefiles
