@@ -15,6 +15,7 @@ from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
+
 ##colors
 CRED1 = '\033[31m'
 CGR1 = '\033[32m'
@@ -37,16 +38,16 @@ COIL2 = '\033[96m'
 CEND = '\033[0m'
 ##colors
 
-robotAtWs=10 # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
+robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
 
 # this is a new line
-
 
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 
-def get_adaptId(wfc):
+
+def get_linkInfo(wfc):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
     print(r.status_code, 'first_query')
     action_link = r.json()['refAction']['value']
@@ -55,6 +56,7 @@ def get_adaptId(wfc):
     action_name = action_r.json()['adaptType']['value']
     # params = r.json()['parameters']['value']['location']
     return r, action_name
+
 
 def send_ROSmsg_release():
     global pub2TaskExe
@@ -74,12 +76,13 @@ def send_ROSmsg_release():
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'received')
 
+
 def send_ROSmsg_pickup(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
 
-    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId']) # TODO to receive and publish
+    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId'])  # TODO to receive and publish
     # print('TOOL_____ID', task_exec.tool_id)
     # location/vector3 geom_msgs location
     task_exec.location.x = 99999
@@ -94,10 +97,12 @@ def send_ROSmsg_pickup(obj):
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'received')
 
+
 def send_ROSmsg_handover(obj):
     global pub2TaskExe
     ws = 1  # refers to workStation
-    workerx, workery, workertheta = get_humanPose_ws(ws)  # get worker position and theta in the global coordinate system
+    workerx, workery, workertheta = get_humanPose_ws(
+        ws)  # get worker position and theta in the global coordinate system
 
     # pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
     # use the old version without translation in pybullet
@@ -123,16 +128,14 @@ def send_ROSmsg_handover(obj):
 
 
 def rob_goto_human(ws):
-    xf=99999
-    yf=99999
-    dir=99999
+    xf, yf, dir = 99999,  99999, 99999
     found = 0
 
     hx, hy, ho = get_humanPose_ws(ws)
     rx, ry, ro = get_robotPose()
     pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
     if pos_found > 0:
-        found=1
+        found = 1
         sol_l, a, b = linear_eq([xf, yf], [hx, hy])
         dir = np.arctan(a)
         print("direction=", dir)
@@ -144,9 +147,7 @@ def rob_goto_human(ws):
 
 
 def rob_goto_ws(ws):
-    xf=99999
-    yf=99999
-    dir=99999
+    xf, yf, dir = 99999,  99999, 99999
     found = 0
 
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
@@ -155,7 +156,7 @@ def rob_goto_ws(ws):
         xf = obj.json()['x']
         yf = obj.json()['y']
         dir = obj.json()['orientation']
-        found=1
+        found = 1
     return found, xf, yf, dir
 
 
@@ -171,21 +172,20 @@ def send_ROSmsg_navigate(obj):
     # location/nav Pose2D
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
     print("going to ....", location_name)
-    xf=99999
-    yf=99999
-    dir=99999
+    xf, yf, dir = 99999,  99999, 99999
+
     if re.findall('HumanLocation', location_name):
-        ws=1
-        found, xf, yf, dir =rob_goto_human(ws)
+        ws = 1
+        found, xf, yf, dir = rob_goto_human(ws)
     if re.findall('Robot_Arrival_Location_WS', location_name):
-        ws=1
-        found, xf, yf, dir =rob_goto_ws(ws) #kapoios prepei na krata se poio WS einai to robot, mporoyme na to ypologizomy apo to location
-        #ayto to theloyme edw alla den to exoyme.
+        ws = 1
+        found, xf, yf, dir = rob_goto_ws(ws)
+        # kapoios prepei na krata se poio WS einai to robot, mporoyme na to ypologizomy apo to location
+        # ayto to theloyme edw alla den to exoyme.
 
         # phgaine sto ws
         #     on the go state=0
         # se kathe eftasa koitame an einai se ena apo ta arival locations kai enhmer;vnoyme.
-
 
     print('Location_Name__________', location_name)
     task_exec.navpos.x = xf
@@ -196,6 +196,7 @@ def send_ROSmsg_navigate(obj):
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'navigate')
 
+
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
@@ -204,9 +205,9 @@ def get_humanPose_ws(ws):
     y = obj.json()['position']['value']['y']['value']
     return x, y, orn
 
+
 def get_robotPose():
     obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
-
     orn = obj.json()['orientation']['value']
     x = obj.json()['position']['value']['x']['value']
     y = obj.json()['position']['value']['y']['value']
@@ -217,7 +218,6 @@ def rotate(x, y, theta):
     xn = x * math.cos(theta) + y * math.sin(theta)
     yn = -x * math.sin(theta) + y * math.cos(theta)
     return xn, yn
-
 
 
 # Intercepts incoming messages
@@ -231,10 +231,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         if re.findall('forth.hri.RobotAction', sender_module):
             # print(CYEL1, obj['data'][0]['type'], CEND)
             # print(obj)
-            print(CYEL1, "navigate:",obj['data'][0]['a_navigate']['value']['state']['value'])
-            print("grasp:",obj['data'][0]['a_grasp']['value']['state']['value'])
-            print("handover:",obj['data'][0]['a_handover']['value']['state']['value'])
-            print("release:",obj['data'][0]['a_releaseTool']['value']['state']['value'],
+            print(CYEL1, "navigate:", obj['data'][0]['a_navigate']['value']['state']['value'])
+            print("grasp:", obj['data'][0]['a_grasp']['value']['state']['value'])
+            print("handover:", obj['data'][0]['a_handover']['value']['state']['value'])
+            print("release:", obj['data'][0]['a_releaseTool']['value']['state']['value'],
                   CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
@@ -308,14 +308,13 @@ initLog()
 selection_port = '2620'
 g_selection_address = '25.28.115.246'
 #
-m_selection_address = '172.21.229.83' #'25.28.181.178'
+m_selection_address = '172.21.229.83'  # '25.28.181.178'
 
 r_selection_address = '25.28.181.178'
 
-
 # Broker
 selection_port_CB = '1026'
-selection_address_CB = '192.168.1.104' #'25.45.111.204'
+selection_address_CB = '192.168.1.104'  # '25.45.111.204'
 
 ######
 # Test
@@ -334,7 +333,7 @@ except IndexError:
     print("start with default user: g")
     print("---------------------     ---------------------", CEND)
     user = "g"
-print ("user=", user)
+print("user=", user)
 
 Log("INFO", "Initialized")
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)

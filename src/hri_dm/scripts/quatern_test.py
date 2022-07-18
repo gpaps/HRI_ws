@@ -11,7 +11,6 @@ from std_msgs.msg import String
 
 from _eq import *
 
-
 CRED1 = '\033[31m'
 CGR1 = '\033[32m'
 CYEL1 = '\033[33m'
@@ -32,9 +31,9 @@ CMAG2 = '\033[95m'
 COIL2 = '\033[96m'
 CEND = '\033[0m'
 
+
 # mode is either "D" for degree, otherwise it assumes  radians or "R" for radians
 def get_quaternion_from_euler(roll, pitch, yaw, mode):
-
     if mode == "D":
         roll = roll * np.pi / 180
         pitch = pitch * np.pi / 180
@@ -47,15 +46,16 @@ def get_quaternion_from_euler(roll, pitch, yaw, mode):
 
     return [qx, qy, qz, qw]
 
+
 # find_pos(loc_r, loc_h, d)
-hpos=[74,44]
-rpos=[20,20]
+hpos = [74, 44]
+rpos = [20, 20]
 pos_found, xf, yf = find_pos_Rel2Hum(rpos, hpos, 4)
-print("location:",pos_found, xf, yf)
-if pos_found>0:
-    sol_l, a, b = linear_eq([xf,yf], hpos)
-    dir=np.arctan(a)
-    print("direction=",dir)
+print("location:", pos_found, xf, yf)
+if pos_found > 0:
+    sol_l, a, b = linear_eq([xf, yf], hpos)
+    dir = np.arctan(a)
+    print("direction=", dir)
 
 # thetaDeg=90
 # thetaR=thetaDeg*np.pi/180
