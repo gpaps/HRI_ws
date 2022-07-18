@@ -37,7 +37,7 @@ COIL2 = '\033[96m'
 CEND = '\033[0m'
 ##colors
 
-
+robotAtWs=10 # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
 
 # this is a new line
 
@@ -121,6 +121,44 @@ def send_ROSmsg_handover(obj):
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'handOver_task')
 
+
+def rob_goto_human(ws):
+    xf=99999
+    yf=99999
+    dir=99999
+    found = 0
+
+    hx, hy, ho = get_humanPose_ws(ws)
+    rx, ry, ro = get_robotPose()
+    pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
+    if pos_found > 0:
+        found=1
+        sol_l, a, b = linear_eq([xf, yf], [hx, hy])
+        dir = np.arctan(a)
+        print("direction=", dir)
+        return found, xf, yf, dir
+        # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
+    else:
+        print("don't know where the robot should be sent ------------------")
+        return found, xf, yf, dir
+
+
+def rob_goto_ws(ws):
+    xf=99999
+    yf=99999
+    dir=99999
+    found = 0
+
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
+    # orn = obj.json()['orientation']['value']
+    if obj.status == 204:
+        xf = obj.json()['x']
+        yf = obj.json()['y']
+        dir = obj.json()['orientation']
+        found=1
+    return found, xf, yf, dir
+
+
 def send_ROSmsg_navigate(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
@@ -138,16 +176,16 @@ def send_ROSmsg_navigate(obj):
     dir=99999
     if re.findall('HumanLocation', location_name):
         ws=1
-        hx, hy, ho = get_humanPose_ws(ws)
-        rx, ry, ro = get_robotPose()
-        pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
-        if pos_found > 0:
-            sol_l, a, b = linear_eq([xf, yf], [hx,hy])
-            dir = np.arctan(a)
-            print("direction=", dir)
-            # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
-        else:
-            print("don't know where the robot should be sent ------------------")
+        found, xf, yf, dir =rob_goto_human(ws)
+    if re.findall('Robot_Arrival_Location_WS', location_name):
+        ws=1
+        found, xf, yf, dir =rob_goto_ws(ws) #kapoios prepei na krata se poio WS einai to robot, mporoyme na to ypologizomy apo to location
+        #ayto to theloyme edw alla den to exoyme.
+
+        phgaine sto ws
+            on the go state=0
+        se kathe eftasa koitame an einai se ena apo ta arival locations kai enhmer;vnoyme.
+
 
     print('Location_Name__________', location_name)
     task_exec.navpos.x = xf
@@ -167,7 +205,6 @@ def get_humanPose_ws(ws):
     return x, y, orn
 
 def get_robotPose():
-    """ ws = WorkStation-number, ex.int: 1,2,3 """
     obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
 
     orn = obj.json()['orientation']['value']
