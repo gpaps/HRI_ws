@@ -1,0 +1,5 @@
+devel/
+build/
+.idea/
+src/hri_dm/__pycache__/
+.catkin_workspace
