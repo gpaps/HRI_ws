@@ -78,10 +78,8 @@ def callback_task2exec(data):
         workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Handover Starts..')
 
-    #inform FIWARE that the current script is alive
+    # Inform FIWARE that the current script is alive
     send_HRIhealth()
-
-
 
 # def callback_HRIhealth(data):
 #     print('callback_HRIhealth')
@@ -96,6 +94,7 @@ def callback_task2exec(data):
 
 #  Get information about the result of robot action execution in ROS
 #  This result is translated and forwarded to FIWARE
+
 def callback_TaskExResult(data):
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
     print(data)
@@ -106,7 +105,7 @@ def callback_TaskExResult(data):
     # if no error is reported back by the module undertaking the execution  
     if re.findall('null', data.error_type):
         rslt = ACT_RES_SUCCESS
-    else: # in that case an error is reported, and thus the action has failed
+    else:  # in that case an error is reported, and thus the action has failed
         rslt = ACT_RES_FAIL
 
     # we need to synchronize ROS messages and FIWARE messages more carefully....
@@ -154,6 +153,11 @@ def callback_ScenePerc(data):
     #inform FIWARE that the current script is alive
     send_HRIhealth()
 
+def test_goRobo2Human():
+    print('reached')
+
+
+
 
 def init_receiver():
     # this listens the commands send to the robot and informs FIWARE that they have received and get started
@@ -162,8 +166,11 @@ def init_receiver():
     # this listens the new Locations reported by ScenePerception
     rospy.Subscriber('Robot_Pose2D', Pose2D, callback_ScenePerc)
 
-    # this listens the response of robot command execution (e.g succes/failure)
+    # this listens the response of robot command execution (e.g success/failure)
     rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult)
+
+    # this listens the response of ICS-localization with Target to AEGIS-dynamic Position)
+    rospy.Subscriber('Artificial_Pose2D', Pose2D, test_goRobo2Human)
 
     rospy.loginfo('receiver_all subscriber nodes started')
     rospy.spin()
@@ -171,7 +178,6 @@ def init_receiver():
 
 if __name__ == '__main__':
     rospy.init_node('listen_all', anonymous=True)
-
     init_receiver()
 
     # except rospy.ROSInterruptException:
