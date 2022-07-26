@@ -9,6 +9,7 @@ from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
 from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from forthPlanePose import PlanePoseStatePost
+# from fiwareFORTH_cleanTest import send_ROSmsg_release
 
 HRI_health_jsonFName = "./HRI_health.json"
 ScenePerception_health_jsonFName = "./ScenePerception_health.json"
@@ -18,8 +19,8 @@ Aegis_buttonPress = './Aegis_ButtonPress.json'
 address = "25.45.111.204"
 port = 1026
 
+
 # navigate, grasp, releaseTool, handover
-# ta state ta xreiazomaste, ta result mallon oxi
 navigate_state, pickup_state, release_state, handover_state = 0, 0, 0, 0
 last_toolID = -1
 
@@ -35,9 +36,12 @@ def send_HRIhealth():
     hri_state_test.updateStateMsg("OK", str(my_date.isoformat())), '\n'
 
 
-# This function listens the commands send to the robot.
-# It keeps truck of the command that is currently executed by the robot and informs FIWARE they started
+
 def callback_task2exec(data):
+    """
+    This function listens the commands send to the robot.
+    It keeps track of the command that is currently executed by the robot and informs FIWARE they started
+    """
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
 
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
@@ -80,6 +84,9 @@ def callback_task2exec(data):
 
     # Inform FIWARE that the current script is alive
     send_HRIhealth()
+
+
+
 
 # def callback_HRIhealth(data):
 #     print('callback_HRIhealth')
@@ -134,11 +141,15 @@ def callback_TaskExResult(data):
     #inform FIWARE that the current script is alive
     send_HRIhealth()
 
-# this is the callback for ScenePerception ROS messages
-# It sends to FIWARE (1) the new location and (2) the ScenePerception.SystemHealth message
+
 def callback_ScenePerc(data):
+    """ Callback for ScenePerception ROS messages
+        It sends to FIWARE
+        (1) the new location
+        (2) the ScenePerception.SystemHealth message
+    """
     # rospy.sleep(.5)
-    rospy.loginfo(' callback_ScenePerc received message.. ')  #%s data.action)
+    rospy.loginfo(' callback_ScenePerception received message.. ')  #%s data.action)
 
     #send new location to FIWARE
     PlanePoseState = PlanePoseStatePost(address, port, 'FORTH.ScenePerception.WorkFlow', PlanePose)
@@ -153,9 +164,10 @@ def callback_ScenePerc(data):
     #inform FIWARE that the current script is alive
     send_HRIhealth()
 
-def test_goRobo2Human():
-    print('reached')
-
+    # this listens the response of ICS-localization with Target to AEGIS-dynamic Position
+    pose_task = Pose2D()
+    # pose_task.x, pose_task.y, pose_task.theta, pose_task.timestamp
+    print(pose_task)
 
 
 
@@ -168,9 +180,6 @@ def init_receiver():
 
     # this listens the response of robot command execution (e.g success/failure)
     rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult)
-
-    # this listens the response of ICS-localization with Target to AEGIS-dynamic Position)
-    rospy.Subscriber('Artificial_Pose2D', Pose2D, test_goRobo2Human)
 
     rospy.loginfo('receiver_all subscriber nodes started')
     rospy.spin()
