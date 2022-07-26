@@ -4,3 +4,4 @@ build/
 src/hri_dm/__pycache__/
 src/hri_dm/scripts/__pycache__/
 .catkin_workspace
+firos/
