@@ -128,7 +128,7 @@ def send_ROSmsg_handover(obj):
 
 
 def rob_goto_human(ws):
-    xf, yf, dir = 99999,  99999, 99999
+    xf, yf, dir = 99999, 99999, 99999
     found = 0
 
     hx, hy, ho = get_humanPose_ws(ws)
@@ -147,7 +147,7 @@ def rob_goto_human(ws):
 
 
 def rob_goto_ws(ws):
-    xf, yf, dir = 99999,  99999, 99999
+    xf, yf, dir = 99999, 99999, 99999
     found = 0
 
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
@@ -172,7 +172,7 @@ def send_ROSmsg_navigate(obj):
     # location/nav Pose2D
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
     print("going to ....", location_name)
-    xf, yf, dir = 99999,  99999, 99999
+    xf, yf, dir = 99999, 99999, 99999
 
     if re.findall('HumanLocation', location_name):
         ws = 1
@@ -180,12 +180,14 @@ def send_ROSmsg_navigate(obj):
     if re.findall('Robot_Arrival_Location_WS', location_name):
         ws = 1
         found, xf, yf, dir = rob_goto_ws(ws)
-        # kapoios prepei na krata se poio WS einai to robot, mporoyme na to ypologizomy apo to location
+        # kapoios prepei na krata se poio WS einai to robot,
+        # mporoyme na to ypologizomy apo to location
         # ayto to theloyme edw alla den to exoyme.
 
         # phgaine sto ws
         #     on the go state=0
-        # se kathe eftasa koitame an einai se ena apo ta arival locations kai enhmer;vnoyme.
+        # se kathe eftasa koitame an einai se ena apo
+        # ta arival locations kai enhmeronoyme.
 
     print('Location_Name__________', location_name)
     task_exec.navpos.x = xf
@@ -196,6 +198,15 @@ def send_ROSmsg_navigate(obj):
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'navigate')
 
+
+def get_adapt_ws(obj):
+    print('get_adapt_ws, mpika sth sunarthsh')
+    x = obj.json()[0]['x']
+    y = obj.json()[0]['y']
+    orn = obj.json()[0]['orientation']
+    print(x, y, orn)
+    print('reached__________________')
+    return x, y, orn,
 
 def get_humanPose_ws(ws):
     """ ws = WorkStation-number, ex.int: 1,2,3 """
@@ -227,6 +238,7 @@ class RequestHandler(BaseHTTPRequestHandler):
         data = self.rfile.read(datalen)  # read receive messages
         obj = json.loads(data)  # convert message to json
         sender_module = obj['data'][0]['id']
+        # print(obj['data'][0])
 
         if re.findall('forth.hri.RobotAction', sender_module):
             # print(CYEL1, obj['data'][0]['type'], CEND)
@@ -263,8 +275,57 @@ class RequestHandler(BaseHTTPRequestHandler):
                 send_ROSmsg_handover(obj)
 
             elif action_type == 'navigate':
+                def addaptive_ws_all(obj):
+                    # Adaptive Workstation AEGIS
+                    named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
+                    # print('object WORKSTATION ADAPTIVE', '\n', named_loc)
+                    if re.findall('AdapticeWS_Location', named_loc):
+                        obj = requests.get('http://192.168.1.113:5000/awsloc')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Human_Location_WS10', named_loc):
+                        print('EFTASA 10____________________________________________________10 ')
+                        obj = requests.get('http://25.17.36.113:2620/humanlocws10')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Human_Location_WS20', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/humanlocws20')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Human_Location_WS30', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/humanlocws30')
+                        x, y, orn = get_adapt_ws(obj)
+                    # ACCREA
+                    if re.findall('Robot_Arrival_Location_WS10', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws10_loc')
+                        x, y, orn = get_adapt_ws(obj)
+                    elif re.findall('Robot_Arrival_Location_WS20', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws20_loc')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Robot_Arrival_Location_WS30', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws30_loc')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Toolcase_Location_WS10', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws10')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Toolcase_Location_WS20', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws20')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Toolcase_Location_WS30', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws30')
+                        x, y, orn = get_adapt_ws(obj)
+
+                    elif re.findall('Cobot_Current_WS', named_loc):
+                        obj = requests.get('http://25.17.36.113:2620/cobotloc')
+                        x, y, orn = get_adapt_ws(obj)
+
                 print('send_ROSmsg_navigate')
                 send_ROSmsg_navigate(obj)
+                addaptive_ws_all(obj)
 
         # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
         self.send_response(200)
