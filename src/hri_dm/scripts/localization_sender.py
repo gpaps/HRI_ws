@@ -6,7 +6,7 @@ from datetime import datetime
 from hri_dm.msg import Pose2D
 
 # publishers
-Artificial_PublicationPose2D = rospy.Publisher('Artificial_Pose2D', Pose2D, queue_size=100)
+Artificial_PublicationPose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
 
 # callbacks
 def send_msg1_pose2d():
@@ -28,10 +28,10 @@ def location_sender():
 
 if __name__ == '__main__':
     # init the 1st publisher  or init the first pub-in
-    rospy.init_node('pose2D', anonymous=True)
-    print('________________________________')
+    rospy.init_node('sends_pose2D', anonymous=True)
+    print('__________ ARTIFICIAL LOCATION SENDER ____________')
     try:
         location_sender()
-        rospy.spin()
+        # rospy.spin()
     except rospy.ROSInterruptException:
         pass
