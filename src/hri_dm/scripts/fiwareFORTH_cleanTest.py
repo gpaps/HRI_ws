@@ -11,43 +11,46 @@ from reader_wfc import *
 from logger import Log, initLog
 from http.server import HTTPServer  # this is for use with python3
 from http.server import BaseHTTPRequestHandler  # this is for use with python3
-from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM
+from hri_dm.msg import HRIDM2TaskExecution, Pose2D
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
+# from listen_TaskExec import test_goRobo2Human  # import from ROS-Module
+
+# colors colors works from humanRobo - position script
+# def color_me():
+#     CRED1 = '\033[31m'
+#     CGR1 = '\033[32m'
+#     CYEL1 = '\033[33m'
+#     CBlUE1 = '\033[34m'
+#     CMAG1 = '\033[35m'
+#     COIL1 = '\033[36m'
+#     CBRED1 = '\033[41m'
+#     CBGR1 = '\033[42m'
+#     CBYEL1 = '\033[43m'
+#     CBBlUE1 = '\033[44m'
+#     CBMAG1 = '\033[45m'
+#     CBOIL1 = '\033[46m'
+#     CRED2 = '\033[91m'
+#     CGR2 = '\033[92m'
+#     CYEL2 = '\033[93m'
+#     CBLUE2 = '\033[94m'
+#     CMAG2 = '\033[95m'
+#     COIL2 = '\033[96m'
+#     CEND = '\033[0m'
+#     return
 
 ##colors
-CRED1 = '\033[31m'
-CGR1 = '\033[32m'
-CYEL1 = '\033[33m'
-CBlUE1 = '\033[34m'
-CMAG1 = '\033[35m'
-COIL1 = '\033[36m'
-CBRED1 = '\033[41m'
-CBGR1 = '\033[42m'
-CBYEL1 = '\033[43m'
-CBBlUE1 = '\033[44m'
-CBMAG1 = '\033[45m'
-CBOIL1 = '\033[46m'
-CRED2 = '\033[91m'
-CGR2 = '\033[92m'
-CYEL2 = '\033[93m'
-CBLUE2 = '\033[94m'
-CMAG2 = '\033[95m'
-COIL2 = '\033[96m'
-CEND = '\033[0m'
-##colors
-
 robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
 
 # this is a new line
 
-
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 
-
+# TODO evaluate if we need this Function(get_linkInfo) anymore.. ?
 def get_linkInfo(wfc):
+    """ query links for /v2/entities/ or parse whatever link we want, """
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
     print(r.status_code, 'first_query')
     action_link = r.json()['refAction']['value']
@@ -57,6 +60,133 @@ def get_linkInfo(wfc):
     # params = r.json()['parameters']['value']['location']
     return r, action_name
 
+
+def get_humanPose_ws(ws):
+    """
+     ws = Workstation number, ex.int: 1,2,3
+    query ICCS for human pose,
+    return x_hpose, y_hpose, orn_pose
+    """
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
+    x_hpose = obj.json()['position']['value']['x']['value']
+    y_hpose = obj.json()['position']['value']['y']['value']
+    orn_pose = obj.json()['orientation']['value']
+    return x_hpose, y_hpose, orn_pose
+
+
+def rob_goto_human(ws):
+    """
+    finds the direct/cross line between human and robot
+    starts Pybullet for HRI, triggered by ICCS,
+    found: is the status if link is dead or not.
+    :param ws: workstation human is currently in
+    :return: found, xf, yf, dir
+    """
+
+    # TODO  I assume this is for 2DPose, we query for this from ICCSorAEGIS?
+    xf, yf, dir = 99999, 99999, 99999
+
+    found = 0
+
+    hx, hy, ho = get_humanPose_ws(ws)
+    rx, ry, ro = get_robotPose()
+    pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
+    if pos_found > 0:
+        found = 1
+        sol_l, a, b = linear_eq([xf, yf], [hx, hy])
+        dir = np.arctan(a)
+        print("direction=", dir)
+        return found, xf, yf, dir
+        # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
+    else:
+        print("don't know where the robot should be sent ------------------")
+        return found, xf, yf, dir
+
+
+def get_robotPose():
+    """
+    Robot Pose, query from ICS a 2D-position and orn.
+    found: is the status if link is dead or not.
+    :return: found, x_rpose, y_rpose, orn_rpose
+    """
+    obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
+    found = 0
+    if obj.status == 204:
+        found = 1
+        x_rpose = obj.json()['position']['value']['x']['value']
+        y_rpose = obj.json()['position']['value']['y']['value']
+        orn_rpose = obj.json()['orientation']['value']
+
+    return found, x_rpose, y_rpose, orn_rpose
+
+
+def get_xyo(obj):
+
+    """ Activate when namedLocation from fiware,
+     grabs - json, outputs x,y,orn, workspace """
+    x_ws = obj.json()[0]['x']
+    y_ws = obj.json()[0]['y']
+    orn_ws = obj.json()[0]['orientation']
+    return x_ws, y_ws, orn_ws
+
+
+def adaptive_ws_all(obj):
+    """
+    Activates when "NamedLocation",
+    appears from fiware, then query pos/orn for
+    (a)HumanLocation
+    (b)RobotArrival
+    (c)ToolcaseLocation
+     """
+
+    # Adaptive Workstation AEGIS
+    named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
+    # print('object WORKSTATION ADAPTIVE', '\n', named_loc)
+    if re.findall('AdapticeWS_Location', named_loc):
+        obj = requests.get('http://192.168.1.113:5000/awsloc')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Human_Location_WS10', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/humanlocws10')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Human_Location_WS20', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/humanlocws20')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Human_Location_WS30', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/humanlocws30')
+        x, y, orn = get_xyo(obj)
+
+    # ACCREA
+    if re.findall('Robot_Arrival_Location_WS10', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws10_loc')
+        x, y, orn = get_xyo(obj)
+    elif re.findall('Robot_Arrival_Location_WS20', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws20_loc')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Robot_Arrival_Location_WS30', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws30_loc')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Toolcase_Location_WS10', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/toolcaselocws10')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Toolcase_Location_WS20', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/toolcaselocws20')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Toolcase_Location_WS30', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/toolcaselocws30')
+        x, y, orn = get_xyo(obj)
+
+    elif re.findall('Cobot_Current_WS', named_loc):
+        obj = requests.get('http://25.17.36.113:2620/cobotloc')
+        x, y, orn = get_xyo(obj)
+
+    return x, y, orn
 
 def send_ROSmsg_release():
     global pub2TaskExe
@@ -127,109 +257,45 @@ def send_ROSmsg_handover(obj):
     # print(task_exec, '\n', 'handOver_task')
 
 
-def rob_goto_human(ws):
-    xf, yf, dir = 99999, 99999, 99999
-    found = 0
-
-    hx, hy, ho = get_humanPose_ws(ws)
-    rx, ry, ro = get_robotPose()
-    pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
-    if pos_found > 0:
-        found = 1
-        sol_l, a, b = linear_eq([xf, yf], [hx, hy])
-        dir = np.arctan(a)
-        print("direction=", dir)
-        return found, xf, yf, dir
-        # q=get_quaternion_from_euler(0, 0, thetaDeg, "R")
-    else:
-        print("don't know where the robot should be sent ------------------")
-        return found, xf, yf, dir
-
-
-def rob_goto_ws(ws):
-    xf, yf, dir = 99999, 99999, 99999
-    found = 0
-
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
-    # orn = obj.json()['orientation']['value']
-    if obj.status == 204:
-        xf = obj.json()['x']
-        yf = obj.json()['y']
-        dir = obj.json()['orientation']
-        found = 1
-    return found, xf, yf, dir
-
-
 def send_ROSmsg_navigate(obj):
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'navigate'  # action
     # task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId']) # not usable for nav.
     # location/vector3 geom_msgs location
-    task_exec.location.x = 9999
-    task_exec.location.y = 9999
-    task_exec.location.z = 9999
+    # task_exec.location.x = 9999
+    # task_exec.location.y = 9999
+    # task_exec.location.z = 9999
     # location/nav Pose2D
-    location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
-    print("going to ....", location_name)
-    xf, yf, dir = 99999, 99999, 99999
+    # navigation for ICS and Aegis colab
 
-    if re.findall('HumanLocation', location_name):
+    location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
+    print("  Navigation Module : going to .... location_name:", location_name)
+
+    # bear in mind [timestamp] for future debugs, network latency might or not.
+    xf, yf, dir = adaptive_ws_all(obj)
+
+    if re.findall('Human_Location', location_name):
         ws = 1
         found, xf, yf, dir = rob_goto_human(ws)
-    if re.findall('Robot_Arrival_Location_WS', location_name):
-        ws = 1
-        found, xf, yf, dir = rob_goto_ws(ws)
-        # kapoios prepei na krata se poio WS einai to robot,
-        # mporoyme na to ypologizomy apo to location
-        # ayto to theloyme edw alla den to exoyme.
+    # if re.findall('Robot_Arrival_Location_WS', location_name):
+    #     ws = 1
+    #     found, xf, yf, dir = get_robotPose(ws)
+    #     # kapoios prepei na krata se poio WS einai to robot,
+    #     # mporoyme na to ypologizomy apo to location
+    #     # ayto to theloyme edw alla den to exoyme.
+    #
+    #     # phgaine sto ws
+    #     #     on the go state=0
+    #     # se kathe eftasa koitame an einai se ena apo
+    #     # ta arival locations kai enhmeronoyme.
 
-        # phgaine sto ws
-        #     on the go state=0
-        # se kathe eftasa koitame an einai se ena apo
-        # ta arival locations kai enhmeronoyme.
-
-    print('Location_Name__________', location_name)
     task_exec.navpos.x = xf
     task_exec.navpos.y = yf
     task_exec.navpos.theta = dir
     # synchronization
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
-    # print(task_exec, '\n', 'navigate')
-
-
-def get_adapt_ws(obj):
-    print('get_adapt_ws, mpika sth sunarthsh')
-    x = obj.json()[0]['x']
-    y = obj.json()[0]['y']
-    orn = obj.json()[0]['orientation']
-    print(x, y, orn)
-    print('reached__________________')
-    return x, y, orn,
-
-def get_humanPose_ws(ws):
-    """ ws = WorkStation-number, ex.int: 1,2,3 """
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
-    orn = obj.json()['orientation']['value']
-    x = obj.json()['position']['value']['x']['value']
-    y = obj.json()['position']['value']['y']['value']
-    return x, y, orn
-
-
-def get_robotPose():
-    obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
-    orn = obj.json()['orientation']['value']
-    x = obj.json()['position']['value']['x']['value']
-    y = obj.json()['position']['value']['y']['value']
-    return x, y, orn
-
-
-def rotate(x, y, theta):
-    xn = x * math.cos(theta) + y * math.sin(theta)
-    yn = -x * math.sin(theta) + y * math.cos(theta)
-    return xn, yn
-
 
 # Intercepts incoming messages
 class RequestHandler(BaseHTTPRequestHandler):
@@ -275,57 +341,9 @@ class RequestHandler(BaseHTTPRequestHandler):
                 send_ROSmsg_handover(obj)
 
             elif action_type == 'navigate':
-                def addaptive_ws_all(obj):
-                    # Adaptive Workstation AEGIS
-                    named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
-                    # print('object WORKSTATION ADAPTIVE', '\n', named_loc)
-                    if re.findall('AdapticeWS_Location', named_loc):
-                        obj = requests.get('http://192.168.1.113:5000/awsloc')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Human_Location_WS10', named_loc):
-                        print('EFTASA 10____________________________________________________10 ')
-                        obj = requests.get('http://25.17.36.113:2620/humanlocws10')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Human_Location_WS20', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/humanlocws20')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Human_Location_WS30', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/humanlocws30')
-                        x, y, orn = get_adapt_ws(obj)
-                    # ACCREA
-                    if re.findall('Robot_Arrival_Location_WS10', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws10_loc')
-                        x, y, orn = get_adapt_ws(obj)
-                    elif re.findall('Robot_Arrival_Location_WS20', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws20_loc')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Robot_Arrival_Location_WS30', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws30_loc')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Toolcase_Location_WS10', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws10')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Toolcase_Location_WS20', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws20')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Toolcase_Location_WS30', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/toolcaselocws30')
-                        x, y, orn = get_adapt_ws(obj)
-
-                    elif re.findall('Cobot_Current_WS', named_loc):
-                        obj = requests.get('http://25.17.36.113:2620/cobotloc')
-                        x, y, orn = get_adapt_ws(obj)
-
                 print('send_ROSmsg_navigate')
                 send_ROSmsg_navigate(obj)
-                addaptive_ws_all(obj)
+
 
         # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
         self.send_response(200)
