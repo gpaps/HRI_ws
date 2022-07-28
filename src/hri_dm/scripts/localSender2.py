@@ -13,9 +13,13 @@ address = "25.45.111.204"
 port = 1026
 
 # publishers
-pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
+# this Publishes the commands send to the robot (nav, handover, etc )
+pub2TaskExec = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
+# this publishes the new Locations reported by ScenePerception
 pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
-# pub2TaskExec = rospy.Publisher(, )
+# this Publishes robot command execution (e.g success/failure)
+pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
+
 
 def get_requests(*args):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(args))
@@ -47,22 +51,23 @@ def send_msg_hri2task():
     task_exec2.location.y = 99999
     task_exec2.location.z = 99999
     # location/nav Pose2D
-    task_exec2.navpos.x = 0
-    task_exec2.navpos.y = 0
-    task_exec2.navpos.theta = 0.0
+    task_exec2.navpos.x = 100.0
+    task_exec2.navpos.y = 200.0
+    task_exec2.navpos.theta = 90.0
     # synchronization
     task_exec2.request_id = -1
-    # rospy.loginfo(task_exec2)
-    # print('end_of_message_  send_msg_HRI2TASK and pub2HRIDM', '\n')
+    rospy.loginfo(task_exec2)
+    pub2TaskExec.publish(task_exec2)
+    print('end_of_message_  send_msg_HRIDM2TaskEXEC and pub2TaskExec', '\n')
     # pub2task.publish(task_exec2)
 
 
 def send_msg_pose2d():
     global pub2Pose2D
     pose_task = Pose2D()
-    pose_task.x = 1.1
-    pose_task.y = 2.2
-    pose_task.theta = 60.3
+    pose_task.x = 20.0
+    pose_task.y = 40.0
+    pose_task.theta = 60.0
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
     pose_task.timestamp = my_date.isoformat()
     rospy.loginfo(pose_task)
@@ -73,9 +78,10 @@ def send_msg_pose2d():
 def native_sender():
     global result
     rospy.loginfo('sender node starts..')
-    # send_msg_hri2task()
+    send_msg_hri2task()
     send_msg_taskexec2hri()
-    # send_msg_pose2d(), '\n'
+    send_msg_pose2d(), '\n'
+
 
 if __name__ == '__main__':
     # init the 1st publisher  or init the first pub-in
