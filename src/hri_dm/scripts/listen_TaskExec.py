@@ -19,6 +19,7 @@ Aegis_buttonPress = './Aegis_ButtonPress.json'
 address = "25.45.111.204"
 port = 1026
 
+global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta
 
 # navigate, grasp, releaseTool, handover
 navigate_state, pickup_state, release_state, handover_state = 0, 0, 0, 0
@@ -28,6 +29,7 @@ ACT_RES_FAIL = -1
 ACT_RES_UNKNOWN = 0
 ACT_RES_SUCCESS = 1
 
+
 # This function informs FIWARE that the current script is still alive
 # This should be executed in all callbacks
 def send_HRIhealth():
@@ -36,13 +38,13 @@ def send_HRIhealth():
     hri_state_test.updateStateMsg("OK", str(my_date.isoformat())), '\n'
 
 
-
 def callback_task2exec(data):
+    # print(data, 'callback_task2exec')
     """
     This function listens the commands send to the robot.
     It keeps track of the command that is currently executed by the robot and informs FIWARE they started
     """
-    global navigate_state, pickup_state, release_state, handover_state, last_toolID
+    global navigate_state, pickup_state, release_state, handover_state, last_toolID, nmloc_x, nmloc_y, nmloc_theta
 
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
 
@@ -52,7 +54,8 @@ def callback_task2exec(data):
         pickup_state = 0
         release_state = 0
         handover_state = 0
-        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN, data.navpos.x, data.navpos.y, data.navpos.theta)
+        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN, data.navpos.x, data.navpos.y,
+                                          data.navpos.theta)
         rospy.loginfo('Navigate Starts..')
 
     elif data.action == 'pickup':
@@ -61,7 +64,8 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 0
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x, data.location.y, data.location.z)
+        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x,
+                                             data.location.y, data.location.z)
         rospy.loginfo('Pickup Starts..')
 
     elif data.action == 'release':
@@ -79,36 +83,19 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 1
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x, data.location.y, data.location.z)
+        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x,
+                                               data.location.y, data.location.z)
         rospy.loginfo('Handover Starts..')
 
     # Inform FIWARE that the current script is alive
     send_HRIhealth()
 
 
-
-
-# def callback_HRIhealth(data):
-#     print('callback_HRIhealth')
-#     rospy.loginfo('receiving message..., ')  #%s data.action)
-#
-#     my_date = datetime.utcnow()  # utc time, this is used in FELICE
-#     hri_state_test = HRI_HealthStatePost(address, port, 'forth.HRI.SystemHealth:001', HRI_health_jsonFName)
-#     hri_state_test.updateStateMsg("OK", str(my_date.isoformat())), '\n'
-#     # print(data)
-
-
-
-#  Get information about the result of robot action execution in ROS
-#  This result is translated and forwarded to FIWARE
-
 def callback_TaskExResult(data):
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
-    print(data)
     print('callback_TaskExResult')
     rospy.loginfo('receiving message..')  # 2222 %s', data)
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
-    
     # if no error is reported back by the module undertaking the execution  
     if re.findall('null', data.error_type):
         rslt = ACT_RES_SUCCESS
@@ -138,40 +125,40 @@ def callback_TaskExResult(data):
         handover_state = 0
         workflow_state.updateStateMsg_handover(handover_state, rslt)
 
-    #inform FIWARE that the current script is alive
+    # Inform FIWARE that the current script is alive
     send_HRIhealth()
-
 
 def callback_ScenePerc(data):
     """ Callback for ScenePerception ROS messages
         It sends to FIWARE
-        (1) the new location
-        (2) the ScenePerception.SystemHealth message
+        (1)  new location
+        (2)  ScenePerception.SystemHealth message
     """
     # rospy.sleep(.5)
-    rospy.loginfo(' callback_ScenePerception received message.. ')  #%s data.action)
+    rospy.loginfo(' callback_ScenePerception received message.. ')  # %s data.action)
 
-    #send new location to FIWARE
+    # send new location to FIWARE
     PlanePoseState = PlanePoseStatePost(address, port, 'FORTH.ScenePerception.WorkFlow', PlanePose)
     PlanePoseState.updateStateMsg(data.x, data.y, data.theta)
 
-    #inform FIWARE that ScenePerception is alive
+    # inform FIWARE that ScenePerception is alive
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
     ScenePerceptionState = HRI_HealthStatePost(address, port, 'forth.ScenePerception.SystemHealth:001',
                                                ScenePerception_health_jsonFName)
     ScenePerceptionState.updateStateMsg("OK", str(my_date.isoformat()))
 
-    #inform FIWARE that the current script is alive
+    # inform FIWARE that the current script is alive
     send_HRIhealth()
 
     # this listens the response of ICS-localization with Target to AEGIS-dynamic Position
-    pose_task = Pose2D()
-    # pose_task.x, pose_task.y, pose_task.theta, pose_task.timestamp
-    print(pose_task)
+    # if len(msg.data) == 0: rospy.logwarn("Message empty")
+    global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta
+    navpos_x, navpos_y, navpos_theta = data.x, data.y, data.theta  #, data.timestamp  # localization
 
 
 
 def init_receiver():
+
     # this listens the commands send to the robot and informs FIWARE that they have received and get started
     rospy.Subscriber('Task2Execute', HRIDM2TaskExecution, callback_task2exec)
 
@@ -183,7 +170,6 @@ def init_receiver():
 
     rospy.loginfo('receiver_all subscriber nodes started')
     rospy.spin()
-
 
 if __name__ == '__main__':
     rospy.init_node('listen_all', anonymous=True)
