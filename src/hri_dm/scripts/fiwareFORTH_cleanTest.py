@@ -50,7 +50,8 @@ fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
 
 # TODO evaluate if we need this Function(get_linkInfo) anymore.. ?
 def get_linkInfo(wfc):
-    """ query links for /v2/entities/ or parse whatever link we want, """
+    """ query links for /v2/entities/ or parse whatever link we want,
+     : mallon den tha usaroume"""
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(wfc))
     print(r.status_code, 'first_query')
     action_link = r.json()['refAction']['value']
@@ -111,7 +112,7 @@ def get_robotPose():
     """
     obj = requests.get('http://25.45.111.204:1026/v2/entities/FORTH.ScenePerception.WorkFlow')
     found = 0
-    if obj.status == 204:
+    if obj.status_code == 204:
         found = 1
         x_rpose = obj.json()['position']['value']['x']['value']
         y_rpose = obj.json()['position']['value']['y']['value']
@@ -133,7 +134,7 @@ def get_xyo(obj):
 def adaptive_ws_all(obj):
     """
     Activates when "NamedLocation",
-    appears from fiware, then query pos/orn for
+    appears from fiware, then query for pos/orn to,
     (a)HumanLocation
     (b)RobotArrival
     (c)ToolcaseLocation
@@ -266,15 +267,12 @@ def send_ROSmsg_navigate(obj):
     # task_exec.location.x = 9999
     # task_exec.location.y = 9999
     # task_exec.location.z = 9999
-    # location/nav Pose2D
-    # navigation for ICS and Aegis colab
-
+    ''
+    # location/nav Pose2D # navigation for ICS and Aegis colab
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
     print("  Navigation Module : going to .... location_name:", location_name)
-
     # bear in mind [timestamp] for future debugs, network latency might or not.
     xf, yf, dir = adaptive_ws_all(obj)
-
     if re.findall('Human_Location', location_name):
         ws = 1
         found, xf, yf, dir = rob_goto_human(ws)
@@ -289,7 +287,6 @@ def send_ROSmsg_navigate(obj):
     #     #     on the go state=0
     #     # se kathe eftasa koitame an einai se ena apo
     #     # ta arival locations kai enhmeronoyme.
-
     task_exec.navpos.x = xf
     task_exec.navpos.y = yf
     task_exec.navpos.theta = dir
@@ -319,7 +316,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == "True":
                 send_ROSmsg_release()
-
                 print(CRED1, "release sent", CEND)
 
         elif re.findall('SystemHealth', sender_module):
