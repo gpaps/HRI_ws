@@ -8,7 +8,7 @@ from std_msgs.msg import String, Float64
 from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
 from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
-from forthPlanePose import PlanePoseStatePost
+from PlanePose_fiware import PlanePoseStatePost
 
 # from fiwareFORTH_cleanTest import send_ROSmsg_release
 
