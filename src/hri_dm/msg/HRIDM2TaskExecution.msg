@@ -1,4 +1,4 @@
-# “Pickup“, “Navigate”, “Handover”, “Release”, “ReachRecovery”, “GraspRecovery”, “HomingRecovery”, “NavigationRecovery"
+# “pickup“, “navigate”, “handover”, “release”, “reachRecovery”, “graspRecovery”, “homingRecovery”, “navigationRecovery"
 string action
 
 # Object to pickup
