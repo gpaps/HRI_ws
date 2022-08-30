@@ -78,9 +78,9 @@ def send_msg_pose2d():
 def native_sender():
     global result
     rospy.loginfo('sender node starts..')
-    send_msg_hri2task()
-    send_msg_taskexec2hri()
-    send_msg_pose2d(), '\n'
+    # send_msg_hri2task()
+    send_msg_taskexec2hri()   # PROFACTOR does that,
+    # send_msg_pose2d(), '\n'
 
 
 if __name__ == '__main__':
@@ -93,6 +93,5 @@ if __name__ == '__main__':
     # rate = rospy.Rate(0.5)  # t=1/f, where f =0.5 <-- rospyRate
     try:
         native_sender()
-        # rospy.spin()
     except rospy.ROSInterruptException:
         pass
