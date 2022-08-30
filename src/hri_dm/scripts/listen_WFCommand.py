@@ -411,6 +411,7 @@ except IndexError:
 print("user=", user)
 
 Log("INFO", "Initialized")
+# ROS INIT NODE
 rospy.init_node('fiware_ListenerFORTH', anonymous=True)
 # Start server, receive message
 try:
