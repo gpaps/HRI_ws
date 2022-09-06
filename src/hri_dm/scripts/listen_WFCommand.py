@@ -17,30 +17,6 @@ from handover_pos import *
 from _eq import *
 # from listen_TaskExec import test_goRobo2Human  # import from ROS-Module
 
-# colors colors works from humanRobo - position script
-# def color_me():
-#     CRED1 = '\033[31m'
-#     CGR1 = '\033[32m'
-#     CYEL1 = '\033[33m'
-#     CBlUE1 = '\033[34m'
-#     CMAG1 = '\033[35m'
-#     COIL1 = '\033[36m'
-#     CBRED1 = '\033[41m'
-#     CBGR1 = '\033[42m'
-#     CBYEL1 = '\033[43m'
-#     CBBlUE1 = '\033[44m'
-#     CBMAG1 = '\033[45m'
-#     CBOIL1 = '\033[46m'
-#     CRED2 = '\033[91m'
-#     CGR2 = '\033[92m'
-#     CYEL2 = '\033[93m'
-#     CBLUE2 = '\033[94m'
-#     CMAG2 = '\033[95m'
-#     COIL2 = '\033[96m'
-#     CEND = '\033[0m'
-#     return
-
-##colors
 robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
 
 # this is a new line
@@ -121,7 +97,7 @@ def get_robotPose():
     return found, x_rpose, y_rpose, orn_rpose
 
 
-def get_xyo(obj):
+def get_xyo(obj): #4nameDLocation
 
     """ Activate when namedLocation from fiware,
      grabs - json, outputs x,y,orn, workspace """
@@ -189,6 +165,7 @@ def adaptive_ws_all(obj):
 
     return x, y, orn
 
+# ROS-Message and Routines, (release, pickup, handover, navigate)
 def send_ROSmsg_release():
     global pub2TaskExe
     task_exec = HRIDM2TaskExecution()
@@ -311,6 +288,15 @@ class RequestHandler(BaseHTTPRequestHandler):
             print("handover:", obj['data'][0]['a_handover']['value']['state']['value'])
             print("release:", obj['data'][0]['a_releaseTool']['value']['state']['value'],
                   CEND)
+
+        # TODO, Check if this -routine- is valid,
+        #  hasn't been tested. #Orchestrator-was-down.
+        elif re.findall('UNISA.SpeechGestureAnalysis.Speech', sender_module):
+            print(COIL1, obj['data'][0]['command']['value'], CEND)
+            if obj['data'][0]['command']['value']:
+                    print('send_ROSmsg_release')
+                    send_ROSmsg_release()
+                    print(COIL1, "GSA.Speech received", CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
