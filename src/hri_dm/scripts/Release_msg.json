@@ -1,0 +1,26 @@
+{
+	"id": "UNISA.SpeechGestureAnalysis.Speech:79921510230870",
+	"type": "Speech",
+	"timestamp": {
+		"type": "DateTime",
+		"value": "1995-02-22T06:30:22.12"
+	},
+	"command": {
+		"type": "Number",
+		"value": 5,
+		"metadata":{
+			"english":{
+				"type": "String",
+				"value": "Release"
+			},
+			"italian":{
+				"type": "String",
+				"value": "Rilascia"
+			}
+		}
+	},
+	"confidence": {
+		"type": "float",
+		"value": "0.0"
+	}
+}
