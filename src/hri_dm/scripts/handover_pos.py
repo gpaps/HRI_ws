@@ -8,6 +8,8 @@ import pybullet_data
 from pybullet import URDF_USE_SELF_COLLISION, URDF_MAINTAIN_LINK_ORDER, \
     URDF_USE_SELF_COLLISION_INCLUDE_PARENT
 
+
+###### COLORS 4 Debug ########
 CRED1 = '\033[31m'
 CGR1 = '\033[32m'
 CYEL1 = '\033[33m'
@@ -27,14 +29,11 @@ CBLUE2 = '\033[94m'
 CMAG2 = '\033[95m'
 COIL2 = '\033[96m'
 CEND = '\033[0m'
+##############################
 
 global end_effectorId
-
-
 # end_effectorId = 37
 
-
-##############################
 def murry_checkAngles(allAngles, side):
     murry_err = 0
     for i in range(len(allAngles)):
@@ -129,8 +128,8 @@ def murry_checkAngles(allAngles, side):
 
 
 def find_HandOver_pos():
-    # p.connect(p.GUI)
-    p.connect(p.DIRECT)
+    p.connect(p.GUI)  # for time debug,
+    # p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
     obUid = p.loadURDF("result3_humanoid.urdf", [0, 0, 1.3],
@@ -176,15 +175,12 @@ def find_HandOver_pos():
         # p.setGravity(0, 0, p.readUserDebugParameter(gravId))
         t = t + 0.05
         # pos = [0.3 + 0.1 *math.cos(3*t), 0.3 +0.2 * math.cos(t+6), 1.1-0.2 * math.cos(t)]
-
         pos = [random.uniform(0.1, 0.4), random.uniform(0.0, 0.3), random.uniform(1.0, 1.35)]
         jointAngles = p.calculateInverseKinematics(humanoid, end_effectorId, pos, maxNumIterations=100)
-
         # print(jointPoses1)
         # tempJointPoses = list(jointPoses1)
         # tempJointPoses[20] = 0
         # jointPoses1 = tuple(tempJointPoses)
-
         for kk in range(2):
             # print(kk)
             for i in range(len(jointAngles)):
@@ -198,8 +194,8 @@ def find_HandOver_pos():
         dist = math.sqrt(dx * dx + dy * dy + dz * dz)
         # print(dist)
         if dist < 0.1:
-            m_res = murry_checkAngles(jointAngles,
-                                      "L")  # "L": for left side arm check,       "R": for right side arm check
+            # "L": for left side arm check.||"R": for right side arm check.
+            m_res = murry_checkAngles(jointAngles, "L")
             if m_res == 0:
                 p.addUserDebugPoints([pos], [[0, 1., 0]], 5.0, trailDuration)  # Green
                 greenPoses.append(ls[4])
@@ -216,10 +212,9 @@ def find_HandOver_pos():
         #   # addUserDebugLine( lineFrom(XYZ), lineToXYZ, lineColorRGB, lineWidth(1.5) )
         #   p.addUserDebugLine(prevPos, pos, [0, 0, 0.6], .6, trailDuration)
         #   p.addUserDebugLine(prevPos1, ls[4], [1, 0, 0], 2.6, trailDuration)  # elbow  or wannabe end-effector
-        if poscount == 1:  # This finds the first 10 green p
-            # ositions, but..... we may return the first one and stop!
+        if poscount == 1:  # This finds the first 10 green...
+            # ...positions, but we are returning the first one and stop!
             print(greenPoses)
-
             # p.disconnect()
             return greenPoses[0][0], greenPoses[0][1], greenPoses[0][2]
             # rr = random.randint(0, len(greenPoses))
@@ -229,8 +224,22 @@ def find_HandOver_pos():
     # return greenPoses
 
 
+###### test for translation,
+# from _eq import *
+# find_HandOver_pos()
+# p3d_x, p3d_y, p3d_z = find_HandOver_pos()
+# print(p3d_x, p3d_y, p3d_z)# pyBullet, this is the handover location in the human coordinate system
+# rlocalx, rlocaly = rotate(p3d_x, p3d_y, -60)  # rotate handover location by the human-theta
+# print('rlocals', '\n', rlocalx, rlocaly)
+# # location/vector3 geom_msgs location
+# x = 3 + rlocalx  # this is the handover location in the global coordinate system
+# y = 3 + rlocaly  # this is the handover location in the global coordinate system
+# z = p3d_z  # the z is not affected by the rotation of the human
+# print(x, '\n', y, '\n', z)
+################# test
 # sys.exit(0)
 # pos1 = find_HO_pos()
 ##############################################
+
 if __name__ == '__main__':
     x, y, z = find_HandOver_pos()
