@@ -4,6 +4,7 @@ import numpy as np
 
 
 def rotate(x, y, theta):
+    """ Rotation is used for finding Human2D position"""
     xn = x * math.cos(theta) + y * math.sin(theta)
     yn = -x * math.sin(theta) + y * math.cos(theta)
     return xn, yn
