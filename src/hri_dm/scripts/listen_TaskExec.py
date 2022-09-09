@@ -143,12 +143,6 @@ def callback_ScenePerc(data):
     PlanePoseState = PlanePoseStatePost(address, port, 'FORTH.ScenePerception.WorkFlow', PlanePose)
     PlanePoseState.updateStateMsg(data.x, data.y, data.theta)
 
-    # if no error is reported back by the module undertaking the execution
-    if re.findall('null', data.error_type):
-        rslt = ACT_RES_SUCCESS
-    else:  # in that case an error is reported, and thus the action has failed
-        rslt = ACT_RES_FAIL
-
     # inform FIWARE that ScenePerception is alive
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
     ScenePerceptionState = HRI_HealthStatePost(address, port, 'forth.ScenePerception.SystemHealth:001',
@@ -157,33 +151,36 @@ def callback_ScenePerc(data):
 
     # inform FIWARE that the current script is alive
     send_HRIhealth()
+
+    ####
+
     # this listens the response of ICS-localization with Target to AEGIS-dynamic Position
     # if len(msg.data) == 0: rospy.logwarn("Message empty")
     # test
-    global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta, navigate_state
-    navpos_x, navpos_y, navpos_theta = data.x, data.y, data.theta  # , data.timestamp  # localization
-    navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta = 2., 3., 30, 6., 8., 60.  # for DEBUG
-
-    if (nmloc_x and navpos_x) and (nmloc_x and navpos_y) and (navpos_theta and nmloc_theta):  # or if 1: always true
-        diff_x = nmloc_x - navpos_x
-        diff_y = nmloc_y - navpos_y
-        diff_theta = nmloc_theta - navpos_theta
-
-        rslt = ACT_RES_SUCCESS
-
-        if (diff_x < 0.5) and (diff_y < 0.5) and (diff_theta < 0.5):
-            print(navigate_state)
-            if navigate_state == 1:
-                # it has completed so it is not active anymore
-                navigate_state = 0
-                workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
-                workflow_state.updateStateMsg_nav(navigate_state, rslt)
-                rospy.loginfo('Location Reached')
-                # fiware publish position reached
-        else:
-            pass
-            # rslt = ACT_RES_FAIL # send the current or location difference?
-    # send smth else?
+    # global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta, navigate_state
+    # navpos_x, navpos_y, navpos_theta = data.x, data.y, data.theta  # , data.timestamp  # localization
+    # navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta = 2., 3., 30, 6., 8., 60.  # for DEBUG
+    #
+    # if (nmloc_x and navpos_x) and (nmloc_x and navpos_y) and (navpos_theta and nmloc_theta):  # or if 1: always true
+    #     diff_x = nmloc_x - navpos_x
+    #     diff_y = nmloc_y - navpos_y
+    #     diff_theta = nmloc_theta - navpos_theta
+    #
+    #     rslt = ACT_RES_SUCCESS
+    #
+    #     if (diff_x < 0.5) and (diff_y < 0.5) and (diff_theta < 0.5):
+    #         print(navigate_state)
+    #         if navigate_state == 1:
+    #             # it has completed so it is not active anymore
+    #             navigate_state = 0
+    #             workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
+    #             workflow_state.updateStateMsg_nav(navigate_state, rslt)
+    #             rospy.loginfo('Location Reached')
+    #             # fiware publish position reached
+    #     else:
+    #         pass
+    #         # rslt = ACT_RES_FAIL # send the current or location difference?
+    # # send smth else?
 
 
 def init_receiver():
