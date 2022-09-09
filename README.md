@@ -3,14 +3,14 @@
 
 __fiwareRos__\
 listen_WFCommand.py (set to replace the fiwareFORTH_cleanTest.py)\
-WorkflowState_fiware.py (fiware only, sends state about workflow-cmds)\
+WorkflowState_fiware.py (fiware only, sends state's about workflow-cmds)\
+PlanePose_fiware.py (fiware only, sends xyTheta)\
 #listen_fiwareFORTH.py (pybullet integrated in script - beta_old)
 
 __ros-com2fiware__\
 listen_TaskExec.py (listen&respond, ROSsubs3topics->
-Tas2Execute,
-Robot_Pose2D,
-tasExec_2HRIDM, and triggers WFState_fiware.py)
+    Tas2Execute, Robot_Pose2D, tasExec_2HRIDM, 
+    and triggers WFState_fiware.py, PlanePose_fiware)
 
 __ros-fiware-test__\
 localSender2.py (sends msg once)\
