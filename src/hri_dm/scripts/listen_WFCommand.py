@@ -15,7 +15,7 @@ from hri_dm.msg import HRIDM2TaskExecution, Pose2D
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
-
+request_number = 0
 # from listen_TaskExec import test_goRobo2Human  # import from ROS-Module
 
 robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
@@ -67,7 +67,7 @@ def rob_goto_human(ws):
 
     found = 0
 
-    hx, hy, ho = get_humanPose_ws(ws)
+    hx, hy, ho = get_humanPose_ws(ws)   # ICCS query
     rx, ry, ro = get_robotPose()
     pos_found, xf, yf = find_pos_Rel2Hum([rx, ry], [hx, hy], 1.1)
     if pos_found > 0:
@@ -108,8 +108,18 @@ def get_xyo(obj):  # 4nameDLocation
     orn_ws = obj.json()[0]['orientation']
     return x_ws, y_ws, orn_ws
 
+def get_robotWS():
+    """
+    Activates when "Navigate",
+    appears from fiware, then query for Cobot_Current_WS,
+     """
+    obj = requests.get('http://25.17.36.113:2620/cobotloc')
+    ws = obj.json()[0]['???ws??']  # TODO verify with vaggelhs (AEGIS) about json format
+    # x, y, orn = get_xyo(obj) # palio apo allo function 8a to dle later
+    return ws
 
-def adaptive_ws_all(obj):
+
+def decode_named_location(obj):
     """
     Activates when "NamedLocation",
     appears from fiware, then query for pos/orn to,
@@ -122,74 +132,76 @@ def adaptive_ws_all(obj):
     named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
     # print('object WORKSTATION ADAPTIVE', '\n', named_loc)
     if re.findall('AdapticeWS_Location', named_loc):
-        obj = requests.get('http://192.168.1.113:5000/awsloc')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/awsloc')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Human_Location_WS10', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/humanlocws10')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/humanlocws10')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Human_Location_WS20', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/humanlocws20')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/humanlocws20')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Human_Location_WS30', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/humanlocws30')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/humanlocws30')
+        x, y, orn = get_xyo(cords_obj)
 
-    # ACCREA
+    # AEGIS
     if re.findall('Robot_Arrival_Location_WS10', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws10_loc')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws10_loc')
+        x, y, orn = get_xyo(cords_obj)
     elif re.findall('Robot_Arrival_Location_WS20', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws20_loc')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws20_loc')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Robot_Arrival_Location_WS30', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws30_loc')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/robot_arrival_ws30_loc')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Toolcase_Location_WS10', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/toolcaselocws10')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/toolcaselocws10')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Toolcase_Location_WS20', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/toolcaselocws20')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/toolcaselocws20')
+        x, y, orn = get_xyo(cords_obj)
 
     elif re.findall('Toolcase_Location_WS30', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/toolcaselocws30')
-        x, y, orn = get_xyo(obj)
+        cords_obj = requests.get('http://25.17.36.113:2620/toolcaselocws30')
+        x, y, orn = get_xyo(cords_obj)
 
-    elif re.findall('Cobot_Current_WS', named_loc):
-        obj = requests.get('http://25.17.36.113:2620/cobotloc')
-        x, y, orn = get_xyo(obj)
+    # omited for now one robot currently we have.
+    # elif re.findall('Cobot_Current_WS', named_loc):
+    #     obj = requests.get('http://25.17.36.113:2620/cobotloc')
+    #     x, y, orn = get_xyo(obj)
 
     return x, y, orn
 
+### ROS-Message and Routines, (release, pickup, handover, navigate)
 
-# ROS-Message and Routines, (release, pickup, handover, navigate)
 def send_ROSmsg_release():
-    global pub2TaskExe
+    global pub2TaskExe, request_number
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'release'  # action
     task_exec.tool_id = -1
     # location/vector3 geom_msgs location
-    task_exec.location.x = 99999
-    task_exec.location.y = 99999
-    task_exec.location.z = 99999
+    # task_exec.location.x = 99999 # not used by us in release
+    # task_exec.location.y = 99999 # not used by us in release
+    # task_exec.location.z = 99999 # not used by us in release
     # location/nav Pose2D
     task_exec.navpos.x = 0
     task_exec.navpos.y = 0
     task_exec.navpos.theta = 0.0
     # synchronization
-    task_exec.request_id = -1
+    request_number = request_number+1
+    task_exec.request_id = request_number
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'received')
 
 
 def send_ROSmsg_pickup(obj):
-    global pub2TaskExe
+    global pub2TaskExe, request_number
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
 
@@ -204,13 +216,14 @@ def send_ROSmsg_pickup(obj):
     task_exec.navpos.y = 99999
     task_exec.navpos.theta = 99999
     # synchronization
-    task_exec.request_id = 99
+    request_number =request_number+1
+    task_exec.request_id = request_number
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'received')
 
 
 def send_ROSmsg_handover(obj):
-    global pub2TaskExe
+    global pub2TaskExe, request_number
     ws = 1  # refers to workStation
     workerx, workery, workertheta = get_humanPose_ws(
         ws)  # get worker position and theta in the global coordinate system
@@ -233,13 +246,14 @@ def send_ROSmsg_handover(obj):
     # task_exec.navpos.y = y
     # task_exec.navpos.theta = theta  # counterclockwise
     # synchronization
-    task_exec.request_id = -1
+    request_number = request_number+1
+    task_exec.request_id = request_number
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'handOver_task')
 
 
 def send_ROSmsg_navigate(obj):
-    global pub2TaskExe
+    global pub2TaskExe, request_number
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'navigate'  # action
     # task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId']) # not usable for nav.
@@ -252,26 +266,19 @@ def send_ROSmsg_navigate(obj):
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
     print("  Navigation Module : going to .... location_name:", location_name)
     # bear in mind [timestamp] for future debugs, network latency might or not.
-    xf, yf, dir = adaptive_ws_all(obj)
+    xf, yf, dir = decode_named_location(obj)
     if re.findall('Human_Location', location_name):
-        ws = 1
+        ws = get_robotWS()
         found, xf, yf, dir = rob_goto_human(ws)
-    # if re.findall('Robot_Arrival_Location_WS', location_name):
-    #     ws = 1
-    #     found, xf, yf, dir = get_robotPose(ws)
-    #     # kapoios prepei na krata se poio WS einai to robot,
-    #     # mporoyme na to ypologizomy apo to location
-    #     # ayto to theloyme edw alla den to exoyme.
-    #
-    #     # phgaine sto ws
-    #     #     on the go state=0
-    #     # se kathe eftasa koitame an einai se ena apo
-    #     # ta arival locations kai enhmeronoyme.
+        if found < 1:
+            print("ERROR  !!!!!!! please check")
+
     task_exec.navpos.x = xf
     task_exec.navpos.y = yf
     task_exec.navpos.theta = dir
     # synchronization
-    task_exec.request_id = -1
+    request_number = request_number + 1
+    task_exec.request_id = request_number
     pub2TaskExe.publish(task_exec)
 
 
