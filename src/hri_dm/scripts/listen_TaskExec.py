@@ -11,7 +11,7 @@ from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
 
 # from fiwareFORTH_cleanTest import send_ROSmsg_release
-
+# json files
 HRI_health_jsonFName = "./HRI_health.json"
 ScenePerception_health_jsonFName = "./ScenePerception_health.json"
 PlanePose = "./PlanePose.json"
@@ -26,9 +26,10 @@ global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta
 navigate_state, pickup_state, release_state, handover_state = 0, 0, 0, 0
 last_toolID = -1
 
-ACT_RES_FAIL = -1
-ACT_RES_UNKNOWN = 0
+# ACTION RESULT | Status
 ACT_RES_SUCCESS = 1
+ACT_RES_UNKNOWN = 0
+ACT_RES_FAIL = -1
 
 
 # This function informs FIWARE that the current script is still alive
@@ -55,8 +56,8 @@ def callback_task2exec(data):
         pickup_state = 0
         release_state = 0
         handover_state = 0
-        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN, data.navpos.x, data.navpos.y,
-                                          data.navpos.theta)
+        workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN,
+                                          data.navpos.x, data.navpos.y, data.navpos.theta)
         rospy.loginfo('Navigate Starts..')
 
     elif data.action == 'pickup':
@@ -65,8 +66,8 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 0
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x,
-                                             data.location.y, data.location.z)
+        workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id,
+                                             data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Pickup Starts..')
 
     elif data.action == 'release':
@@ -84,8 +85,8 @@ def callback_task2exec(data):
         release_state = 0
         handover_state = 1
         last_toolID = data.tool_id
-        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id, data.location.x,
-                                               data.location.y, data.location.z)
+        workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id,
+                                               data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Handover Starts..')
 
     # Inform FIWARE that the current script is alive

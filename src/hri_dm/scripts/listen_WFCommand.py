@@ -15,6 +15,7 @@ from hri_dm.msg import HRIDM2TaskExecution, Pose2D
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
+
 # from listen_TaskExec import test_goRobo2Human  # import from ROS-Module
 
 robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, WS30:30
@@ -23,6 +24,7 @@ robotAtWs = 10  # possible values -1: lost, 0: on navigation, WS10:10, WS20:20, 
 
 pub2TaskExe = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 fiware_iccs = 'iccs.Hbu.PoseEstimation.WorkerPose'
+
 
 # TODO evaluate if we need this Function(get_linkInfo) anymore.. ?
 def get_linkInfo(wfc):
@@ -60,7 +62,7 @@ def rob_goto_human(ws):
     :return: found, xf, yf, dir
     """
 
-    # TODO  I assume this is for 2DPose, we query for this from ICCSorAEGIS?
+    # TODO  I assume this is for 2DPose, we query for this from ICCS or AEGIS?
     xf, yf, dir = 99999, 99999, 99999
 
     found = 0
@@ -97,7 +99,7 @@ def get_robotPose():
     return found, x_rpose, y_rpose, orn_rpose
 
 
-def get_xyo(obj): #4nameDLocation
+def get_xyo(obj):  # 4nameDLocation
 
     """ Activate when namedLocation from fiware,
      grabs - json, outputs x,y,orn, workspace """
@@ -165,6 +167,7 @@ def adaptive_ws_all(obj):
 
     return x, y, orn
 
+
 # ROS-Message and Routines, (release, pickup, handover, navigate)
 def send_ROSmsg_release():
     global pub2TaskExe
@@ -190,7 +193,7 @@ def send_ROSmsg_pickup(obj):
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
 
-    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId'])  # TODO to receive and publish
+    task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId'])
     # print('TOOL_____ID', task_exec.tool_id)
     # location/vector3 geom_msgs location
     task_exec.location.x = 99999
@@ -271,6 +274,7 @@ def send_ROSmsg_navigate(obj):
     task_exec.request_id = -1
     pub2TaskExe.publish(task_exec)
 
+
 # Intercepts incoming messages
 class RequestHandler(BaseHTTPRequestHandler):
     def do_POST(self):
@@ -293,10 +297,10 @@ class RequestHandler(BaseHTTPRequestHandler):
         #  hasn't been tested. #Orchestrator-was-down.
         elif re.findall('UNISA.SpeechGestureAnalysis.Speech', sender_module):
             print(COIL1, obj['data'][0]['command']['value'], CEND)
-            if obj['data'][0]['command']['value']:
-                    print('send_ROSmsg_release')
-                    send_ROSmsg_release()
-                    print(COIL1, "GSA.Speech received", CEND)
+            if obj['data'][0]['command']['value'] == 3:
+                print('send_ROSmsg_release')
+                send_ROSmsg_release()
+                print(COIL1, "SGA.Speech received", CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
             print(CRED1, obj['data'][0]['command']['value'], CEND)
@@ -325,7 +329,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             elif action_type == 'navigate':
                 print('send_ROSmsg_navigate')
                 send_ROSmsg_navigate(obj)
-
 
         # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
         self.send_response(200)
