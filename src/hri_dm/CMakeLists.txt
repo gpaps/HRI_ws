@@ -213,7 +213,7 @@ include_directories(
 
 ## Add folders to be run by python nosetests
 # catkin_add_nosetests(test)
-catkin_install_python(PROGRAMS scripts/listen_fiwareFORTH.py
+catkin_install_python(PROGRAMS scripts/listen_WFCommand.py
     scripts/logger.py
     scripts/sub.py
     scripts/reader_wfc.py
