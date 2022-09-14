@@ -1,0 +1,26 @@
+{
+    "id": "UNISA.SpeechGestureAnalysis.Speech",
+    "type": "Speech",
+    "timestamp": {
+        "type": "DateTime",
+        "value": "1995-02-22T06:30:22.12+01:00"
+    },
+    "command": {
+        "type": "Number",
+        "value": 29,
+        "metadata":{
+            "english":{
+                "type": "String",
+                "value": "No command"
+            },
+            "italian":{
+                "type": "String",
+                "value": "Nessun comando"
+            }
+        }
+    },
+    "confidence": {
+        "type": "float",
+        "value": "0.0"
+    }
+}
