@@ -9,7 +9,7 @@ from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
 from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
-
+from handover_pos import *
 # from fiwareFORTH_cleanTest import send_ROSmsg_release
 # json files
 HRI_health_jsonFName = "./HRI_health.json"
@@ -17,7 +17,8 @@ ScenePerception_health_jsonFName = "./ScenePerception_health.json"
 PlanePose = "./PlanePose.json"
 workFlow_json = "./HRI.json"
 Aegis_buttonPress = './Aegis_ButtonPress.json'
-address = "25.45.111.204"
+# address = "25.45.111.204" # Orch/
+address = '25.85.76.1'  # DemoIP
 port = 1026
 
 global navpos_x, navpos_y, navpos_theta, nmloc_x, nmloc_y, nmloc_theta
@@ -59,6 +60,7 @@ def callback_task2exec(data):
         workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN,
                                           data.navpos.x, data.navpos.y, data.navpos.theta)
         rospy.loginfo('Navigate Starts..')
+        print(CRED1, 'Navigate Starts..', CEND)
 
     elif data.action == 'pickup':
         navigate_state = 0
@@ -69,6 +71,7 @@ def callback_task2exec(data):
         workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id,
                                              data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Pickup Starts..')
+        print(CRED1, 'Pickup Starts..', CEND)
 
     elif data.action == 'release':
         navigate_state = 0
@@ -78,6 +81,7 @@ def callback_task2exec(data):
         last_toolID = data.tool_id
         workflow_state.updateStateMsg_release(release_state, ACT_RES_UNKNOWN, data.tool_id)
         rospy.loginfo('Release Starts..')
+        print(CRED1, 'Release Starts..', CEND)
 
     elif data.action == 'handover':
         navigate_state = 0
@@ -88,7 +92,7 @@ def callback_task2exec(data):
         workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id,
                                                data.location.x, data.location.y, data.location.z)
         rospy.loginfo('Handover Starts..')
-
+        print(CRED1, 'Handover Starts..', CEND)
     # Inform FIWARE that the current script is alive
     send_HRIhealth()
 
@@ -97,6 +101,7 @@ def callback_TaskExResult(data):
     global navigate_state, pickup_state, release_state, handover_state, last_toolID
     print('callback_TaskExResult')
     rospy.loginfo('receiving message..')  # 2222 %s', data)
+    print('callBack2TaskEx, data received :', data)
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
     # if no error is reported back by the module undertaking the execution  
     if re.findall('null', data.error_type):
@@ -139,6 +144,7 @@ def callback_ScenePerc(data):
     """
     # rospy.sleep(.5)
     rospy.loginfo(' callback_ScenePerception received message.. ')  # %s data.action)
+    print(CRED2, 'callback_ScenePerception received message.. ', CEND)
     # send new location to FIWARE
     PlanePoseState = PlanePoseStatePost(address, port, 'FORTH.ScenePerception.WorkFlow', PlanePose)
     PlanePoseState.updateStateMsg(data.x, data.y, data.theta)
@@ -185,15 +191,17 @@ def callback_ScenePerc(data):
 
 def init_receiver():
     # this listens the commands send to the robot and informs FIWARE that they have received and get started
-    rospy.Subscriber('Task2Execute', HRIDM2TaskExecution, callback_task2exec)
+    rospy.Subscriber('Task2Execute', HRIDM2TaskExecution, callback_task2exec, queue_size=100)
 
     # this listens the new Locations reported by ScenePerception
-    rospy.Subscriber('Robot_Pose2D', Pose2D, callback_ScenePerc)
+    rospy.Subscriber('Robot_Pose2D', Pose2D, callback_ScenePerc, queue_size=100)
 
     # this listens the response of robot command execution (e.g success/failure)
-    rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult)
+    rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult, queue_size=100)
 
     rospy.loginfo('receiver_all subscriber nodes started')
+    print(CMAG2, 'receiver_all subscriber nodes started', CEND)
+
     rospy.spin()
 
 
