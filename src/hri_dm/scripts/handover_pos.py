@@ -128,8 +128,8 @@ def murry_checkAngles(allAngles, side):
 
 
 def find_HandOver_pos():
-    p.connect(p.GUI)  # for time debug,
-    # p.connect(p.DIRECT)
+    # p.connect(p.GUI)  # for time debug,
+    p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
 
     obUid = p.loadURDF("result3_humanoid.urdf", [0, 0, 1.3],
