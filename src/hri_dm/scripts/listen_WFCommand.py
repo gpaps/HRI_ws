@@ -46,6 +46,8 @@ def get_humanPose_ws(ws):
     query ICCS for human pose,
     return x_hpose, y_hpose, orn_pose
     """
+    x_hpose, y_hpose, orn_pose = 10, 20, 30.30
+    return x_hpose, y_hpose, orn_pose
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
     x_hpose = obj.json()['position']['value']['x']['value']
     y_hpose = obj.json()['position']['value']['y']['value']
@@ -114,7 +116,7 @@ def get_robotWS():
     appears from fiware, then query for Cobot_Current_WS,
      """
     obj = requests.get('http://25.17.36.113:2620/cobotloc')
-    ws = obj.json()[0]['???ws??']  # TODO verify with vaggelhs (AEGIS) about json format
+    ws = obj.json()[0]['???ws??']  # TODO verify with (vaggelhs) AEGIS about json format
     # x, y, orn = get_xyo(obj) # palio apo allo function 8a to dle later
     return ws
 
@@ -127,10 +129,12 @@ def decode_named_location(obj):
     (b)RobotArrival
     (c)ToolcaseLocation
      """
+    x, y, orn = 1, 2, 0.1
+    return x, y, orn
 
     # Adaptive Workstation AEGIS
     named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
-    # print('object WORKSTATION ADAPTIVE', '\n', named_loc)
+    print('object WORKSTATION ADAPTIVE', '\n', named_loc)
     if re.findall('AdapticeWS_Location', named_loc):
         cords_obj = requests.get('http://25.17.36.113:2620/awsloc')
         x, y, orn = get_xyo(cords_obj)
@@ -204,7 +208,6 @@ def send_ROSmsg_pickup(obj):
     global pub2TaskExe, request_number
     task_exec = HRIDM2TaskExecution()
     task_exec.action = 'pickup'  # action
-
     task_exec.tool_id = int(obj['data'][0]['parameters']['value']['tool']['toolId'])
     # print('TOOL_____ID', task_exec.tool_id)
     # location/vector3 geom_msgs location
@@ -216,7 +219,7 @@ def send_ROSmsg_pickup(obj):
     task_exec.navpos.y = 99999
     task_exec.navpos.theta = 99999
     # synchronization
-    request_number =request_number+1
+    request_number = request_number+1
     task_exec.request_id = request_number
     pub2TaskExe.publish(task_exec)
     # print(task_exec, '\n', 'received')
@@ -261,10 +264,11 @@ def send_ROSmsg_navigate(obj):
     # task_exec.location.x = 9999
     # task_exec.location.y = 9999
     # task_exec.location.z = 9999
-    ''
+
     # location/nav Pose2D # navigation for ICS and Aegis colab
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
     print("  Navigation Module : going to .... location_name:", location_name)
+    pass
     # bear in mind [timestamp] for future debugs, network latency might or not.
     xf, yf, dir = decode_named_location(obj)
     if re.findall('Human_Location', location_name):
@@ -295,25 +299,25 @@ class RequestHandler(BaseHTTPRequestHandler):
             # print(CYEL1, obj['data'][0]['type'], CEND)
             # print(obj)
             print(CYEL1, "navigate:", obj['data'][0]['a_navigate']['value']['state']['value'])
-            print("grasp:", obj['data'][0]['a_grasp']['value']['state']['value'])
-            print("handover:", obj['data'][0]['a_handover']['value']['state']['value'])
-            print("release:", obj['data'][0]['a_releaseTool']['value']['state']['value'],
+            print(" pickup :", obj['data'][0]['a_grasp']['value']['state']['value'])
+            print(" handover :", obj['data'][0]['a_handover']['value']['state']['value'])
+            print(" release :", obj['data'][0]['a_releaseTool']['value']['state']['value'],
                   CEND)
 
         # TODO, Check if this -routine- is valid,
         #  hasn't been tested. #Orchestrator-was-down.
         elif re.findall('UNISA.SpeechGestureAnalysis.Speech', sender_module):
-            print(COIL1, obj['data'][0]['command']['value'], CEND)
+            print(CBLUE2, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == 3:
                 print('send_ROSmsg_release')
                 send_ROSmsg_release()
-                print(COIL1, "SGA.Speech received", CEND)
+                print(CBLUE2, "SGA.Speech received", CEND)
 
         elif re.findall('AEGIS.Visualizations', sender_module):
-            print(CRED1, obj['data'][0]['command']['value'], CEND)
+            print(CBLUE2, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == "True":
                 send_ROSmsg_release()
-                print(CRED1, "release sent", CEND)
+                print(CBlUE1, "release sent", CEND)
 
         elif re.findall('SystemHealth', sender_module):
             print(CGR1, obj['data'][0]['id'], CEND)
@@ -322,19 +326,19 @@ class RequestHandler(BaseHTTPRequestHandler):
             action_type = obj['data'][0]['actionType']['value']
             print('ACTION_TYPE', action_type)
             if action_type == 'release':
-                print('send_ROSmsg_release')
+                print(CBlUE1, 'send_ROSmsg_release', CEND)
                 send_ROSmsg_release()
 
             elif action_type == 'pickup':
-                print('send_ROSmsg_pickup')
+                print(CBlUE1, 'send_ROSmsg_pickup', CEND)
                 send_ROSmsg_pickup(obj)
 
             elif action_type == 'handover':
-                print('send_ROSmsg_handover')
+                print(CBlUE1, 'send_ROSmsg_handover', CEND)
                 send_ROSmsg_handover(obj)
 
             elif action_type == 'navigate':
-                print('send_ROSmsg_navigate')
+                print(CBlUE1, 'send_ROSmsg_navigate', CEND)
                 send_ROSmsg_navigate(obj)
 
         # Log("INFO", json.dumps(obj, indent=4, sort_keys=True))  # print receive messages
