@@ -35,6 +35,7 @@ class WorkFlowStatePost(WorkFlow):
 
         self.json_action_message = []
         self.json_message = []
+        
 
         f = open(json_fname, 'r')  # encoding="cp866")
         self.json_message = json.load(f)
