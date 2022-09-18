@@ -46,8 +46,8 @@ def get_humanPose_ws(ws):
     query ICCS for human pose,
     return x_hpose, y_hpose, orn_pose
     """
-    x_hpose, y_hpose, orn_pose = 10, 20, 30.30
-    return x_hpose, y_hpose, orn_pose
+    # x_hpose, y_hpose, orn_pose = 10, 20, 30.30
+    # return x_hpose, y_hpose, orn_pose # for debug
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
     x_hpose = obj.json()['position']['value']['x']['value']
     y_hpose = obj.json()['position']['value']['y']['value']
@@ -129,8 +129,8 @@ def decode_named_location(obj):
     (b)RobotArrival
     (c)ToolcaseLocation
      """
-    x, y, orn = 1, 2, 0.1
-    return x, y, orn
+    # x, y, orn = 1, 2, 0.1
+    # return x, y, orn
 
     # Adaptive Workstation AEGIS
     named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
