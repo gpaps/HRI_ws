@@ -46,8 +46,7 @@ def get_humanPose_ws(ws):
     query ICCS for human pose,
     return x_hpose, y_hpose, orn_pose
     """
-    # x_hpose, y_hpose, orn_pose = 10, 20, 30.30
-    # return x_hpose, y_hpose, orn_pose # for debug
+
     obj = requests.get('http://25.45.111.204:1026/v2/entities/iccs.hbu.PoseEstimation.WorkerPose:00' + str(ws))
     x_hpose = obj.json()['position']['value']['x']['value']
     y_hpose = obj.json()['position']['value']['y']['value']
@@ -129,8 +128,6 @@ def decode_named_location(obj):
     (b)RobotArrival
     (c)ToolcaseLocation
      """
-    # x, y, orn = 1, 2, 0.1
-    # return x, y, orn
 
     # Adaptive Workstation AEGIS
     named_loc = obj['data'][0]['parameters']['value']['location']['namedLocation']
@@ -304,8 +301,6 @@ class RequestHandler(BaseHTTPRequestHandler):
             print(" release :", obj['data'][0]['a_releaseTool']['value']['state']['value'],
                   CEND)
 
-        # TODO, Check if this -routine- is valid,
-        #  hasn't been tested. #Orchestrator-was-down.
         elif re.findall('UNISA.SpeechGestureAnalysis.Speech', sender_module):
             print(CBLUE2, obj['data'][0]['command']['value'], CEND)
             if obj['data'][0]['command']['value'] == 3:

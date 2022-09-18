@@ -9,7 +9,7 @@ gnome-terminal -- roscore
 cd /src/hri_dm/scripts
 
 #py listeners
-gnome-terminal -- python3 listen_all.py
+gnome-terminal -- python3 listen_TaskExec.py
 gnome-terminal -- python3 listenerSubscriber.py
 #py send once
 gnome-terminal -- python3 localSender.py

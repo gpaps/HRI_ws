@@ -5,7 +5,7 @@ import requests
 from datetime import datetime
 
 from std_msgs.msg import String, Float64
-from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
+from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D, PoseWithCovarianceStamped
 from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
@@ -143,11 +143,13 @@ def callback_ScenePerc(data):
         (2)  ScenePerception.SystemHealth message
     """
     # rospy.sleep(.5)
+    print(data.pose.pose.orientation.w)
     rospy.loginfo(' callback_ScenePerception received message.. ')  # %s data.action)
     print(CRED2, 'callback_ScenePerception received message.. ', CEND)
     # send new location to FIWARE
     PlanePoseState = PlanePoseStatePost(address, port, 'FORTH.ScenePerception.WorkFlow', PlanePose)
-    PlanePoseState.updateStateMsg(data.x, data.y, data.theta)
+    th = 2*math.atan2(data.pose.pose.orientation.z, data.pose.pose.orientation.w)
+    PlanePoseState.updateStateMsg(data.pose.pose.position.x, data.pose.pose.position.y, th)
 
     # inform FIWARE that ScenePerception is alive
     my_date = datetime.utcnow()  # utc time, this is used in FELICE
@@ -194,7 +196,7 @@ def init_receiver():
     rospy.Subscriber('Task2Execute', HRIDM2TaskExecution, callback_task2exec, queue_size=100)
 
     # this listens the new Locations reported by ScenePerception
-    rospy.Subscriber('Robot_Pose2D', Pose2D, callback_ScenePerc, queue_size=100)
+    rospy.Subscriber('Robot_Pose2D', PoseWithCovarianceStamped, callback_ScenePerc, queue_size=100) #Pose2D
 
     # this listens the response of robot command execution (e.g success/failure)
     rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult, queue_size=100)

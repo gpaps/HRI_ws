@@ -6,6 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="UnisaSGA_Speech">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -195,7 +199,7 @@
       <workItem from="1662378731272" duration="33779000" />
       <workItem from="1662726763906" duration="8494000" />
       <workItem from="1662986669112" duration="1350000" />
-      <workItem from="1663067230108" duration="17911000" />
+      <workItem from="1663067230108" duration="22516000" />
     </task>
     <task id="LOCAL-00001" summary="updated paths to ignore">
       <created>1658825458719</created>
@@ -463,7 +467,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663147097464</updated>
     </task>
-    <option name="localTasksCounter" value="39" />
+    <task id="LOCAL-00039" summary="UnisaSGA_Speech">
+      <created>1663524085432</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1663524085433</updated>
+    </task>
+    <option name="localTasksCounter" value="40" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -513,7 +524,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py</url>
-          <line>206</line>
+          <line>203</line>
           <option name="timeStamp" value="2" />
         </line-breakpoint>
       </breakpoints>

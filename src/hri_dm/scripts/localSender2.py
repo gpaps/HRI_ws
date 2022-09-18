@@ -6,7 +6,7 @@ from datetime import datetime
 # import from files & fiware imports
 from std_msgs.msg import String, Float64
 from forthHRIHealthPost import HRI_HealthStatePost
-from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D
+from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D, PoseWithCovarianceStamped
 
 HRI_health_jsonFName = "./HRI_health.json"
 address = "25.45.111.204"
@@ -16,9 +16,12 @@ port = 1026
 # this Publishes the commands send to the robot (nav, handover, etc )
 pub2TaskExec = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 # this publishes the new Locations reported by ScenePerception
-pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
+# pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
+
 # this Publishes robot command execution (e.g success/failure)
 pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
+#new pub
+pub2PoseCovariance = rospy.Publisher('Robot_Pose2D', PoseWithCovarianceStamped, queue_size=100)
 
 
 def get_requests(*args):
@@ -74,14 +77,28 @@ def send_msg_pose2d():
     pub2Pose2D.publish(pose_task)
     print('end_of_message_  send_msg_pose2D and pub2Pose2D', '\n')
 
+def send_msg_poseWithCov():
+    global pub2PoseCovariance
+    pose_task = PoseWithCovarianceStamped()
+    pose_task.pose.pose.position.x = 20.0
+    pose_task.pose.pose.position.y = 40.0
+    pose_task.pose.pose.orientation.w = 1.0
+
+    # pose_task.theta = 60.0
+    my_date = datetime.utcnow()  # utc time, this is used in FELICE
+    # pose_task.timestamp = my_date.isoformat()
+    rospy.loginfo(pose_task)
+    pub2PoseCovariance.publish(pose_task)
+
+    print('end_of_message_  send_msg_pose2D and pub2Pose2D', '\n')
 
 def native_sender():
     global result
     rospy.loginfo('sender node starts..')
     # send_msg_hri2task()
-    send_msg_taskexec2hri()   # PROFACTOR does that,
+    # send_msg_taskexec2hri()   # PROFACTOR does that,
     # send_msg_pose2d(), '\n'
-
+    send_msg_poseWithCov()
 
 if __name__ == '__main__':
     # init the 1st publisher  or init the first pub-in
