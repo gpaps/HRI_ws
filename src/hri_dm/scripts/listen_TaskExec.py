@@ -10,13 +10,14 @@ from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
 from handover_pos import *
-# from fiwareFORTH_cleanTest import send_ROSmsg_release
+
 # json files
 HRI_health_jsonFName = "./HRI_health.json"
 ScenePerception_health_jsonFName = "./ScenePerception_health.json"
 PlanePose = "./PlanePose.json"
 workFlow_json = "./HRI.json"
 Aegis_buttonPress = './Aegis_ButtonPress.json'
+# IP & address
 # address = "25.45.111.204" # Orch/
 address = '25.85.76.1'  # DemoIP
 port = 1026
