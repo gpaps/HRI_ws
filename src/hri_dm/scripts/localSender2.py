@@ -12,15 +12,20 @@ HRI_health_jsonFName = "./HRI_health.json"
 address = "25.45.111.204"
 port = 1026
 
+############
 # publishers
+############
+
 # this Publishes the commands send to the robot (nav, handover, etc )
 pub2TaskExec = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
+
 # this publishes the new Locations reported by ScenePerception
 # pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
 
 # this Publishes robot command execution (e.g success/failure)
 pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
-#new pub
+
+# this publishes the new Locations reported by ScenePerception
 pub2PoseCovariance = rospy.Publisher('Robot_Pose2D', PoseWithCovarianceStamped, queue_size=100)
 
 
@@ -64,7 +69,7 @@ def send_msg_hri2task():
     print('end_of_message_  send_msg_HRIDM2TaskEXEC and pub2TaskExec', '\n')
     # pub2task.publish(task_exec2)
 
-
+# tempo. not used
 def send_msg_pose2d():
     global pub2Pose2D
     pose_task = Pose2D()
@@ -89,9 +94,9 @@ def send_msg_poseWithCov():
     # pose_task.timestamp = my_date.isoformat()
     rospy.loginfo(pose_task)
     pub2PoseCovariance.publish(pose_task)
-
     print('end_of_message_  send_msg_pose2D and pub2Pose2D', '\n')
 
+# callback's
 def native_sender():
     global result
     rospy.loginfo('sender node starts..')

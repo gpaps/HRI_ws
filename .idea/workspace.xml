@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="UnisaSGA_Speech">
+    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="lm">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -199,7 +198,7 @@
       <workItem from="1662378731272" duration="33779000" />
       <workItem from="1662726763906" duration="8494000" />
       <workItem from="1662986669112" duration="1350000" />
-      <workItem from="1663067230108" duration="22516000" />
+      <workItem from="1663067230108" duration="25229000" />
     </task>
     <task id="LOCAL-00001" summary="updated paths to ignore">
       <created>1658825458719</created>
@@ -474,7 +473,14 @@
       <option name="project" value="LOCAL" />
       <updated>1663524085433</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="lm">
+      <created>1663528056184</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1663528056184</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -492,7 +498,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="change names and values" />
     <MESSAGE value="fix some issues in local sender for pose2D and its publisher" />
     <MESSAGE value="To test integration in &quot;callback_ScenePerc&quot;..." />
     <MESSAGE value="Rename scripts to cope integration" />
@@ -517,7 +522,8 @@
     <MESSAGE value="- Change IP to 'Demo'-Orchestrator" />
     <MESSAGE value="- Change IP to 'Demo'-Orchestrator&#10;- unified colors&#10;- testing mode on, 2 returns in fcn" />
     <MESSAGE value="UnisaSGA_Speech" />
-    <option name="LAST_COMMIT_MESSAGE" value="UnisaSGA_Speech" />
+    <MESSAGE value="lm" />
+    <option name="LAST_COMMIT_MESSAGE" value="lm" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
