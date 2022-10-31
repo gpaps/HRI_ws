@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-import re
+import re, os
 import rospy
 import requests
 from datetime import datetime
@@ -10,6 +10,7 @@ from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
 from handover_pos import *
+import spikeDetect_Ros
 
 # json files
 HRI_health_jsonFName = "./HRI_health.json"
@@ -191,6 +192,7 @@ def callback_ScenePerc(data):
     #         # rslt = ACT_RES_FAIL # send the current or location difference?
     # # send smth else?
 
+    spikeDetect_Ros.callback_arm_actuals()
 
 def init_receiver():
     # this listens the commands send to the robot and informs FIWARE that they have received and get started
@@ -201,6 +203,11 @@ def init_receiver():
 
     # this listens the response of robot command execution (e.g success/failure)
     rospy.Subscriber('taskExec_2HRIDM', TaskExecution2HRIDM, callback_TaskExResult, queue_size=100)
+
+    # this listen  the response of release-command, and starts a spike detection
+    # NOTE:! arm_actuals msg file is init. in different local.msg.file than the rest.
+    rospy.Subscriber('arm_actuals', arm_actuals, callback_arm_actuals)
+    rospy.loginfo("listen's arm_actual")
 
     rospy.loginfo('receiver_all subscriber nodes started')
     print(CMAG2, 'receiver_all subscriber nodes started', CEND)
