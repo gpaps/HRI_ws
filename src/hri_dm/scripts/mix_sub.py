@@ -6,7 +6,7 @@ CB_HEADER = {'Content-Type': 'application/json'}
 selection_port = '2620'
 selection_address = '53.54.56.159'  #'25.28.181.178'  # custom_hamachi IP
 selection_port_CB = '1026'
-selection_address_CB = '192.168.1.106' #'25.45.111.204'
+selection_address_CB = '192.168.2.106' #'25.45.111.204', '192.168.1.106'
 
 # subscription
 msg_FORTH_HRI = "{" \
