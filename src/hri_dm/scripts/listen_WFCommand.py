@@ -11,7 +11,7 @@ from reader_wfc import *
 from logger import Log, initLog
 from http.server import HTTPServer  # this is for use with python3
 from http.server import BaseHTTPRequestHandler  # this is for use with python3
-from hri_dm.msg import HRIDM2TaskExecution, Pose2D
+from hri_dm.msg import HRIDM2TaskExecution
 from handover_pos import *
 # from reader_wfc import * # omitted for now
 from _eq import *
@@ -380,11 +380,11 @@ g_selection_address = '25.28.115.246'
 #
 m_selection_address = '172.21.229.83'  # '25.28.181.178'
 
-r_selection_address = '25.28.181.178'
+r_selection_address = '192.168.9.2'  # '25.28.181.178'
 
 # Broker
 selection_port_CB = '1026'
-selection_address_CB = '192.168.1.104'  # '25.45.111.204'
+selection_address_CB = '192.168.2.104'  # '25.45.111.204'
 
 ######
 # Test
