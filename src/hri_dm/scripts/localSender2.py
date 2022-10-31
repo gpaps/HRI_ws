@@ -6,7 +6,7 @@ from datetime import datetime
 # import from files & fiware imports
 from std_msgs.msg import String, Float64
 from forthHRIHealthPost import HRI_HealthStatePost
-from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D, PoseWithCovarianceStamped
+from hri_dm.msg import HRIDM2TaskExecution, TaskExecution2HRIDM, Pose2D, PoseWithCovarianceStamped, arm_actuals
 
 HRI_health_jsonFName = "./HRI_health.json"
 address = "25.45.111.204"
@@ -20,7 +20,7 @@ port = 1026
 pub2TaskExec = rospy.Publisher('Task2Execute', HRIDM2TaskExecution, queue_size=100)
 
 # this publishes the new Locations reported by ScenePerception
-# pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
+pub2Pose2D = rospy.Publisher('Robot_Pose2D', Pose2D, queue_size=100)
 
 # this Publishes robot command execution (e.g success/failure)
 pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=100)
@@ -28,13 +28,17 @@ pub2HRIDM = rospy.Publisher('taskExec_2HRIDM', TaskExecution2HRIDM, queue_size=1
 # this publishes the new Locations reported by ScenePerception
 pub2PoseCovariance = rospy.Publisher('Robot_Pose2D', PoseWithCovarianceStamped, queue_size=100)
 
+# this publishes the new Locations reported by ScenePerception
+pub2feliceArm = rospy.Publisher('arm_actuals', arm_actuals,  queue_size=100)
 
+##########################
+# Messages - Function Calls
+##########################
 def get_requests(*args):
     r = requests.get("http://25.45.111.204:1026/v2/entities/" + str(args))
     print(r)
 
     # curl -get  "http://25.45.111.204:1026/v2/entities/"
-
 
 def send_msg_taskexec2hri():
     global pub2HRIDM
@@ -69,6 +73,7 @@ def send_msg_hri2task():
     print('end_of_message_  send_msg_HRIDM2TaskEXEC and pub2TaskExec', '\n')
     # pub2task.publish(task_exec2)
 
+
 # tempo. not used
 def send_msg_pose2d():
     global pub2Pose2D
@@ -81,6 +86,7 @@ def send_msg_pose2d():
     rospy.loginfo(pose_task)
     pub2Pose2D.publish(pose_task)
     print('end_of_message_  send_msg_pose2D and pub2Pose2D', '\n')
+
 
 def send_msg_poseWithCov():
     global pub2PoseCovariance
@@ -96,22 +102,59 @@ def send_msg_poseWithCov():
     pub2PoseCovariance.publish(pose_task)
     print('end_of_message_  send_msg_pose2D and pub2Pose2D', '\n')
 
-# callback's
+
+def send_msg_felice_arm():
+    global pub2feliceArm
+    # list(arm_actuals)
+    import pandas as pd
+    import numpy as np
+    # test blocks
+    data2 = pd.read_csv('/home/gpapo/Downloads/recordings1.csv')
+    tx1 = np.array(data2.iloc[:, 0])
+    ty1 = np.array(data2.iloc[:, 1])
+    tz1 = np.array(data2.iloc[:, 2])
+    fx1 = np.array(data2.iloc[:, 3])
+    fy1 = np.array(data2.iloc[:, 4])
+    fz1 = np.array(data2.iloc[:, 5])
+
+    for i in range(len(tx1)):
+        # import time
+        # time.sleep(0.5)
+        T_forces = arm_actuals()
+        T_forces.FTS_Wrench[0] = tx1[i]
+        T_forces.FTS_Wrench[1] = ty1[i]
+        T_forces.FTS_Wrench[2] = tz1[i]
+        T_forces.FTS_Wrench[3] = fx1[i]
+        T_forces.FTS_Wrench[4] = fy1[i]
+        T_forces.FTS_Wrench[5] = fz1[i]
+        # print(type(T_forces.FTS_Wrench), '<--after', '\n',
+        pub2feliceArm.publish(T_forces)
+
+    print(T_forces.FTS_Wrench, '\n', 'end')
+
+######################
+# raw - msgs
+######################
 def native_sender():
     global result
     rospy.loginfo('sender node starts..')
+    send_msg_felice_arm()
     # send_msg_hri2task()
     # send_msg_taskexec2hri()   # PROFACTOR does that,
     # send_msg_pose2d(), '\n'
-    send_msg_poseWithCov()
+    # send_msg_poseWithCov()
+
 
 if __name__ == '__main__':
     # init the 1st publisher  or init the first pub-in
-    rospy.init_node('TaskExecution2HRIDM', anonymous=True)
+    rospy.init_node('LocalSender2', anonymous=True)  # listen_all
+    #######################################################
     HRI_HealthStatePost(address, port, 'forth.ScenePerception.SystemHealth:001', HRI_health_jsonFName)
+
     # rospy.init_node('HRIDM2TaskExecution', anonymous=True)
     # pub1 = rospy.Publisher('HRIDM2_taskExec', HRIDM2TaskExecution, queue_size=10)
 
+    #
     # rate = rospy.Rate(0.5)  # t=1/f, where f =0.5 <-- rospyRate
     try:
         native_sender()
