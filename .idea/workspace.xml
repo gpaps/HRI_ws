@@ -4,11 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="lm">
+    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="test script to help us added the new ros msgs, CovarianceWithStamped.msg">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/CMakeLists.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/mix_sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/mix_sub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,20 +36,21 @@
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
+    <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/home/gpapo/Desktop/hri_ws1/src/hri_dm/scripts&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "/home/gpapo/Desktop/hri_ws1/src/hri_dm/scripts",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Language Defaults"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
@@ -55,8 +60,8 @@
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts/2del" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.sub">
-    <configuration name="forthHRIHealthPost" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Python.spikeDetect_Ros">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -64,34 +69,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/forthHRIHealthPost.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="handover_pos" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hri_ws1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_pos.py" />
+      <option name="SCRIPT_NAME" value="" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -100,22 +83,57 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="listen_WFCommand" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="listenerSubscriber" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" />
       <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="localSender2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="localization_sender" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/localization_sender.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -144,20 +162,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="sub" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="spikeDetect_Ros" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/sub.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/spikeDetect_Ros.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -167,18 +182,18 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.handover_pos" />
-      <item itemvalue="Python.listen_WFCommand" />
-      <item itemvalue="Python.forthHRIHealthPost" />
+      <item itemvalue="Python.listenerSubscriber" />
+      <item itemvalue="Python.localSender2" />
+      <item itemvalue="Python.localization_sender" />
+      <item itemvalue="Python.spikeDetect_Ros" />
       <item itemvalue="Python.mix_sub" />
-      <item itemvalue="Python.sub" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.sub" />
-        <item itemvalue="Python.handover_pos" />
-        <item itemvalue="Python.listen_WFCommand" />
-        <item itemvalue="Python.forthHRIHealthPost" />
+        <item itemvalue="Python.spikeDetect_Ros" />
+        <item itemvalue="Python.listenerSubscriber" />
+        <item itemvalue="Python.localSender2" />
+        <item itemvalue="Python.localization_sender" />
         <item itemvalue="Python.mix_sub" />
       </list>
     </recent_temporary>
@@ -198,7 +213,10 @@
       <workItem from="1662378731272" duration="33779000" />
       <workItem from="1662726763906" duration="8494000" />
       <workItem from="1662986669112" duration="1350000" />
-      <workItem from="1663067230108" duration="25229000" />
+      <workItem from="1663067230108" duration="29852000" />
+      <workItem from="1663754904107" duration="10883000" />
+      <workItem from="1665048068304" duration="16799000" />
+      <workItem from="1665995359788" duration="102742000" />
     </task>
     <task id="LOCAL-00001" summary="updated paths to ignore">
       <created>1658825458719</created>
@@ -480,7 +498,28 @@
       <option name="project" value="LOCAL" />
       <updated>1663528056184</updated>
     </task>
-    <option name="localTasksCounter" value="41" />
+    <task id="LOCAL-00041" summary="Automated procedure from connecting to vpn to start the TWO main scripts listen_TaskExec.py and listen_WFCommand.py.">
+      <created>1663579795802</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1663579795802</updated>
+    </task>
+    <task id="LOCAL-00042" summary="comment section, beautify">
+      <created>1663579831021</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1663579831021</updated>
+    </task>
+    <task id="LOCAL-00043" summary="test script to help us added the new ros msgs, CovarianceWithStamped.msg">
+      <created>1663579887076</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1663579887076</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -498,9 +537,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="fix some issues in local sender for pose2D and its publisher" />
-    <MESSAGE value="To test integration in &quot;callback_ScenePerc&quot;..." />
-    <MESSAGE value="Rename scripts to cope integration" />
     <MESSAGE value="edit in comments, example in lowercase" />
     <MESSAGE value="add comments" />
     <MESSAGE value="test ROS Communication" />
@@ -523,7 +559,10 @@
     <MESSAGE value="- Change IP to 'Demo'-Orchestrator&#10;- unified colors&#10;- testing mode on, 2 returns in fcn" />
     <MESSAGE value="UnisaSGA_Speech" />
     <MESSAGE value="lm" />
-    <option name="LAST_COMMIT_MESSAGE" value="lm" />
+    <MESSAGE value="Automated procedure from connecting to vpn to start the TWO main scripts listen_TaskExec.py and listen_WFCommand.py." />
+    <MESSAGE value="comment section, beautify" />
+    <MESSAGE value="test script to help us added the new ros msgs, CovarianceWithStamped.msg" />
+    <option name="LAST_COMMIT_MESSAGE" value="test script to help us added the new ros msgs, CovarianceWithStamped.msg" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -532,6 +571,16 @@
           <url>file://$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py</url>
           <line>203</line>
           <option name="timeStamp" value="2" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/hri_dm/scripts/localization_sender.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="3" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/src/hri_dm/scripts/spikeDetect_Ros.py</url>
+          <line>149</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
