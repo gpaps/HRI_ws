@@ -56,6 +56,7 @@ find_package(catkin REQUIRED COMPONENTS
    PoseWithCovariance.msg
    PoseWithCovarianceStamped.msg
    Pose2D.msg
+   arm_actuals.msg
  )
 
 
