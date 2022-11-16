@@ -10,7 +10,7 @@ from forthHRIHealthPost import HRI_HealthStatePost
 from WorkflowState_fiware import WorkFlowStatePost
 from PlanePose_fiware import PlanePoseStatePost
 from handover_pos import *
-import spikeDetect_Ros
+# import spikeDetect_Ros
 
 # json files
 HRI_health_jsonFName = "./HRI_health.json"
@@ -54,17 +54,20 @@ def callback_task2exec(data):
     workflow_state = WorkFlowStatePost(address, port, 'forth.hri.RobotAction', workFlow_json)
 
     if data.action == 'navigate':
-        print(data)
+        print(CGR1, 'info_data/Task2Exec:', data,
+              CEND)
         navigate_state = 1
         pickup_state = 0
         release_state = 0
         handover_state = 0
         workflow_state.updateStateMsg_nav(navigate_state, ACT_RES_UNKNOWN,
                                           data.navpos.x, data.navpos.y, data.navpos.theta)
-        rospy.loginfo('Navigate Starts..')
-        print(CRED1, 'Navigate Starts..', CEND)
+        rospy.loginfo('Navigate Starts...')
+        print(CRED1, 'Navigate Starts...', CEND)
 
     elif data.action == 'pickup':
+        print(CGR1, 'info_data/Task2Exec:', data,
+              CEND)
         navigate_state = 0
         pickup_state = 1
         release_state = 0
@@ -72,20 +75,24 @@ def callback_task2exec(data):
         last_toolID = data.tool_id
         workflow_state.updateStateMsg_pickup(pickup_state, ACT_RES_UNKNOWN, data.tool_id,
                                              data.location.x, data.location.y, data.location.z)
-        rospy.loginfo('Pickup Starts..')
-        print(CRED1, 'Pickup Starts..', CEND)
+        rospy.loginfo('Pickup Starts...')
+        print(CRED1, 'Pickup Starts...', CEND)
 
     elif data.action == 'release':
+        print(CGR1, 'info_data/Task2Exec:', data,
+              CEND)
         navigate_state = 0
         pickup_state = 0
         release_state = 1
         handover_state = 0
         last_toolID = data.tool_id
         workflow_state.updateStateMsg_release(release_state, ACT_RES_UNKNOWN, data.tool_id)
-        rospy.loginfo('Release Starts..')
-        print(CRED1, 'Release Starts..', CEND)
+        # rospy.loginfo('Release Starts..')
+        print(CRED1, 'Release Starts....', CEND)
 
     elif data.action == 'handover':
+        print(CGR1, 'info_data/Task2Exec:', data,
+              CEND)
         navigate_state = 0
         pickup_state = 0
         release_state = 0
@@ -93,8 +100,8 @@ def callback_task2exec(data):
         last_toolID = data.tool_id
         workflow_state.updateStateMsg_handover(handover_state, ACT_RES_UNKNOWN, data.tool_id,
                                                data.location.x, data.location.y, data.location.z)
-        rospy.loginfo('Handover Starts..')
-        print(CRED1, 'Handover Starts..', CEND)
+        # rospy.loginfo('Handover Starts..')
+        print(CRED1, 'Handover Starts....', CEND)
     # Inform FIWARE that the current script is alive
     send_HRIhealth()
 
@@ -192,7 +199,7 @@ def callback_ScenePerc(data):
     #         # rslt = ACT_RES_FAIL # send the current or location difference?
     # # send smth else?
 
-    spikeDetect_Ros.callback_arm_actuals()
+    # spikeDetect_Ros.callback_arm_actuals()
 
 def init_receiver():
     # this listens the commands send to the robot and informs FIWARE that they have received and get started
@@ -206,8 +213,8 @@ def init_receiver():
 
     # this listen  the response of release-command, and starts a spike detection
     # NOTE:! arm_actuals msg file is init. in different local.msg.file than the rest.
-    rospy.Subscriber('arm_actuals', arm_actuals, callback_arm_actuals)
-    rospy.loginfo("listen's arm_actual")
+    # rospy.Subscriber('arm_actuals', arm_actuals, callback_arm_actuals)
+    # rospy.loginfo("listen's arm_actual")
 
     rospy.loginfo('receiver_all subscriber nodes started')
     print(CMAG2, 'receiver_all subscriber nodes started', CEND)
