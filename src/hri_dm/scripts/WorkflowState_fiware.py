@@ -35,7 +35,6 @@ class WorkFlowStatePost(WorkFlow):
 
         self.json_action_message = []
         self.json_message = []
-        
 
         f = open(json_fname, 'r')  # encoding="cp866")
         self.json_message = json.load(f)
@@ -91,10 +90,10 @@ class WorkFlowStatePost(WorkFlow):
             self.json_message['a_navigate']['value']['theta']['value'] = theta
 
         if state == True:
-                self.json_message['a_navigate']['value']['state']['value'] = 'active'
-                self.json_message['a_grasp']['value']['state']['value'] = 'inactive'
-                self.json_message['a_handover']['value']['state']['value'] = 'inactive'
-                self.json_message['a_releaseTool']['value']['state']['value'] = 'inactive'
+            self.json_message['a_navigate']['value']['state']['value'] = 'active'
+            self.json_message['a_grasp']['value']['state']['value'] = 'inactive'
+            self.json_message['a_handover']['value']['state']['value'] = 'inactive'
+            self.json_message['a_releaseTool']['value']['state']['value'] = 'inactive'
         else:
             self.json_message['a_navigate']['value']['state']['value'] = 'inactive'
         if result > 0:
@@ -175,7 +174,6 @@ class WorkFlowStatePost(WorkFlow):
         else:
             self.json_message['a_releaseTool']['value']['result']['value'] = 'unknown'
 
-
         self.json_action_message = {"actionType": "append", "entities": [self.json_message]}
         # self.json_action_message = {"actionType": "update", "entities": [self.json_message]}
         msg = json.dumps(self.json_action_message)
@@ -186,6 +184,7 @@ class WorkFlowStatePost(WorkFlow):
             print("CB response -> status " + response.status_code.__str__())
         else:  # response ok
             print("CB response -> " + response.text)
+
 
 if __name__ == "__main__":
     pass

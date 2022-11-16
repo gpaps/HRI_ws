@@ -4,15 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="test script to help us added the new ros msgs, CovarianceWithStamped.msg">
+    <list default="true" id="0ede740f-0f0e-4a06-96cd-5d29d7b156fc" name="Changes" comment="workspace..">
+      <change afterPath="$PROJECT_DIR$/src/hri_dm/scripts/2del/result3_humanoid_test.urdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hri_dm/scripts/handover_pos2.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/CMakeLists.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/CMakeLists.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/all_scripts.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/WorkflowState_fiware.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/WorkflowState_fiware.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_TaskExec.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/mix_sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/mix_sub.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hri_dm/scripts/sub.py" beforeDir="false" afterPath="$PROJECT_DIR$/src/hri_dm/scripts/sub.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,35 +31,40 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="CurrentFile" />
+  </component>
   <component name="ProjectId" id="2C9w9kY7Izd1jUEQwo7RNFoayMs" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "last_opened_file_path": "/home/gpapo/Desktop/hri_ws1/src/hri_dm/scripts",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Language Defaults"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/gpapo/Desktop/hri_ws1/src/hri_dm/scripts&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Language Defaults&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <recent name="$PROJECT_DIR$/src/hri_dm/scripts/2del" />
       <recent name="$PROJECT_DIR$/src/hri_dm/msg" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/hri_dm/scripts" />
       <recent name="$PROJECT_DIR$/src/hri_dm/scripts/2del" />
     </key>
   </component>
-  <component name="RunManager" selected="Python.spikeDetect_Ros">
+  <component name="RunManager" selected="Python.listen_WFCommand">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -83,64 +87,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="listenerSubscriber" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hri_ws1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/listenerSubscriber.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="localSender2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hri_ws1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/localSender2.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="localization_sender" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
-      <module name="hri_ws1" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/localization_sender.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="mix_sub" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="handover_pos" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -153,7 +100,7 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/mix_sub.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_pos.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -162,17 +109,86 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="spikeDetect_Ros" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+    <configuration name="handover_pos2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts/2del" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_pos2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="handover_posZERO" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/spikeDetect_Ros.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_posZERO.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="handover_posZERO_2" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/handover_posZERO_2.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="listen_WFCommand" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="hri_ws1" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -182,19 +198,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.listenerSubscriber" />
-      <item itemvalue="Python.localSender2" />
-      <item itemvalue="Python.localization_sender" />
-      <item itemvalue="Python.spikeDetect_Ros" />
-      <item itemvalue="Python.mix_sub" />
+      <item itemvalue="Python.handover_posZERO_2" />
+      <item itemvalue="Python.listen_WFCommand" />
+      <item itemvalue="Python.handover_pos2" />
+      <item itemvalue="Python.handover_posZERO" />
+      <item itemvalue="Python.handover_pos" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.spikeDetect_Ros" />
-        <item itemvalue="Python.listenerSubscriber" />
-        <item itemvalue="Python.localSender2" />
-        <item itemvalue="Python.localization_sender" />
-        <item itemvalue="Python.mix_sub" />
+        <item itemvalue="Python.listen_WFCommand" />
+        <item itemvalue="Python.handover_posZERO" />
+        <item itemvalue="Python.handover_posZERO_2" />
+        <item itemvalue="Python.handover_pos2" />
+        <item itemvalue="Python.handover_pos" />
       </list>
     </recent_temporary>
   </component>
@@ -217,13 +233,10 @@
       <workItem from="1663754904107" duration="10883000" />
       <workItem from="1665048068304" duration="16799000" />
       <workItem from="1665995359788" duration="102742000" />
-    </task>
-    <task id="LOCAL-00001" summary="updated paths to ignore">
-      <created>1658825458719</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1658825458719</updated>
+      <workItem from="1667293620423" duration="121000" />
+      <workItem from="1667293790210" duration="10603000" />
+      <workItem from="1667383122336" duration="54700000" />
+      <workItem from="1668433189621" duration="8148000" />
     </task>
     <task id="LOCAL-00002" summary="Probably we won't use it, Redundant!">
       <created>1658825507535</created>
@@ -519,7 +532,56 @@
       <option name="project" value="LOCAL" />
       <updated>1663579887076</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="add comments">
+      <created>1667206126894</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206126894</updated>
+    </task>
+    <task id="LOCAL-00045" summary="add msg arm_actuals">
+      <created>1667206165950</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206165950</updated>
+    </task>
+    <task id="LOCAL-00046" summary="add a subscriber arm_actuals for test">
+      <created>1667206216480</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206216480</updated>
+    </task>
+    <task id="LOCAL-00047" summary="changed imports">
+      <created>1667206240167</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206240167</updated>
+    </task>
+    <task id="LOCAL-00048" summary="test scripts changes for spike detection method">
+      <created>1667206261108</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206261108</updated>
+    </task>
+    <task id="LOCAL-00049" summary="changes for italy,">
+      <created>1667206304366</created>
+      <option name="number" value="00049" />
+      <option name="presentableId" value="LOCAL-00049" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206304366</updated>
+    </task>
+    <task id="LOCAL-00050" summary="workspace..">
+      <created>1667206378191</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1667206378192</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -530,20 +592,19 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="edit in comments, example in lowercase" />
-    <MESSAGE value="add comments" />
-    <MESSAGE value="test ROS Communication" />
-    <MESSAGE value="test ROS Communication.." />
-    <MESSAGE value="sub comments add" />
-    <MESSAGE value="fixed a typo" />
-    <MESSAGE value="in comment section; above &quot;if__main__&quot;; a manual test for rotation has been added." />
     <MESSAGE value="-Delete colors from main file, (they exist under &quot;handover_pos.py&quot;) &#10;-UNISA.SGA.Speech implemantation fiware-2-ros?&#10;check if routine is valid" />
     <MESSAGE value="-Both scripts subscriptions are up2date till UNISA.SGA.Speech&#10;1)FORTH-HRI 2)Forth_ScenePerception 3)FHOE 4)AEGIS_ButtonPress 5)UNISA.SGA.Speech" />
     <MESSAGE value="UNISA_SGA_Speech, Release_msg.json added" />
@@ -562,16 +623,18 @@
     <MESSAGE value="Automated procedure from connecting to vpn to start the TWO main scripts listen_TaskExec.py and listen_WFCommand.py." />
     <MESSAGE value="comment section, beautify" />
     <MESSAGE value="test script to help us added the new ros msgs, CovarianceWithStamped.msg" />
-    <option name="LAST_COMMIT_MESSAGE" value="test script to help us added the new ros msgs, CovarianceWithStamped.msg" />
+    <MESSAGE value="add comments" />
+    <MESSAGE value="add msg arm_actuals" />
+    <MESSAGE value="add a subscriber arm_actuals for test" />
+    <MESSAGE value="changed imports" />
+    <MESSAGE value="test scripts changes for spike detection method" />
+    <MESSAGE value="changes for italy," />
+    <MESSAGE value="workspace.." />
+    <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/src/hri_dm/scripts/listen_WFCommand.py</url>
-          <line>203</line>
-          <option name="timeStamp" value="2" />
-        </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/src/hri_dm/scripts/localization_sender.py</url>
           <line>17</line>
@@ -591,6 +654,7 @@
     <SUITE FILE_PATH="coverage/hri_ws1$listen_TaskExec.coverage" NAME="listen_TaskExec Coverage Results" MODIFIED="1658843646625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
     <SUITE FILE_PATH="coverage/hri_ws1$mix_sub.coverage" NAME="mix_sub Coverage Results" MODIFIED="1661764175323" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
     <SUITE FILE_PATH="coverage/hri_ws1$listen_WFCommand.coverage" NAME="listen_WFCommand Coverage Results" MODIFIED="1662384884093" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
+    <SUITE FILE_PATH="coverage/hri_ws1$handover_posZERO.coverage" NAME="handover_posZERO Coverage Results" MODIFIED="1667985492414" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
     <SUITE FILE_PATH="coverage/hri_ws1$handover_pos.coverage" NAME="handover_pos Coverage Results" MODIFIED="1662385654315" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/src/hri_dm/scripts" />
   </component>
 </project>
