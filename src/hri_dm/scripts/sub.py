@@ -7,7 +7,7 @@ selection_port = '2620'
 selection_address = '25.28.115.246'  # my_custom_hamachi IP
 selection_port_CB = '1026'
 # selection_address_CB = '25.45.111.204'
-selection_address_CB = '25.85.76.1'  # DemoIP
+selection_address_CB = '192.168.2.106'  # '25.85.76.1'  # DemoIP
 # subscription
 msg_FORTH_HRI = "{" \
       "    \"description\": \"FORTH-RoboTest\",\n" \
