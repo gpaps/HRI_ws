@@ -225,8 +225,8 @@ def send_ROSmsg_pickup(obj):
 def send_ROSmsg_handover(obj):
     global pub2TaskExe, request_number
     ws = 1  # refers to workStation
-    workerx, workery, workertheta = get_humanPose_ws(
-        ws)  # get worker position and theta in the global coordinate system
+    # get worker position and theta in the global coordinate system
+    workerx, workery, workertheta = get_humanPose_ws(ws)
 
     # pb_x = find_HO_pos(x, y)   # pyBullet # locX, locY, locZ = x[0][0], x[0][1], x[0][2]
     # use the old version without translation in pybullet
@@ -264,8 +264,9 @@ def send_ROSmsg_navigate(obj):
 
     # location/nav Pose2D # navigation for ICS and Aegis colab
     location_name = obj['data'][0]['parameters']['value']['location']['namedLocation']
+    rospy.loginfo(task_exec)
     print("  Navigation Module : going to .... location_name:", location_name)
-    pass
+    # pass
     # bear in mind [timestamp] for future debugs, network latency might or not.
     xf, yf, dir = decode_named_location(obj)
     if re.findall('Human_Location', location_name):
@@ -273,7 +274,6 @@ def send_ROSmsg_navigate(obj):
         found, xf, yf, dir = rob_goto_human(ws)
         if found < 1:
             print("ERROR  !!!!!!! please check")
-
     task_exec.navpos.x = xf
     task_exec.navpos.y = yf
     task_exec.navpos.theta = dir
