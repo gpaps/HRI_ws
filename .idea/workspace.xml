@@ -93,6 +93,9 @@
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts/2del" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -134,6 +137,9 @@
       <module name="hri_ws1" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/src/hri_dm/scripts" />
       <option name="IS_MODULE_SDK" value="true" />
