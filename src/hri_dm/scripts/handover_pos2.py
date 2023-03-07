@@ -45,48 +45,48 @@ def murry_checkAngles(allAngles, side):
         # L Shoulder1 on Y (Upper arm abduction/adduction)
         if ((i == 20 and side == 'L') or (i == 15 and side == 'R')) and 0.0 < ang < 20.1:
             # print(CGR1, str('ShoulderJ_X Ergonomically Acceptable'), math.degrees(newangle), CEND)
-            print(CGR1, i, int(ang), CEND, end="   ")
+            print(CGR1, 'ang0', int(ang), CEND, end="   ")
         elif ((i == 20 and side == 'L') or (i == 15 and side == 'R')) and 20. < ang < 60.:
             # print(CYEL1, str('ShoulderJ_X Conditionally Acceptable '), math.degrees(newangle), CEND)
-            print(CYEL1, i, int(ang), CEND, end="   ")
+            print(CYEL1, 'ang0', int(ang), CEND, end="   ")
             if murry_err < 1:
                 murry_err = 1
         elif (i == 20 and side == 'L') or (i == 15 and side == 'R'):  # and (ang < 0.0 or  60. < ang):
             # print(CRED1, str('ShoulderJ_X Unacceptable Pos.'), math.degrees(newangle), CEND)
-            print(CRED1, i, int(ang), CEND, end="   ")
+            print(CRED1, 'ang0', int(ang), CEND, end="   ")
             if murry_err < 2:
                 murry_err = 2
 
         # L Shoulder2 on X (Upper arm flexion/extension)
         if ((i == 21 and side == 'L') or (i == 16 and side == 'R')) and 0.0 < ang < 20.1:
             # print(CGR1, str('ShoulderJ_Y Ergonomically Acceptable'), math.degrees(newangle), CEND)
-            print(CGR1, i, int(ang), CEND, end="   ")
+            print(CGR1, 'ang1', int(ang), CEND, end="   ")
         elif ((i == 21 and side == 'L') or (i == 16 and side == 'R')) and 20.1 < ang < 60.:
             # print(CYEL1, str('ShoulderJ_Y Conditionally Acceptable '), math.degrees(newangle), CEND)
-            print(CYEL1, i, int(ang), CEND, end="   ")
+            print(CYEL1, 'ang1', int(ang), CEND, end="   ")
             if murry_err < 1:
                 murry_err = 1
         elif (i == 21 and side == 'L') or (i == 16 and side == 'R'):  # and (ang < 0.0 or 60. < ang ):
             # print(CRED1, str('ShoulderJ_Y Unacceptable Pos.'), math.degrees(newangle), CEND)
-            print(CRED1, i, int(ang), CEND, end="   ")
+            print(CRED1, 'ang1', int(ang), CEND, end="   ")
             if murry_err < 2:
                 murry_err = 2
 
         # TODO add orientation parameter for the end effector
 
         # # L Shoulder3 on Z ____ Rotation Z
-        if ((i == 22 and side == 'L') or (i == 17 and side == 'R')) and -15 < ang < 30.:
+        if ((i == 22 and side == 'L') or (i == 17 and side == 'R')) and -15. < ang < 30.:
             # print(CGR1, str('ShoulderJ_Z Ergonomically Acceptable'), math.degrees(newangle), CEND)
-            print(CGR1, i, int(ang), CEND, end="   ")
+            print(CGR1, 'ang2', int(ang), CEND, end="   ")
         elif ((i == 22 and side == 'L') or (i == 17 and side == 'R')) and (
                 -30. < ang < 60.):  # the if above, has covered the case of angle -15 < ang < 30.
             # print(CYEL1, str('ShoulderJ_Z Conditionally Acceptable '), math.degrees(newangle), CEND)
-            print(CYEL1, i, int(ang), CEND, end="   ")
+            print(CYEL1, 'ang2', int(ang), CEND, end="   ")
             if murry_err < 1:
                 murry_err = 1
         elif (i == 22 and side == 'L') or (i == 17 and side == 'R'):  # and (ang < -30 or 60. < ang):
             # print(CRED1, str('ShoulderJ_Z Unacceptable Pos'), math.degrees(newangle), CEND)
-            print(CRED1, i, int(ang), CEND, end="   ")
+            print(CRED1, 'ang2', int(ang), CEND, end="   ")
             if murry_err < 2:
                 murry_err = 2
 
@@ -103,27 +103,27 @@ def murry_checkAngles(allAngles, side):
         #         murry_err = 2
 
         # ElbowJoint Left   ||   pronation/Supination
-        if ((i == 24 and side == 'L') or (i == 19 and side == 'R')) and -30 < ang < 20.:
+        if ((i == 24 and side == 'L') or (i == 19 and side == 'R')) and -30. < ang < 20.:
             # print(CBGR1, str('ElbowJ Pronation/Supination Ergonomically Acceptable'), math.degrees(newangle), CEND)
-            print(CGR1, i, int(ang), CEND, end="   ")
+            print(CGR1, 'ang3', int(ang), CEND, end="   ")
         elif ((i == 24 and side == 'L') or (i == 19 and side == 'R')) and (
-                -55. < ang < 40):  # the if above, has covered the case of angle -30 < ang < 20.
+                -55. < ang < 40.):  # the if above, has covered the case of angle -30 < ang < 20.
             # print(CYEL1, str('ElbowJ Pronation/Supination Conditionally Acceptable '), math.degrees(newangle), CEND)
-            print(CYEL1, i, int(ang), CEND, end="   ")
+            print(CYEL1, 'ang3', int(ang), CEND, end="   ")
             if murry_err < 1:
                 murry_err = 1
         elif (i == 24 and side == 'L') or (i == 19 and side == 'R'):  # all other angles are bad!
             # print(CRED1, str('ElbowJ Pronation/Supination Unacceptable Pos'), math.degrees(newangle), CEND)
-            print(CRED1, i, int(ang), CEND, end="   ")
+            print(CRED1, 'ang3', int(ang), CEND, end="   ")
             if murry_err < 2:
                 murry_err = 2
 
     if murry_err == 0:
-        print(CBGR1, "murry error      ", murry_err, CEND)
+        print(CBGR1, "Acceptable      ", murry_err, CEND)
     elif murry_err == 1:
-        print(CBYEL1, "murry error      ", murry_err, CEND)
+        print(CBYEL1, "Conditionally Accepted      ", murry_err, CEND)
     elif murry_err == 2:
-        print(CBRED1, "murry error      ", murry_err, CEND)
+        print(CBRED1, "Unacceptable      ", murry_err, CEND)
     return murry_err
 
 
@@ -131,7 +131,7 @@ def find_HandOver_pos():
     p.connect(p.GUI)  # for time debug,
     # p.connect(p.DIRECT)
     p.setAdditionalSearchPath(pybullet_data.getDataPath())
-
+    # p.loadURDF("plane100.urdf", [0, 0, -0.01], )
     obUid = p.loadURDF("/home/gpapo/Desktop/hri_ws1/src/hri_dm/scripts/result3_humanoid.urdf", [0, 0, 1.3],
                        p.getQuaternionFromEuler([0, 0, 0]),
                        useMaximalCoordinates=False,
@@ -152,11 +152,12 @@ def find_HandOver_pos():
     for j in range(p.getNumJoints(humanoid)):
         p.changeDynamics(humanoid, j, linearDamping=0, angularDamping=0)
         info = p.getJointInfo(humanoid, j)
-        # print(info)
+        print(info)
         jointName = info[1]
         jointType = info[2]
         if jointType == p.JOINT_REVOLUTE:
             jointIds.append(j)
+            print(jointIds)
             # paramIds.append(p.addUserDebugParameter(jointName.decode("utf-8"), -4, 4, 0))
             # print("j=", j, "  st=", p.getJointState(humanoid, j))
 
@@ -176,7 +177,7 @@ def find_HandOver_pos():
         t = t + 0.05
         # pos = [0.3 + 0.1 *math.cos(3*t), 0.3 +0.2 * math.cos(t+6), 1.1-0.2 * math.cos(t)]
         pos = [random.uniform(0.1, 0.4), random.uniform(0.0, 0.3), random.uniform(1.0, 1.35)]
-        jointAngles = p.calculateInverseKinematics(humanoid, end_effectorId, pos, maxNumIterations=100)
+        jointAngles = p.calculateInverseKinematics(humanoid, end_effectorId, pos, maxNumIterations=200)
         # print(jointPoses1)
         # tempJointPoses = list(jointPoses1)
         # tempJointPoses[20] = 0
@@ -212,7 +213,7 @@ def find_HandOver_pos():
         #   # addUserDebugLine( lineFrom(XYZ), lineToXYZ, lineColorRGB, lineWidth(1.5) )
         #   p.addUserDebugLine(prevPos, pos, [0, 0, 0.6], .6, trailDuration)
         #   p.addUserDebugLine(prevPos1, ls[4], [1, 0, 0], 2.6, trailDuration)  # elbow  or wannabe end-effector
-        if poscount == 1:  # This finds the first 10 green...
+        if poscount == 5:  # This finds the first 10 green...
             # ...positions, but we are returning the first one and stop!
             print(greenPoses)
             # p.disconnect()
@@ -226,13 +227,13 @@ def find_HandOver_pos():
 
 ###### test for translation,
 import os
-# from _eq import *
-# find_HandOver_pos()
+from _eq import *
+find_HandOver_pos()
 # p3d_x, p3d_y, p3d_z = find_HandOver_pos()
 # print(p3d_x, p3d_y, p3d_z)# pyBullet, this is the handover location in the human coordinate system
 # rlocalx, rlocaly = rotate(p3d_x, p3d_y, -60)  # rotate handover location by the human-theta
 # print('rlocals', '\n', rlocalx, rlocaly)
-# # location/vector3 geom_msgs location
+# location/vector3 geom_msgs location
 # x = 3 + rlocalx  # this is the handover location in the global coordinate system
 # y = 3 + rlocaly  # this is the handover location in the global coordinate system
 # z = p3d_z  # the z is not affected by the rotation of the human
@@ -242,5 +243,5 @@ import os
 # pos1 = find_HO_pos()
 ##############################################
 
-if __name__ == '__main__':
-    x, y, z = find_HandOver_pos()
+# if __name__ == '__main__':
+#     x, y, z = find_HandOver_pos()
