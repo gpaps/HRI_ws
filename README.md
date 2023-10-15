@@ -1,4 +1,4 @@
-# hri_ws
+# Human-Robot-Interaction_ws
 /src/scripts/
 
 __fiwareRos__\
