@@ -22,8 +22,6 @@ Within this repository, you will find a collection of scripts and utilities rela
 
 Please note that the Felice project is ongoing, and my affiliation with the project may have concluded. Nevertheless, this repository represents my contributions and ongoing efforts in the field of human-robot interaction within the context of Felice.
 
-**Installation**
-
 To use the code in this repository, ensure you have the necessary dependencies installed. You can install Pybullet using the following command:
 
 /src/scripts/
@@ -65,9 +63,7 @@ _pip install pybullet_
 
 __This README provides a concise overview of your work on the Felice project while acknowledging that the project is still ongoing and that you may no longer be directly affiliated with it.__
 
-
+**Installation**
 
 ```bash
 pip install pybullet
-
-
