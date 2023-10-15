@@ -1,4 +1,39 @@
 # Human-Robot-Interaction_ws
+
+![Feliche](https://github.com/gpaps/HRI_ws/assets/29929836/7ced04e1-c761-479b-8d61-7380718f7609)
+
+# Human-Robot-Interaction_ws
+
+![Feliche](https://github.com/gpaps/HRI_ws/assets/29929836/7ced04e1-c761-479b-8d61-7380718f7609)
+
+**About the Project**
+
+The **Felice** project is a part of the European Horizon initiative, aimed at enhancing human-robot interaction and collaboration. It combines multidisciplinary research in various fields, including collaborative robotics, AI, computer vision, IoT, machine learning, data analytics, cyber-physical systems, process optimization, and ergonomics.
+
+**My Contribution**
+
+While I was affiliated with the project, I developed and contribute to the codebase found in this repository. This code represents my efforts in the areas of human-robot interaction and automation within the Feliche project.
+
+**Project Objectives**
+
+The primary goal of Felice is to create a modular platform that seamlessly integrates and harmonizes an array of autonomous and cognitive technologies. This platform is designed to increase the agility and productivity of manual assembly production systems, ensuring the safety and improving the physical and mental well-being of factory workers.
+
+**Code Overview**
+
+Within this repository, you will find a collection of scripts and utilities related to human-robot interaction, ROS (Robot Operating System) communication, Fiware integration, Pybullet simulations, and essential utilities. These scripts were developed to support the objectives of the Felice project, emphasizing the coordination and combination of human and robot skills.
+
+**Current Status**
+
+Please note that the Felice project is ongoing, and my affiliation with the project may have concluded. Nevertheless, this repository represents my contributions and ongoing efforts in the field of human-robot interaction within the context of Felice.
+
+**Installation**
+
+To use the code in this repository, ensure you have the necessary dependencies installed. You can install Pybullet using the following command:
+
+```bash
+pip install pybullet
+
+
 /src/scripts/
 
 __Fiware-Ros__\
@@ -35,3 +70,7 @@ quatern_test.py\
 
 __Installation__\
 _pip install pybullet_
+
+
+__This README provides a concise overview of your work on the Felice project while acknowledging that the project is still ongoing and that you may no longer be directly affiliated with it.__
+
