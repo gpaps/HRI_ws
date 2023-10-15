@@ -2,10 +2,6 @@
 
 ![Feliche](https://github.com/gpaps/HRI_ws/assets/29929836/7ced04e1-c761-479b-8d61-7380718f7609)
 
-# Human-Robot-Interaction_ws
-
-![Feliche](https://github.com/gpaps/HRI_ws/assets/29929836/7ced04e1-c761-479b-8d61-7380718f7609)
-
 **About the Project**
 
 The **Felice** project is a part of the European Horizon initiative, aimed at enhancing human-robot interaction and collaboration. It combines multidisciplinary research in various fields, including collaborative robotics, AI, computer vision, IoT, machine learning, data analytics, cyber-physical systems, process optimization, and ergonomics.
@@ -30,12 +26,7 @@ Please note that the Felice project is ongoing, and my affiliation with the proj
 
 To use the code in this repository, ensure you have the necessary dependencies installed. You can install Pybullet using the following command:
 
-```bash
-pip install pybullet
-
-
 /src/scripts/
-
 __Fiware-Ros__\
 listen_WFCommand.py (set to replace the fiwareFORTH_cleanTest.py)\
 WorkflowState_fiware.py (fiware only, sends state's about workflow-cmds)\
@@ -73,4 +64,10 @@ _pip install pybullet_
 
 
 __This README provides a concise overview of your work on the Felice project while acknowledging that the project is still ongoing and that you may no longer be directly affiliated with it.__
+
+
+
+```bash
+pip install pybullet
+
 
